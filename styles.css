@@ -1,0 +1,122 @@
+body{
+    margin: 0;
+}
+
+/* MAIN LAYOUT */
+
+main{
+    position: relative;
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    align-items: center;
+    
+}
+
+#main-image{
+    
+    max-width: 100%;
+    margin: 0;
+}
+
+/* QUADRANT LAYOUT */
+.quadrant{
+    width: 47%;
+    height: 47%;
+    position: absolute;
+}
+
+.quadrant-name{
+    position: absolute;
+    margin: 0
+}
+
+#quadrant-one,
+#q1{
+    /* border: 10px solid pink; */
+    top: 0;
+    left: 0;
+}
+
+#quadrant-two,
+#q2{
+    /* border: 1px solid pink; */
+    top: 0;
+    right: 0
+}
+
+#quadrant-three,
+#q3{
+    /* border: 1px solid pink; */
+    bottom: 0;
+    right: 0
+}
+
+#quadrant-four,
+#q4{
+    /* border: 1px solid pink; */
+    bottom: 0;
+    left: 0
+}
+
+/* EVALUATION PHASES */
+
+
+/* BLIP STYLING */
+
+.tech-name{
+    display: none;
+    position: absolute;
+}
+
+.tech-circle{
+    position: relative;
+    font-size: .75rem;
+    font-weight: 600;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.New{
+    border: 3px solid #f0c808;
+}
+
+.No-change{
+    border: 3px solid #219ebc;
+}
+
+.Moved-in{
+    border: 3px solid #e76f51;
+}
+
+.Moved-out{
+    border: 3px solid #d90429;
+}
+
+
+/* #adopt{
+    position: absolute;
+    width: 38%;
+    height: 38%; */
+    /* border: 10px solid pink; */
+    /* top: 30%;
+    left: 30%;
+    border-radius: 50%;
+} */
+
+
+/* .tech-placeholder:hover~.tech-name{
+    display: block;
+} */
+
+/* .quarter{
+	width: 150;
+    height: 150;
+    border-top-right-radius:0;
+    border-top-left-radius:100%;
+    border-bottom-right-radius:0;
+    border-bottom-left-radius:0;
+    background: red;
+} */
