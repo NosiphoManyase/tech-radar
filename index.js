@@ -7,35 +7,38 @@ const quadrantFour = document.getElementById("quadrant-four")
 //counter = placeholder for tech blips on the dom
 let counter = 0
 
-let languagesAndFrameworks = ''
-let platforms = ''
-let tools = ''
-let techniques = ''
+let languagesAndFrameworks = []
+let platforms = []
+let tools = []
+let techniques = []
 
 
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        languagesAndFrameworks = data.filter(technology => {
-            return technology.quadrant === "languages and frameworks" 
-        }).map(obj=> ({ ...obj,     techPlaceholderNum : counter += 1  }))
-        console.log(languagesAndFrameworks)
-        platforms = data.filter(technology =>{
-            return technology.quadrant === "platforms"
-        }).map(obj=> ({ ...obj,     techPlaceholderNum : counter += 1  }))
-        
-        tools = data.filter(technology => {
-            return technology.quadrant === "tools"
-        }).map(obj=> ({ ...obj,     techPlaceholderNum : counter += 1  }))
-        
-        techniques = data.filter(technology =>{
-            return technology.quadrant === "techniques"
-        }).map(obj=> ({ ...obj,     techPlaceholderNum : counter += 1  }))
-
+        sortData(data)
         createTechBlips()
         renderTechBlips()
     })
-    
+
+
+function sortData(data){
+    let sortIntoQuads = data.filter(technology => {
+        if(technology.quadrant === "languages and frameworks"){
+            technology.techPlaceholderNum = counter += 1
+            languagesAndFrameworks.push(technology)
+        } else if(technology.quadrant === "platforms"){
+            technology.techPlaceholderNum = counter += 1
+            platforms.push(technology)
+        } else if(technology.quadrant === "tools"){
+            technology.techPlaceholderNum = counter += 1
+            tools.push(technology)
+        } else{
+            technology.techPlaceholderNum = counter += 1
+            techniques.push(technology)
+        }
+    })
+}   
 
 function createTechBlips(){
     const quadrantOneHtml = languagesAndFrameworks.map(q1Blip =>
