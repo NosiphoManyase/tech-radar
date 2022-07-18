@@ -1,3 +1,5 @@
+import * as d3 from 'https://unpkg.com/d3?module'
+
 
 const quadrantOne = document.getElementById("quadrant-one")
 const quadrantTwo = document.getElementById("quadrant-two")
@@ -13,12 +15,14 @@ let tools = []
 let techniques = []
 
 
+
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
         sortData(data)
-        createTechBlips()
+        // createTechBlips()
         renderTechBlips()
+        generateCircles()
     })
 
 
@@ -40,54 +44,125 @@ function sortData(data){
     })
 }   
 
-function createTechBlips(){
-    const quadrantOneHtml = languagesAndFrameworks.map(q1Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q1Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q1Blip.evaluationPhase}">${q1Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q1Blip.technology}</span>
-</div>`
-    ).join('\n')
 
-    const quadrantTwoHtml = platforms.map(q2Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q2Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q2Blip.evaluationPhase}">${q2Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q2Blip.technology}</span>
-</div>`
-    ).join('\n')
+function rAndTheta(radius){
+    // console.log(Math.sqrt(Math.random()))
+    const r = radius  * Math.sqrt(Math.random())
+    const theta = Math.random() * 2 * Math.PI
+    return [r, theta]
+}
 
-    const quadrantThreeHtml = tools.map(q3Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q3Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q3Blip.evaluationPhase}">${q3Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q3Blip.technology}</span>
-</div>`
-    ).join('\n')
+    // r = R * sqrt(random())
+    // theta = random() * 2 * PI
+        
+    // x = 0 + r * cos(     theta)
+    // y = 0    + r * sin(theta)
 
-    const quadrantFourHtml = techniques.map(q4Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q4Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q4Blip.evaluationPhase}">${q4Blip.techPlaceholderNum}
-        <span class="tech-name">${q4Blip.technology}</span></span>
-    </div>
+function posXandY(center, radius){
+    const r = rAndTheta(radius)[0] 
+    const theta = rAndTheta(radius)[1]
+
+    const x = center + r * Math.cos(theta)
+    const y = center + r * Math.sin(theta)
+
+
+    return [x,y]
     
-</div>`
-    ).join('\n')
+}
+
+
+function generateCircles(){
     
-    return [quadrantOneHtml, quadrantTwoHtml, quadrantThreeHtml, quadrantFourHtml]
+    const gTag = d3.select('#adopt')
+        .attr('width', '250')
+        .attr('height', '250')
+        .append('g')
+        // .style('position', 'absolute')
+
+    const circle = gTag
+        .append('circle')
+        .attr('cx', 125)
+        .attr('cy', 125)
+        .attr("r", 120)
+        .attr("stroke", "black")
+        .attr("stroke-width", 3)
+        .attr("fill", "transparent")
+
+    // save pos. x and y to array
+
+    let xAndYarray = []
+    for(let i = 0; i<languagesAndFrameworks.length; i++){
+        let xAndY = posXandY(125,120)
+        xAndYarray.push(xAndY)
+    }
+    console.log(xAndYarray)
+    let countX = -1
+    let countY = -1
+
+    const techBlip = gTag
+        .selectAll('text')
+        .data(languagesAndFrameworks)
+        .enter().append('text')
+        .attr('x', () =>{
+            countX += 1
+            return  xAndYarray[countX][0]
+        } )
+        .attr('y', () =>{
+            countY += 1
+            return xAndYarray[countY][1]
+        })
+        .html((technology)=> technology.techPlaceholderNum)
+        
+
+    const circleTwo = d3.select('#trial')
+    .attr('width', '400')
+    .attr('height', '400')
+    .append('g')
+    .append('circle')
+    .attr('cx', "200")
+    .attr('cy', "200")
+    .attr("r", 180)
+    .attr("stroke", "black")
+    .attr("stroke-width", 3)
+    .attr("fill", "transparent")
+        
+
+    const circleThree = d3.select('#assess')
+    .attr('width', '600')
+    .attr('height', '600')
+    .append('g')
+    .append('circle')
+    .attr('cx', "300")
+    .attr('cy', "300")
+    .attr("r", 250)
+    .attr("stroke", "black")
+    .attr("stroke-width", 3)
+    .attr("fill", "transparent")
+
+    const circleFour = d3.select('#hold')
+    .attr('width', '637')
+    .attr('height', '637')
+    .append('g')
+    .append('circle')
+    .attr('cx', "318.5")
+    .attr('cy', "318.5")
+    .attr("r", 315)
+    .attr("stroke", "black")
+    .attr("stroke-width", 3)
+    .attr("fill", "transparent")
+
 
 }
 
-function renderTechBlips(){
-    const allHtml = createTechBlips()
 
-    quadrantOne.innerHTML += allHtml[0]
-    quadrantTwo.innerHTML += allHtml[1]
-    quadrantThree.innerHTML += allHtml[2]
-    quadrantFour.innerHTML += allHtml[3]
+
+
+function renderTechBlips(){
+    // const allHtml = createTechBlips()
+
+    // quadrantOne.innerHTML += allHtml[0]
+    // quadrantTwo.innerHTML += allHtml[1]
+    // quadrantThree.innerHTML += allHtml[2]
+    // quadrantFour.innerHTML += allHtml[3]
     
 }
