@@ -1,3 +1,5 @@
+// import * as d3 from 'https://unpkg.com/d3?module'
+
 
 const quadrantOne = document.getElementById("quadrant-one")
 const quadrantTwo = document.getElementById("quadrant-two")
@@ -13,12 +15,14 @@ let tools = []
 let techniques = []
 
 
+
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
         sortData(data)
-        createTechBlips()
-        renderTechBlips()
+        // createTechBlips()
+            // renderTechBlips()
+            // generateCircles()
     })
 
 
@@ -38,56 +42,48 @@ function sortData(data){
             techniques.push(technology)
         }
     })
-}   
+} 
 
-function createTechBlips(){
-    const quadrantOneHtml = languagesAndFrameworks.map(q1Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q1Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q1Blip.evaluationPhase}">${q1Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q1Blip.technology}</span>
-</div>`
-    ).join('\n')
+function createGrids(){
 
-    const quadrantTwoHtml = platforms.map(q2Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q2Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q2Blip.evaluationPhase}">${q2Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q2Blip.technology}</span>
-</div>`
-    ).join('\n')
+    const column = 100
+    const row = 100
 
-    const quadrantThreeHtml = tools.map(q3Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q3Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q3Blip.evaluationPhase}">${q3Blip.techPlaceholderNum}</span>
-    </div>
-    <span class="tech-name">${q3Blip.technology}</span>
-</div>`
-    ).join('\n')
+    let cellsArray = new Array(column)
 
-    const quadrantFourHtml = techniques.map(q4Blip =>
-        `<div class="tech-blip">
-    <div class="tech-circle ${q4Blip.statusOfTechnology}">
-        <span class="tech-placeholder ${q4Blip.evaluationPhase}">${q4Blip.techPlaceholderNum}
-        <span class="tech-name">${q4Blip.technology}</span></span>
-    </div>
-    
-</div>`
-    ).join('\n')
-    
-    return [quadrantOneHtml, quadrantTwoHtml, quadrantThreeHtml, quadrantFourHtml]
+    for(let i = 0; i<row; i++){
+        cellsArray[i] = new Array(row).fill(`<div class="grid-item">1</div>`)
+    }
+
+    let cells1dArray = []
+
+    //convert nested arrays then array to string
+    cellsArray.forEach(innerArray => cells1dArray.push(`<div class="column">\n${innerArray.join('\n')}\n</div>`))
+    let cellsArrayHtml = cells1dArray.join('\n')
+
+    const grid = document.getElementById('grid')
+    grid.innerHTML = cellsArrayHtml
+
+    grid.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+    grid.style.gridTemplateColumns =  `repeat(${column}, 1fr)`
+
+    const columnHtml = document.getElementsByClassName('column')
+
+
+    //target specific grids
+    const cell = columnHtml[10].getElementsByClassName('grid-item')
+    cell[5].style.backgroundColor = "pink"
 
 }
 
-function renderTechBlips(){
-    const allHtml = createTechBlips()
+createGrids()
 
-    quadrantOne.innerHTML += allHtml[0]
-    quadrantTwo.innerHTML += allHtml[1]
-    quadrantThree.innerHTML += allHtml[2]
-    quadrantFour.innerHTML += allHtml[3]
+// function renderTechBlips(){
+//     const allHtml = createTechBlips()
+
+//     quadrantOne.innerHTML += allHtml[0]
+//     quadrantTwo.innerHTML += allHtml[1]
+//     quadrantThree.innerHTML += allHtml[2]
+//     quadrantFour.innerHTML += allHtml[3]
     
-}
+// }

@@ -7,9 +7,11 @@ body{
 main{
     position: relative;
     display: flex;
-    width: 50%;
+    width: 1000px;
+    height: 1000px;
     margin: 0 auto;
     align-items: center;
+    justify-content: center;
     
 }
 
@@ -19,12 +21,32 @@ main{
     margin: 0;
 }
 
+/* div{
+    position:absolute   
+} */
+
+/* GRID LAYOUT */
+
+#grid{
+    display: grid;
+    position: none;
+    width: 100%;
+    height: 100%;
+}
+
+
 /* QUADRANT LAYOUT */
 .quadrant{
     width: 47%;
     height: 47%;
     position: absolute;
+    border: 1px solid pink;
+} 
+
+svg{
+    position:absolute;
 }
+
 
 .quadrant-name{
     position: absolute;
@@ -94,29 +116,3 @@ main{
 .Moved-out{
     border: 3px solid #d90429;
 }
-
-
-/* #adopt{
-    position: absolute;
-    width: 38%;
-    height: 38%; */
-    /* border: 10px solid pink; */
-    /* top: 30%;
-    left: 30%;
-    border-radius: 50%;
-} */
-
-
-/* .tech-placeholder:hover~.tech-name{
-    display: block;
-} */
-
-/* .quarter{
-	width: 150;
-    height: 150;
-    border-top-right-radius:0;
-    border-top-left-radius:100%;
-    border-bottom-right-radius:0;
-    border-bottom-left-radius:0;
-    background: red;
-} */
