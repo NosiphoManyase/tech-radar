@@ -7,8 +7,8 @@ body{
 main{
     position: relative;
     display: flex;
-    width: 1000px;
-    height: 1000px;
+    width: 600px;
+    height: 600px;
     margin: 0 auto;
     align-items: center;
     justify-content: center;
@@ -16,23 +16,27 @@ main{
 }
 
 #main-image{
-    
     max-width: 100%;
     margin: 0;
 }
 
-/* div{
+div{
     position:absolute   
-} */
+}
 
 /* GRID LAYOUT */
 
 #grid{
     display: grid;
-    position: none;
     width: 100%;
     height: 100%;
 }
+
+#grid > * {
+    width: 15px;
+    height: 15px;
+}
+
 
 
 /* QUADRANT LAYOUT */
@@ -42,10 +46,6 @@ main{
     position: absolute;
     border: 1px solid pink;
 } 
-
-svg{
-    position:absolute;
-}
 
 
 .quadrant-name{
@@ -85,6 +85,10 @@ svg{
 
 
 /* BLIP STYLING */
+.tech-blip{
+    position: relative;
+}
+
 
 .tech-name{
     display: none;
