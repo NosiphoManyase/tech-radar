@@ -34,81 +34,92 @@ function sortData(data){
 
 
 
-function randomRow(){
+function randomColumn(){
     
-    const randomRow = Math.floor(Math.random() * 100)
-    return randomRow
+    const randomColumn = Math.floor(Math.random() * 40)
+    return randomColumn
 }
 
 function sortIntoPhases( quadrantData ){
     
-    
-
-    const column = document.getElementsByClassName('column')
+    const gridItem = document.getElementsByClassName('grid-item')
     // const gridItem = getElementsByClassName('grid-item')
     let gridArray = createGrids()
-    let randomColumn = 0
+    let randomRow = 0
     console.log(quadrantData)
 
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
 
-            randomColumn = Math.floor(Math.random() * 25)
-            adoption = column[randomColumn]
-            const row = randomRow()
-            adoption.getElementsByClassName('grid-item')[row].innerHTML += 
+            randomRow = Math.floor(Math.random() * 10)
+            //row might start at 0?-----
+            // console.log(randomColumn, randomRow)
+            const row = document.getElementsByClassName(`row${randomRow}`)
+            console.log(tech.techPlaceholderNum, randomRow)
+            let column = randomColumn()
+            row[column].innerHTML += 
                 `<span class='data-point'>${tech.techPlaceholderNum}</span`
             // console.log(randomColumn, row)
 
         } else if (tech.evaluationPhase === 'Trial'){
-            randomColumn = 25 + Math.floor(Math.random() * 25)
-            trial = column[randomColumn]
-            const row = randomRow()
-            trial.getElementsByClassName('grid-item')[row].innerHTML += 
+            randomRow = 10 + Math.floor(Math.random() * 10)
+            
+            const row = document.getElementsByClassName(`row${randomRow}`)
+
+            const column = randomColumn()
+            row[column].innerHTML += 
                 `<span class='data-point'>${tech.techPlaceholderNum}</span`
-                console.log(randomColumn, row)
 
         } else if (tech.evaluationPhase === 'Assess'){
-            randomColumn = 50 + Math.floor(Math.random() * 25)
-            assess = column[randomColumn]
-            const row = randomRow()
-            assess.getElementsByClassName('grid-item')[row].innerHTML += 
+            randomRow = 20 + Math.floor(Math.random() * 10)
+
+            const row = document.getElementsByClassName(`row${randomRow}`)
+
+            const column = randomColumn()
+            row[column].innerHTML += 
                 `<span class='data-point'>${tech.techPlaceholderNum}</span`
-                console.log(randomColumn, row)
 
         } else{
-            randomColumn = 75 + Math.floor(Math.random() * 25)
-            hold = column[randomColumn]
-            const row = randomRow()
-            hold.getElementsByClassName('grid-item')[row].innerHTML += 
+            randomRow = 30 + Math.floor(Math.random() * 10)
+
+            const row = document.getElementsByClassName(`row${randomRow}`)
+
+            const column = randomColumn()
+            row[column].innerHTML += 
                 `<span class='data-point'>${tech.techPlaceholderNum}</span`
-                console.log(randomColumn, row)
         }
         
     })
     
-    // console.log(randomAdoptColumn, randomTrialColumn, randomAssessColumn, randomHoldColumn, randomRow)
-
-
 }
 
 function createGrids(){
 
-    const column = 100
-    const row = 100
-    // let count = 0
+    const column = 40
+    const row = 40
+    let count = 0
+    
     let cellsArray = new Array(column)
 
     for(let i = 0; i<row; i++){
         cellsArray[i] = new Array(row)
-        .fill(`<div class="grid-item"></div>`)
+        
+        if(i<=10){
+            cellsArray[i].fill(`<div class="grid-item row${count+=1} adopt"></div>`)
+        }else if(i<=20){
+            cellsArray[i].fill(`<div class="grid-item row${count+=1} trial"></div>`)
+        }else if(i<=30){
+            cellsArray[i].fill(`<div class="grid-item row${count+=1} assess"></div>`)
+        }else{
+            cellsArray[i].fill(`<div class="grid-item row${count+=1} hold"></div>`)
+        }
     }
 
     let cells1dArray = []
-    // console.log(cellsArray)
+    
     
     //convert nested arrays then array to string
-    cellsArray.forEach(innerArray => cells1dArray.push(`<div class='column'>${innerArray.join('\n')}</div>`))
+    cellsArray.forEach(innerArray => cells1dArray.push(`${innerArray.join('\n')}`))
     let cellsArrayHtml = cells1dArray.join('\n')
     
 
@@ -119,42 +130,6 @@ function createGrids(){
     grid.style.gridTemplateRows =  `repeat(${row}, 1fr)`
     grid.style.gridTemplateColumns =  `repeat(${column},1fr)`
 
-
-    let gridItem = document.getElementsByClassName('grid-item')
-    const columnHtml = document.getElementsByClassName('column')
-    
-    //target specific grids
-
-    const cellOne = gridItem[10]
-    cellOne.style.backgroundColor = "orange"
-    
-    let columnBg = columnHtml
-    // cellTwo = cellTwo.getElementsByClassName('grid-item')[5]
-    for(let i=0; i<100 ; i++){
-        if(i<25){
-            columnBg[i].style.backgroundColor = "rgba(255, 0, 0, 0.3)"
-        }
-        else if(i<50){
-            columnBg[i].style.backgroundColor = "rgba(0, 255, 0, 0.3)"
-        }
-        else if(i<75){
-            columnBg[i].style.backgroundColor = "rgba(0, 0, 255, 0.3)"
-        }
-        else{
-            columnBg[i].style.backgroundColor = "rgb(255, 165, 0, 0.3)"
-        }
-        
-    }
-    
-
-    const cellThree = gridItem[404]
-    cellThree.style.backgroundColor = "pink"
-    // cellThree.style.gridColumn = 4
-    // cellThree.style.gridRow = 65
-
-    const cellFour = gridItem[2000]
-    cellFour.style.backgroundColor = "brown"
-    // columnHtml.style.border = '1px solid green'
 
     return cellsArray
 }
