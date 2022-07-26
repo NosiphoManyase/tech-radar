@@ -8,7 +8,7 @@ let counter = 0
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        // console.log(data)
         sortData(data) 
         sortIntoPhases(languagesAndFrameworks)  
     })
@@ -46,7 +46,7 @@ function sortIntoPhases( quadrantData ){
     // const gridItem = getElementsByClassName('grid-item')
     let gridArray = createGrids()
     let randomRow = 0
-    console.log(quadrantData)
+    // console.log(quadrantData)
 
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
@@ -55,7 +55,7 @@ function sortIntoPhases( quadrantData ){
             //row might start at 0?-----
             // console.log(randomColumn, randomRow)
             const row = document.getElementsByClassName(`row${randomRow}`)
-            console.log(tech.techPlaceholderNum, randomRow)
+            // console.log(tech.techPlaceholderNum, randomRow)
             let column = randomColumn()
             row[column].innerHTML += 
                 `<span class='data-point'>${tech.techPlaceholderNum}</span`
