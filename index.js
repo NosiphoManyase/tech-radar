@@ -99,6 +99,7 @@ function createGrids(){
     const row = 40
     let count = 0
     
+    
     let cellsArray = new Array(column)
 
     for(let i = 0; i<row; i++){
