@@ -17,6 +17,11 @@ section{
     display: flex;
     justify-content: space-evenly;
     margin: 0;
+    margin-bottom: .5rem;
+}
+
+h1{
+    margin-top: 2.7rem;
 }
 
 
@@ -59,11 +64,6 @@ section{
     row-gap: 0px;
 }
 
-
-h1{
-    margin-top: 3rem;
-}
-
 .quadrants{
     margin: 0;
     margin-left: 5rem;
@@ -86,6 +86,27 @@ h1{
     color: white;
     /* z-index: 1;    */
 }
+
+.data-name{
+    position: absolute;
+    color: #fff;
+    text-shadow: 2px 2px 1px black;
+    font-size: 1.2em;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+    height: 30px;
+    padding-top: 1rem;
+  
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.grid-item:hover .data-name {
+    visibility: visible;
+    opacity: 1;
+  }
+  
 
 
 .adopt{

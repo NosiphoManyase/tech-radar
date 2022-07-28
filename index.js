@@ -4,12 +4,14 @@ let tools = []
 let techniques = []
 let counter = 0
 let occupiedCells = []
-
+let column = 0
+let randomRow = 0
+console.log(techniques)
 
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        // console.log(data)
         sortData(data) 
         createGrids("platforms")
         createGrids("langAndFrameworks")
@@ -51,6 +53,7 @@ function checkDuplicates(randomRow, column){
         if(el){
             if(el[1] === column){   
                 column = randomColumn()
+                checkDuplicates(randomRow, column)
             }else{
                 occupiedCells.push([randomRow, column])
             }
@@ -60,9 +63,6 @@ function checkDuplicates(randomRow, column){
         }
         
     }
-    console.log(occupiedCells)
-    return occupiedCells
-
 }
 
 function randomColumn( ){
@@ -70,65 +70,65 @@ function randomColumn( ){
     return randomColumn
 }
 
-function mountPhasesToQuadGrid(tech, randomRow){
-
+function displayDataPoints(divId, techPlaceholder, techName){
+    console.log(techPlaceholder)
     let row = ''
-            const column = randomColumn()
+    row = document.getElementById(divId).getElementsByClassName(`row${randomRow}`)
+    checkDuplicates(randomRow, column)
+    row[column].innerHTML += 
+    `<span class='data-point'>${techPlaceholder}</span>
+    <span class = 'data-name'>${techName}</span>`
+}
+
+function sortIntoQuadrants(tech){
+
+            column = randomColumn()
 
             if(tech.quadrant === 'languages and frameworks'){
+
+                displayDataPoints('langAndFrameworks', tech.techPlaceholderNum, tech.technology)
                 
-                row = document.getElementById('langAndFrameworks').getElementsByClassName(`row${randomRow}`)
-                row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
 
             }else if(tech.quadrant === 'platforms'){
-        
-                row = document.getElementById('platforms').getElementsByClassName(`row${randomRow}`)
-                row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
 
-            }else if(tech.quadrant === 'tools'){
+                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
         
-                row = document.getElementById('tools').getElementsByClassName(`row${randomRow}`)
-                row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+            }else if(tech.quadrant === 'tools'){
+
+                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
 
             }else{
-        
-                row = document.getElementById('techniques').getElementsByClassName(`row${randomRow}`)
-                row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+
+                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
 
             }
             
 }
 
 function sortIntoPhases(quadrantData){
-    
-    let randomRow = 0
 
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
 
             randomRow = Math.floor(Math.random() * 4) + 1
 
-            mountPhasesToQuadGrid(tech, randomRow)
+            sortIntoQuadrants(tech)
 
         } else if (tech.evaluationPhase === 'Trial'){
             
-            randomRow = 4 + Math.floor(Math.random() * 4)
+            randomRow = 4 + Math.floor(Math.random() * 4) + 1
             
-            mountPhasesToQuadGrid(tech, randomRow)
+            sortIntoQuadrants(tech)
 
         } else if (tech.evaluationPhase === 'Assess'){
-            randomRow = 8 + Math.floor(Math.random() * 4)
+            randomRow = 8 + Math.floor(Math.random() * 4) + 1
 
-            mountPhasesToQuadGrid(tech, randomRow)
+            sortIntoQuadrants(tech)
 
         } else if(tech.evaluationPhase === 'Hold'){
-            randomRow = 12 + Math.floor(Math.random() * 4)
+            randomRow = 12 + Math.floor(Math.random() * 4) + 1
 
-            mountPhasesToQuadGrid(tech, randomRow)
+            sortIntoQuadrants(tech)
             
         }
         
