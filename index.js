@@ -3,14 +3,22 @@ let platforms = []
 let tools = []
 let techniques = []
 let counter = 0
+let occupiedCells = []
 
 
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        // console.log(data)
+        console.log(data)
         sortData(data) 
+        createGrids("platforms")
+        createGrids("langAndFrameworks")
+        createGrids("tools")
+        createGrids("techniques")
         sortIntoPhases(languagesAndFrameworks)  
+        sortIntoPhases(platforms)
+        sortIntoPhases(tools)
+        sortIntoPhases(techniques)
     })
 
 
@@ -32,71 +40,106 @@ function sortData(data){
     })
 } 
 
-
-
-function randomColumn(){
+function checkDuplicates(randomRow, column){
     
-    const randomColumn = Math.floor(Math.random() * 40)
+    if(occupiedCells.length === 0){
+        occupiedCells.push([randomRow, column])
+
+    }else{
+        let el = occupiedCells.find(el => el[0] === randomRow)
+
+        if(el){
+            if(el[1] === column){   
+                column = randomColumn()
+            }else{
+                occupiedCells.push([randomRow, column])
+            }
+            
+        }else{
+            occupiedCells.push([randomRow, column])
+        }
+        
+    }
+    console.log(occupiedCells)
+    return occupiedCells
+
+}
+
+function randomColumn( ){
+    const randomColumn = Math.floor(Math.random() * 16)
     return randomColumn
 }
 
-function sortIntoPhases( quadrantData ){
+function mountPhasesToQuadGrid(tech, randomRow){
+
+    let row = ''
+            const column = randomColumn()
+
+            if(tech.quadrant === 'languages and frameworks'){
+                
+                row = document.getElementById('langAndFrameworks').getElementsByClassName(`row${randomRow}`)
+                row[column].innerHTML += 
+                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+
+            }else if(tech.quadrant === 'platforms'){
+        
+                row = document.getElementById('platforms').getElementsByClassName(`row${randomRow}`)
+                row[column].innerHTML += 
+                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+
+            }else if(tech.quadrant === 'tools'){
+        
+                row = document.getElementById('tools').getElementsByClassName(`row${randomRow}`)
+                row[column].innerHTML += 
+                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+
+            }else{
+        
+                row = document.getElementById('techniques').getElementsByClassName(`row${randomRow}`)
+                row[column].innerHTML += 
+                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+
+            }
+            
+}
+
+function sortIntoPhases(quadrantData){
     
-    const gridItem = document.getElementsByClassName('grid-item')
-    // const gridItem = getElementsByClassName('grid-item')
-    let gridArray = createGrids()
     let randomRow = 0
-    // console.log(quadrantData)
 
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
 
-            randomRow = Math.floor(Math.random() * 10)
-            //row might start at 0?-----
-            // console.log(randomColumn, randomRow)
-            const row = document.getElementsByClassName(`row${randomRow}`)
-            // console.log(tech.techPlaceholderNum, randomRow)
-            let column = randomColumn()
-            row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
-            // console.log(randomColumn, row)
+            randomRow = Math.floor(Math.random() * 4) + 1
+
+            mountPhasesToQuadGrid(tech, randomRow)
 
         } else if (tech.evaluationPhase === 'Trial'){
-            randomRow = 10 + Math.floor(Math.random() * 10)
             
-            const row = document.getElementsByClassName(`row${randomRow}`)
-
-            const column = randomColumn()
-            row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+            randomRow = 4 + Math.floor(Math.random() * 4)
+            
+            mountPhasesToQuadGrid(tech, randomRow)
 
         } else if (tech.evaluationPhase === 'Assess'){
-            randomRow = 20 + Math.floor(Math.random() * 10)
+            randomRow = 8 + Math.floor(Math.random() * 4)
 
-            const row = document.getElementsByClassName(`row${randomRow}`)
+            mountPhasesToQuadGrid(tech, randomRow)
 
-            const column = randomColumn()
-            row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+        } else if(tech.evaluationPhase === 'Hold'){
+            randomRow = 12 + Math.floor(Math.random() * 4)
 
-        } else{
-            randomRow = 30 + Math.floor(Math.random() * 10)
-
-            const row = document.getElementsByClassName(`row${randomRow}`)
-
-            const column = randomColumn()
-            row[column].innerHTML += 
-                `<span class='data-point'>${tech.techPlaceholderNum}</span`
+            mountPhasesToQuadGrid(tech, randomRow)
+            
         }
         
     })
     
 }
 
-function createGrids(){
+function createGrids(quadrantName){
 
-    const column = 40
-    const row = 40
+    const column = 16
+    const row = 16
     let count = 0
     
     let cellsArray = new Array(column)
@@ -104,14 +147,14 @@ function createGrids(){
     for(let i = 0; i<row; i++){
         cellsArray[i] = new Array(row)
         
-        if(i<=10){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} adopt"></div>`)
-        }else if(i<=20){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} trial"></div>`)
-        }else if(i<=30){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} assess"></div>`)
+        if(i<4){
+            cellsArray[i].fill(`<div class="grid-item ${quadrantName} row${count+=1} adopt"></div>`)
+        }else if(i<8){
+            cellsArray[i].fill(`<div class="grid-item ${quadrantName} row${count+=1} trial"></div>`)
+        }else if(i<12){
+            cellsArray[i].fill(`<div class="grid-item ${quadrantName} row${count+=1} assess"></div>`)
         }else{
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} hold"></div>`)
+            cellsArray[i].fill(`<div class="grid-item ${quadrantName} row${count+=1} hold"></div>`)
         }
     }
 
@@ -123,15 +166,30 @@ function createGrids(){
     let cellsArrayHtml = cells1dArray.join('\n')
     
 
-    const grid = document.getElementById('grid')
-    grid.innerHTML = cellsArrayHtml
-    
+    const langAndFrameworks = document.getElementById('langAndFrameworks')
+    langAndFrameworks.innerHTML = cellsArrayHtml
+    langAndFrameworks.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+    langAndFrameworks.style.gridTemplateColumns =  `repeat(${column},1fr)`
 
-    grid.style.gridTemplateRows =  `repeat(${row}, 1fr)`
-    grid.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    if (quadrantName === 'platforms'){
+        const platformsQuad = document.getElementById('platforms')
+        platformsQuad.innerHTML = cellsArrayHtml
+        platformsQuad.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+        platformsQuad.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    }else if(quadrantName === 'tools'){
+        const toolsQuad = document.getElementById('tools')
+        toolsQuad.innerHTML = cellsArrayHtml
+        toolsQuad.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+        toolsQuad.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    }else{
+        const techniquesQuad = document.getElementById('techniques')
+        techniquesQuad.innerHTML = cellsArrayHtml
+        techniquesQuad.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+        techniquesQuad.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    }
+    
 
 
     return cellsArray
 }
 
-createGrids()
