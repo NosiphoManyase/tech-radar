@@ -24,6 +24,10 @@ h1{
     margin-top: 2.7rem;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+}
 
 .label-grid{
     display: grid;
