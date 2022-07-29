@@ -9,13 +9,13 @@ let randomRow = 0
 let column = 16
 let row = 16
 let isSingleQuadView = false
-// console.log(techniques)
+
 
 
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        
         sortData(data) 
         createGrids()
         createGrids()
@@ -171,7 +171,6 @@ function createGrids(){
             cellsArray[i].fill(`<div class="grid-item row${count+=1} hold"></div>`)
         }
     }
-    console.log(languagesAndFrameworks)
     let cells1dArray = []
     
     
