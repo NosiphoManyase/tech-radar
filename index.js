@@ -8,39 +8,64 @@ let randomColumn = 0
 let randomRow = 0
 let column = 16
 let row = 16
-let isSingleQuadView = false
-
+let isSingleQuadView = false;
+let singleQuad = document.getElementsByClassName('quadrant-view')
 
 
 fetch('https://tech-radar-api.herokuapp.com/tech-radar')
     .then(response => response.json())
     .then(data => {
-        
+
         sortData(data) 
-        createGrids()
-        createGrids()
-        createGrids()
-        createGrids()
-        sortIntoPhases(languagesAndFrameworks)  
-        sortIntoPhases(platforms)
-        sortIntoPhases(tools)
-        sortIntoPhases(techniques)
+
+        if(singleQuad.length>0){
+            isSingleQuadView = true;
+            column = 20
+            row = 20
+
+            // get class for each quad, pass it to createGrid
+            const langAndFrameworksHtml = document.getElementById("langAndFrameworksQuad")
+            const platformsHtml = document.getElementById("platformsQuad")
+            const toolsHtml = document.getElementById("toolsQuad")
+           
+            if(langAndFrameworksHtml){
+                createGrids("langAndFrameworksQuad")
+                console.log(languagesAndFrameworks)
+                sortIntoPhases(languagesAndFrameworks)  
+            }else if(platformsHtml){
+                createGrids("platformsQuad")
+                sortIntoPhases(platforms)
+            }else if(toolsHtml){
+                createGrids("toolsQuad")
+                sortIntoPhases(tools)
+            }else{
+                createGrids("techniquesQuad")
+                sortIntoPhases(techniques)
+            }
+        }else{
+            createGrids()
+            createGrids()
+            createGrids()
+            createGrids()
+            sortIntoPhases(languagesAndFrameworks)  
+            sortIntoPhases(platforms)
+            sortIntoPhases(tools)
+            sortIntoPhases(techniques)
+        }
+
+        
     })
 
 
 function sortData(data){
     let sortIntoQuads = data.filter(technology => {
         if(technology.quadrant === "languages and frameworks"){
-            technology.techPlaceholderNum = counter += 1
             languagesAndFrameworks.push(technology)
         } else if(technology.quadrant === "platforms"){
-            technology.techPlaceholderNum = counter += 1
             platforms.push(technology)
         } else if(technology.quadrant === "tools"){
-            technology.techPlaceholderNum = counter += 1
             tools.push(technology)
         } else{
-            technology.techPlaceholderNum = counter += 1
             techniques.push(technology)
         }
     })
@@ -70,13 +95,23 @@ function checkDuplicates(randomRow, randomColumn){
 }
 
 function randomColumnCalc(){
-    const randomColumn = Math.floor(Math.random() * 16)
+    let num = 0
+    if(isSingleQuadView){
+        num = 20
+    }else{
+        num = 16
+    }
+    const randomColumn = Math.floor(Math.random() * num)
     return randomColumn
 }
 
 function displayDataPoints(divId, techPlaceholder, techName){
     let row = ''
-    row = document.getElementById(divId).getElementsByClassName(`row${randomRow}`)
+    if(!isSingleQuadView){
+        row = document.getElementById(divId).getElementsByClassName(`row${randomRow}`)
+    }else{
+        row = document.getElementById('grid').getElementsByClassName(`row${randomRow}`)
+    }
     checkDuplicates(randomRow, column)
     row[randomColumn].innerHTML += 
     `<span class='data-point'>${techPlaceholder}</span>
@@ -84,25 +119,24 @@ function displayDataPoints(divId, techPlaceholder, techName){
 }
 
 function sortIntoQuadrants(tech){
-
             randomColumn = randomColumnCalc()
 
             if(tech.quadrant === 'languages and frameworks'){
 
-                displayDataPoints('langAndFrameworks', tech.techPlaceholderNum, tech.technology)
+                displayDataPoints('langAndFrameworks', tech.id, tech.technology)
                 
 
             }else if(tech.quadrant === 'platforms'){
 
-                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
+                displayDataPoints(tech.quadrant, tech.id, tech.technology)
         
             }else if(tech.quadrant === 'tools'){
 
-                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
+                displayDataPoints(tech.quadrant, tech.id, tech.technology)
 
             }else{
 
-                displayDataPoints(tech.quadrant, tech.techPlaceholderNum, tech.technology)
+                displayDataPoints(tech.quadrant, tech.id, tech.technology)
 
             }
             
@@ -113,25 +147,48 @@ function sortIntoPhases(quadrantData){
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
 
-            randomRow = Math.floor(Math.random() * 4) + 1
-
-            sortIntoQuadrants(tech)
-
-        } else if (tech.evaluationPhase === 'Trial'){
+            if(!isSingleQuadView){
+                randomRow = Math.floor(Math.random() * 4) + 1
+                sortIntoQuadrants(tech)
+            }else{
+                randomRow = Math.floor(Math.random() * 5) + 1
+                randomColumn = randomColumnCalc()
+                displayDataPoints("", tech.id, tech.technology)
+            }
             
-            randomRow = 4 + Math.floor(Math.random() * 4) + 1
+
+        } else if (tech.evaluationPhase === 'Trial'){                 
             
-            sortIntoQuadrants(tech)
+            if(!isSingleQuadView){
+                randomRow = 4 + Math.floor(Math.random() * 4) + 1
+                sortIntoQuadrants(tech)
+            }else{
+                randomRow = 5 + Math.floor(Math.random() * 5) + 1
+                randomColumn = randomColumnCalc()
+                displayDataPoints("", tech.id, tech.technology)
+            }
 
         } else if (tech.evaluationPhase === 'Assess'){
-            randomRow = 8 + Math.floor(Math.random() * 4) + 1
 
-            sortIntoQuadrants(tech)
+            if(!isSingleQuadView){
+                randomRow = 8 + Math.floor(Math.random() * 4) + 1
+                sortIntoQuadrants(tech)
+            }else{
+                randomRow = 10 + Math.floor(Math.random() * 5) + 1
+                randomColumn = randomColumnCalc()
+                displayDataPoints("", tech.id, tech.technology)
+            }
 
         } else if(tech.evaluationPhase === 'Hold'){
-            randomRow = 12 + Math.floor(Math.random() * 4) + 1
 
-            sortIntoQuadrants(tech)
+            if(!isSingleQuadView){
+                randomRow = 12 + Math.floor(Math.random() * 4) + 1
+                sortIntoQuadrants(tech)
+            }else{
+                randomRow = 15 + Math.floor(Math.random() * 5) + 1
+                randomColumn = randomColumnCalc()
+                displayDataPoints("", tech.id, tech.technology)
+            }
             
         }
         
@@ -140,13 +197,22 @@ function sortIntoPhases(quadrantData){
 }
 
 function mountGrids(quadrantName, cellsArrayHtml){
-    const quadrant = document.getElementById(`${quadrantName}`)
-    quadrant.innerHTML = cellsArrayHtml
-    quadrant.style.gridTemplateRows =  `repeat(${row}, 1fr)`
-    quadrant.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    if(isSingleQuadView){
+        const quadrant = document.getElementById('grid')
+        quadrant.innerHTML += cellsArrayHtml
+        quadrant.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+        quadrant.style.gridTemplateColumns =  `repeat(${column},1fr)`
+        
+
+    }else{
+        const quadrant = document.getElementById(`${quadrantName}`)
+        quadrant.innerHTML = cellsArrayHtml
+        quadrant.style.gridTemplateRows =  `repeat(${row}, 1fr)`
+        quadrant.style.gridTemplateColumns =  `repeat(${column},1fr)`
+    }
 }
 
-function createGrids(){
+function createGrids(quadName){
     let count = 0
     
     let cellsArray = new Array(column)
@@ -158,7 +224,7 @@ function createGrids(){
         if(!isSingleQuadView){
             num = 4
         }else{
-            num = 15
+            num = 5
         }
         
         if(i<num){
@@ -178,26 +244,14 @@ function createGrids(){
     cellsArray.forEach(innerArray => cells1dArray.push(`${innerArray.join('\n')}`))
     let cellsArrayHtml = cells1dArray.join('\n')
     
-    mountGrids("langAndFrameworks", cellsArrayHtml)
-    mountGrids("platforms", cellsArrayHtml)
-    mountGrids("tools", cellsArrayHtml)
-    mountGrids("techniques", cellsArrayHtml)
-      
-}
-
-function update(){
-
-}
-
-function singleView(){
-    let singleQuad = document.getElementById('langAndFrameworks')
-
-    singleQuad.addEventListener('click', ()=> {
-        isSingleQuadView = true
-        column = 60
-        row = 60
-        createGrids()
-    })
-        
+    if(isSingleQuadView){
+        mountGrids(quadName, cellsArrayHtml)
+    } else{
+        mountGrids("langAndFrameworks", cellsArrayHtml)
+        mountGrids("platforms", cellsArrayHtml)
+        mountGrids("tools", cellsArrayHtml)
+        mountGrids("techniques", cellsArrayHtml)
+    }
     
+      
 }
