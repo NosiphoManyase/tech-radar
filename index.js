@@ -18,19 +18,19 @@ fetch('https://tech-radar-api.herokuapp.com/tech-radar')
 
         sortData(data) 
 
+        // check if on single quadrant page or full tech radar page
         if(singleQuad.length>0){
             isSingleQuadView = true;
+            //increase length of grid columns and row 
             column = 20
             row = 20
 
-            // get class for each quad, pass it to createGrid
             const langAndFrameworksHtml = document.getElementById("langAndFrameworksQuad")
             const platformsHtml = document.getElementById("platformsQuad")
             const toolsHtml = document.getElementById("toolsQuad")
            
             if(langAndFrameworksHtml){
                 createGrids("langAndFrameworksQuad")
-                console.log(languagesAndFrameworks)
                 sortIntoPhases(languagesAndFrameworks)  
             }else if(platformsHtml){
                 createGrids("platformsQuad")
@@ -142,6 +142,29 @@ function sortIntoQuadrants(tech){
             
 }
 
+function displayTechInfo(id, name, description, evalPhase){
+    const phase = document.getElementById(`${evalPhase}`)
+    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description" id="descr-${id}"><br>${description}</span></p>`
+
+    //show description on click of tech blips
+    const techName = document.querySelectorAll(" .name").forEach(item =>{
+        item.addEventListener('click', (e) => {
+            console.log("yes")
+            console.log(e.target.id)
+            descr = document.getElementById(`descr-${e.target.id}`)
+            const display = getComputedStyle(descr).display
+            
+            if(display === "none"){
+                descr.style.display = 'block'
+            }else{
+                descr.style.display = "none"
+            }
+            
+        })
+    })
+
+}
+
 function sortIntoPhases(quadrantData){
 
     const sortIntoPhase = quadrantData.filter(tech => {
@@ -153,6 +176,8 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
+                //if in single quadrant view, create section to display tech blip info
+                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
                 displayDataPoints("", tech.id, tech.technology)
             }
             
@@ -165,6 +190,7 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 5 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
+                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
                 displayDataPoints("", tech.id, tech.technology)
             }
 
@@ -176,6 +202,7 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 10 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
+                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
                 displayDataPoints("", tech.id, tech.technology)
             }
 
@@ -187,6 +214,7 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 15 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
+                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
                 displayDataPoints("", tech.id, tech.technology)
             }
             
@@ -221,6 +249,7 @@ function createGrids(quadName){
         cellsArray[i] = new Array(row)
 
         let num = 0
+        //num = number of rows for each evaluation phase
         if(!isSingleQuadView){
             num = 4
         }else{

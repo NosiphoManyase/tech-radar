@@ -1,6 +1,7 @@
 body{
     width: 800px;
     height: 800px;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 main{
@@ -11,6 +12,7 @@ header{
     display: flex;
     justify-content: space-between;
     margin: 0;
+    
 }
 
 section{
@@ -22,6 +24,7 @@ section{
 
 h1{
     margin-top: 2.7rem;
+    
 }
 
 a{
@@ -70,7 +73,7 @@ a{
 
 .quadrants{
     margin: 0;
-    margin-left: 5rem;
+    
 }
 
 .grid-item{
@@ -100,7 +103,7 @@ a{
     opacity: 0;
     z-index: 1;
     height: 30px;
-    padding-top: 1rem;
+    padding-top: 2rem;
   
     /* transition effect. not necessary */
     transition: opacity .2s, visibility .2s;
@@ -129,6 +132,9 @@ a{
     background-color: rgb(255, 165, 0, 0.3);
 }
 
+
+
+
 /* SINGLE QUADRANT VIEW */
 
 body.quadrant-view{
@@ -144,6 +150,26 @@ body.quadrant-view{
     row-gap: 0px;
 }
 
+main.contain{
+    display: flex;
+    justify-content: space-around;
+}
+
+aside{
+    width: 50%;
+}
+
 header#grid{
     display: none;
 }
+
+section.quadrant-section{
+    justify-content: flex-start;
+}
+
+span.description{
+    display: none;
+}
+
+
+
