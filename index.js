@@ -142,27 +142,34 @@ function sortIntoQuadrants(tech){
             
 }
 
+// Tech Info bar function
 function displayTechInfo(id, name, description, evalPhase){
+    // insert tech names and description
     const phase = document.getElementById(`${evalPhase}`)
-    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description" id="descr-${id}"><br>${description}</span></p>`
+    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
+    
+}
 
-    //show description on click of tech blips
-    const techName = document.querySelectorAll(" .name").forEach(item =>{
+function displayDescr(){
+
+    //show description when click on tech name
+    const techName = document.querySelectorAll(".name").forEach(item =>{
+        
         item.addEventListener('click', (e) => {
-            console.log("yes")
-            console.log(e.target.id)
+            e.preventDefault()
             descr = document.getElementById(`descr-${e.target.id}`)
-            const display = getComputedStyle(descr).display
             
-            if(display === "none"){
-                descr.style.display = 'block'
-            }else{
-                descr.style.display = "none"
+
+            if(descr.classList[1] === 'hide'){      
+                descr.classList.remove("hide")
+
+            }
+            else{
+                descr.classList.add('hide')
             }
             
         })
     })
-
 }
 
 function sortIntoPhases(quadrantData){
@@ -221,6 +228,8 @@ function sortIntoPhases(quadrantData){
         }
         
     })
+
+    displayDescr()
     
 }
 

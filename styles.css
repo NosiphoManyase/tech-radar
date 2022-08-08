@@ -167,7 +167,7 @@ section.quadrant-section{
     justify-content: flex-start;
 }
 
-span.description{
+span.hide{
     display: none;
 }
 
