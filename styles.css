@@ -104,9 +104,6 @@ a{
     z-index: 1;
     height: 30px;
     padding-top: 2rem;
-  
-    /* transition effect. not necessary */
-    transition: opacity .2s, visibility .2s;
 }
 
 .grid-item:hover .data-name {

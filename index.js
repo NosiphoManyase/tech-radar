@@ -105,17 +105,21 @@ function randomColumnCalc(){
     return randomColumn
 }
 
-function displayDataPoints(divId, techPlaceholder, techName){
+function displayDataPoints(categoryName, techId, techName){
+   
     let row = ''
     if(!isSingleQuadView){
-        row = document.getElementById(divId).getElementsByClassName(`row${randomRow}`)
+        row = document.getElementById(categoryName).getElementsByClassName(`row${randomRow}`)
     }else{
         row = document.getElementById('grid').getElementsByClassName(`row${randomRow}`)
     }
     checkDuplicates(randomRow, column)
     row[randomColumn].innerHTML += 
-    `<span class='data-point'>${techPlaceholder}</span>
-    <span class = 'data-name'>${techName}</span>`
+    `<span  class='data-point'>${techId}</span>
+    <span id='${techName}' class='data-name'>${techName}</span>`
+
+    displayDescr(techName, techId)
+    
 }
 
 function sortIntoQuadrants(tech){
@@ -150,16 +154,35 @@ function displayTechInfo(id, name, description, evalPhase){
     
 }
 
-function displayDescr(){
 
-    //show description when click on tech name
-    const techName = document.querySelectorAll(".name").forEach(item =>{
-        
-        item.addEventListener('click', (e) => {
-            e.preventDefault()
-            descr = document.getElementById(`descr-${e.target.id}`)
+function displayDescr(techNameId, techId){
+
+    if(!techNameId){
+        //show description when click on tech name
+        const techName = document.querySelectorAll(".name").forEach(item =>{
             
+            item.addEventListener('click', (e) => {
+                e.preventDefault()
+                descr = document.getElementById(`descr-${e.target.id}`)
+                
 
+                if(descr.classList[1] === 'hide'){      
+                    descr.classList.remove("hide")
+
+                }
+                else{
+                    descr.classList.add('hide')
+                }
+                
+            })
+        })
+    } else {
+
+        const techBlip = document.getElementById(`${techNameId}`)
+        techBlip.addEventListener('click', () =>{
+            
+            descr = document.getElementById(`descr-${techId}`)
+            
             if(descr.classList[1] === 'hide'){      
                 descr.classList.remove("hide")
 
@@ -167,9 +190,11 @@ function displayDescr(){
             else{
                 descr.classList.add('hide')
             }
-            
+
         })
-    })
+    }
+
+    
 }
 
 function sortIntoPhases(quadrantData){
