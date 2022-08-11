@@ -148,9 +148,10 @@ function sortIntoQuadrants(tech){
 
 // Tech Info bar function
 function displayTechInfo(id, name, description, evalPhase){
+    
     // insert tech names and description
     const phase = document.getElementById(`${evalPhase}`)
-    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
+    phase.innerHTML += `<p class="name" id="${name}-${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
     
 }
 
@@ -182,10 +183,11 @@ function displayDescr(techNameId, techId){
         techBlip.addEventListener('click', () =>{
             
             descr = document.getElementById(`descr-${techId}`)
+            techItem = document.getElementById(`${techNameId}-${techId}`)
             
             if(descr.classList[1] === 'hide'){      
                 descr.classList.remove("hide")
-
+                techItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
             }
             else{
                 descr.classList.add('hide')

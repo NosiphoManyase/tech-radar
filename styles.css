@@ -6,6 +6,7 @@ body{
 
 main{
     margin-left: 1rem;
+    height: 60%;
 }
 
 header{
@@ -150,10 +151,14 @@ body.quadrant-view{
 main.contain{
     display: flex;
     justify-content: space-around;
+    position: relative;
 }
 
 aside{
     width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+
 }
 
 header#grid{
