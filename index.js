@@ -105,6 +105,7 @@ function randomColumnCalc(){
     return randomColumn
 }
 
+count = 0
 function displayDataPoints(categoryName, techId, techName){
    
     let row = ''
@@ -115,10 +116,11 @@ function displayDataPoints(categoryName, techId, techName){
     }
     checkDuplicates(randomRow, column)
     row[randomColumn].innerHTML += 
-    `<span  class='data-point'>${techId}</span>
+    `<span  class='data-point' id='data-point-${techId}'>${techId}</span>
     <span id='${techName}' class='data-name'>${techName}</span>`
 
     displayDescr(techName, techId)
+    displayDescr()
     
 }
 
@@ -151,7 +153,7 @@ function displayTechInfo(id, name, description, evalPhase){
     
     // insert tech names and description
     const phase = document.getElementById(`${evalPhase}`)
-    phase.innerHTML += `<p class="name" id="${name}-${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
+    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
     
 }
 
@@ -163,12 +165,14 @@ function displayDescr(techNameId, techId){
         const techName = document.querySelectorAll(".name").forEach(item =>{
             
             item.addEventListener('click', (e) => {
+
                 e.preventDefault()
                 descr = document.getElementById(`descr-${e.target.id}`)
                 
 
                 if(descr.classList[1] === 'hide'){      
                     descr.classList.remove("hide")
+
 
                 }
                 else{
@@ -181,10 +185,10 @@ function displayDescr(techNameId, techId){
 
         const techBlip = document.getElementById(`${techNameId}`)
         techBlip.addEventListener('click', () =>{
-            
+
             descr = document.getElementById(`descr-${techId}`)
-            techItem = document.getElementById(`${techNameId}-${techId}`)
-            
+            techItem = document.getElementById(`${techId}`)
+            // console.log(techNameId, techId)
             if(descr.classList[1] === 'hide'){      
                 descr.classList.remove("hide")
                 techItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
@@ -192,7 +196,6 @@ function displayDescr(techNameId, techId){
             else{
                 descr.classList.add('hide')
             }
-
         })
     }
 
@@ -256,7 +259,6 @@ function sortIntoPhases(quadrantData){
         
     })
 
-    displayDescr()
     
 }
 
