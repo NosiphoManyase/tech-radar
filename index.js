@@ -280,7 +280,7 @@ function mountGrids(quadrantName, cellsArrayHtml){
 
 function createGrids(quadName){
     let count = 0
-    
+    let innerGrid = ''
     let cellsArray = new Array(column)
 
     for(let i = 0; i<row; i++){
@@ -292,16 +292,17 @@ function createGrids(quadName){
             num = 4
         }else{
             num = 5
+            innerGrid = "-inner"
         }
         
         if(i<num){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} adopt"></div>`)
+            cellsArray[i].fill(`<div class="grid-item${innerGrid} row${count+=1} adopt"></div>`)
         }else if(i<(num*2)){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} trial"></div>`)
+            cellsArray[i].fill(`<div class="grid-item${innerGrid} row${count+=1} trial"></div>`)
         }else if(i<(num*3)){
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} assess"></div>`)
+            cellsArray[i].fill(`<div class="grid-item${innerGrid} row${count+=1} assess"></div>`)
         }else{
-            cellsArray[i].fill(`<div class="grid-item row${count+=1} hold"></div>`)
+            cellsArray[i].fill(`<div class="grid-item${innerGrid} row${count+=1} hold"></div>`)
         }
     }
     let cells1dArray = []

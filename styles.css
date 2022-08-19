@@ -1,75 +1,43 @@
 body{
     width: 800px;
     height: 800px;
-    font-family: 'Fira Sans', sans-serif;
-}
-
-main{
-    margin-left: 1rem;
-    height: 60%;
-}
-
-header{
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    
-}
-
-section{
-    display: flex;
-    justify-content: space-evenly;
-    margin: 0;
-    margin-bottom: .5rem;
-}
-
-h1{
-    margin-top: 2.7rem;
-    
+    font-family: 'Inter', sans-serif;
 }
 
 a{
+    font-weight: 600;
     color: black;
     text-decoration: none;
 }
 
+p{
+    margin: 0;
+}
+
 .label-grid{
     display: grid;
-    margin-left: 20rem;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.label-grid > *:not(:last-child){
+    border-bottom: 3px solid  #813992;
+}
+
+.label-grid > * {
+    margin-top: 1.5em
 
 }
 
-#langAndFrameworks{
-    display: grid;
-    width: 15px;
-    height: 20px;
-    column-gap: 0px;
-    row-gap: 0px;
-    
-}
-
-#platforms{
-    display: grid;
-    width: 15px;
-    height: 20px;
-    column-gap: 0px;
-    row-gap: 0px;
-}
-
-#tools{
-    display: grid;
-    width: 15px;
-    height: 20px;
-    column-gap: 0px;
-    row-gap: 0px;
-}
-
-#techniques{
-    display: grid;
-    width: 15px;
-    height: 20px;
-    column-gap: 0px;
-    row-gap: 0px;
+.grid-container,
+section{
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+    border: 4px solid black;
+    /* border-radius: 3px; */
 }
 
 .quadrants{
@@ -77,11 +45,91 @@ a{
     
 }
 
-.grid-item{
+
+
+
+main{
+    margin-left: 1rem;
+    display: grid;
+    grid-template-columns: 360px 120px 360px;
+    grid-template-rows: 70px 370px 370px 50px;
+    grid-template-areas: 
+            "quad1 . quad2"
+            "grid1 phases1 grid2"
+            "grid3 phases2 grid4"
+            "quad3 . quad4"
+    ;
+    grid-gap: 1em 0;
+}
+
+
+/* POSITION GRID-AREA ITEMS */
+
+h1.title-one{
+    grid-area: quad1;
+}
+h1.title-two{
+    grid-area: quad2;
+    align-self: end;
+}
+
+h1.title-three{
+   grid-area: quad3;
+    
+}
+
+h1.title-four{
+    grid-area: quad4;
+}
+
+.label-grid.a{
+    grid-area: phases1;
+}
+
+.label-grid.b{
+    grid-area: phases2;
+}
+
+.grid-container.a{
+    grid-area: grid1; 
+}
+
+.grid-container.b{
+    grid-area: grid2;
+}
+
+.grid-container.c{
+    grid-area: grid3;
+}
+
+.grid-container.d{
+    grid-area: grid4;
+}
+
+
+#langAndFrameworks,
+#platforms,
+#tools,
+#techniques{
+    display: grid;
+    /* width: 20px;   */
+}
+
+.grid-item,
+.grid-item-inner{
     position: relative;
     width: 20px;
     height: 20px;
-    border: 1px solid green
+    /* border: 1px solid black; */
+}
+
+.grid-item.row4,
+.grid-item.row8,
+.grid-item.row12,
+.grid-item-inner.row5,
+.grid-item-inner.row10,
+.grid-item-inner.row15{
+    border-bottom: 3px solid  #813992;
 }
 
 .data-point{
@@ -92,7 +140,6 @@ a{
     padding: 0px;
     background-color: black;
     color: white;
-    /* z-index: 1;    */
 }
 
 .data-name{
@@ -114,7 +161,7 @@ a{
   
 
 
-.adopt{
+/* .adopt{
     background-color: rgba(255, 0, 0, 0.3);
 }
 
@@ -128,7 +175,7 @@ a{
 
 .hold{
     background-color: rgb(255, 165, 0, 0.3);
-}
+} */
 
 
 
@@ -138,36 +185,41 @@ a{
 body.quadrant-view{
     width: 800px;
     height: 800px;
+    display: grid;
+    grid-template-columns: 300px 100px 410px;
+    grid-template-rows: 100px 465px;
+    grid-template-areas: 
+            "heading heading heading"
+            "sidebar . quadGrid";
 }
 
 #grid{
     display: grid;
     width: 15px;
-    height: 20px;
-    column-gap: 0px;
-    row-gap: 0px;
-}
-
-main.contain{
-    display: flex;
-    justify-content: space-around;
-    position: relative;
 }
 
 aside{
-    width: 50%;
     height: 100%;
     overflow-y: scroll;
+    grid-area: sidebar;
 
+}
+
+header{
+    grid-area: heading;
+}
+
+section{
+    grid-area: quadGrid;
 }
 
 header#grid{
-    display: none;
+    display: none; 
 }
 
-section.quadrant-section{
+/* section.quadrant-section{
     justify-content: flex-start;
-}
+} */
 
 span.hide{
     display: none;
