@@ -153,7 +153,8 @@ function displayTechInfo(id, name, description, evalPhase){
     
     // insert tech names and description
     const phase = document.getElementById(`${evalPhase}`)
-    phase.innerHTML += `<p class="name" id="${id}">${id}.${name}<span class="description hide" id="descr-${id}"><br>${description}</span></p>`
+    phase.innerHTML += `<p class="name" id="${id}"><span>${id}.${name}</span><i id="down" class="arrow down"></i></p>
+    <p class="description hide" id="descr-${id}"><br>${description}</p>`
     
 }
 
@@ -172,11 +173,20 @@ function displayDescr(techNameId, techId){
 
                 if(descr.classList[1] === 'hide'){      
                     descr.classList.remove("hide")
-
+                    // replace down arrow w/ up arow on nav
+                    const techName = document.getElementById(`${e.target.id}`)
+                    const arrow = techName.lastChild
+                    arrow.classList.remove('down')
+                    arrow.classList.add('up')
 
                 }
                 else{
                     descr.classList.add('hide')
+                    // replace up arrow w/ down arow on nav
+                    const techName = document.getElementById(`${e.target.id}`)
+                    const arrow = techName.lastChild
+                    arrow.classList.remove('up')
+                    arrow.classList.add('down')
                 }
                 
             })

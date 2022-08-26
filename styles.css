@@ -1,7 +1,23 @@
 body{
-    width: 800px;
-    height: 800px;
+    width: fit-content;
+    height: max-content;
     font-family: 'Inter', sans-serif;
+    color: #040404;
+    margin: 0 auto;
+}
+
+main{
+    width:max-content;
+    display: grid;
+    grid-template-columns: 120px 360px 100px 120px 360px;
+    grid-template-rows: 70px 370px 70px  370px;
+    grid-template-areas:  
+            ". quad1 . . quad2"
+            "phases1 grid1 . phases2 grid2"
+            ". quad3 . . quad4"
+            "phases3 grid3 . phases4 grid4"
+    ;
+    grid-gap: 1em 0;
 }
 
 a{
@@ -14,6 +30,10 @@ p{
     margin: 0;
 }
 
+h1{
+    margin: 0
+}
+
 .label-grid{
     display: grid;
     font-size: 22px;
@@ -24,43 +44,25 @@ p{
     width: 100%;
 }
 
-.label-grid > *:not(:last-child){
+/* .label-grid > *:not(:last-child){
     border-bottom: 3px solid  #813992;
-}
+} */
 
 .label-grid > * {
     margin-top: 1.5em
 
 }
 
-.grid-container,
-section{
-    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
-    border: 4px solid black;
-    /* border-radius: 3px; */
-}
+/* .title-three,
+.title-four{
+   margin-top: 2em;
+} */
 
-.quadrants{
+/* .quadrants{
     margin: 0;
     
-}
+} */
 
-
-
-
-main{
-    margin-left: 1rem;
-    display: grid;
-    grid-template-columns: 360px 120px 360px;
-    grid-template-rows: 70px 370px 370px 50px;
-    grid-template-areas: 
-            "quad1 . quad2"
-            "grid1 phases1 grid2"
-            "grid3 phases2 grid4"
-            "quad3 . quad4"
-    ;
-    grid-gap: 1em 0;
-}
 
 
 /* POSITION GRID-AREA ITEMS */
@@ -90,29 +92,43 @@ h1.title-four{
     grid-area: phases2;
 }
 
-.grid-container.a{
+.label-grid.c{
+    grid-area: phases3;
+}
+
+.label-grid.d{
+    grid-area: phases4  ;
+}
+
+.langAndFrameworks{
     grid-area: grid1; 
 }
 
-.grid-container.b{
+.platforms{
     grid-area: grid2;
 }
 
-.grid-container.c{
+.tools{
     grid-area: grid3;
 }
 
-.grid-container.d{
+.techniques{
     grid-area: grid4;
 }
+
+/* .grid-container{
+    width: max-content;
+    margin-bottom: 2em;
+} */
 
 
 #langAndFrameworks,
 #platforms,
 #tools,
-#techniques{
+#techniques,
+.quadrant-section{
     display: grid;
-    /* width: 20px;   */
+    border: 1px solid #040404;
 }
 
 .grid-item,
@@ -129,7 +145,7 @@ h1.title-four{
 .grid-item-inner.row5,
 .grid-item-inner.row10,
 .grid-item-inner.row15{
-    border-bottom: 3px solid  #813992;
+    border-bottom: 1px solid #040404;
 }
 
 .data-point{
@@ -144,8 +160,8 @@ h1.title-four{
 
 .data-name{
     position: absolute;
-    color: #fff;
-    text-shadow: 2px 2px 1px black;
+    color: #040404;
+    text-shadow: 2px 2px 1px white;
     font-size: 1.2em;
     visibility: hidden;
     opacity: 0;
@@ -154,30 +170,12 @@ h1.title-four{
     padding-top: 2rem;
 }
 
-.grid-item:hover .data-name {
+.grid-item:hover .data-name,
+.grid-item-inner:hover .data-name {
     visibility: visible;
     opacity: 1;
   }
   
-
-
-/* .adopt{
-    background-color: rgba(255, 0, 0, 0.3);
-}
-
-.trial{
-    background-color: rgba(0, 255, 0, 0.3);
-}
-
-.assess{
-    background-color: rgba(0, 0, 255, 0.3);
-}
-
-.hold{
-    background-color: rgb(255, 165, 0, 0.3);
-} */
-
-
 
 
 /* SINGLE QUADRANT VIEW */
@@ -191,11 +189,6 @@ body.quadrant-view{
     grid-template-areas: 
             "heading heading heading"
             "sidebar . quadGrid";
-}
-
-#grid{
-    display: grid;
-    width: 15px;
 }
 
 aside{
@@ -217,13 +210,50 @@ header#grid{
     display: none; 
 }
 
+.adopt,
+.trial,
+.assess,
+.hold{
+    width: 100%;
+}
+
 /* section.quadrant-section{
     justify-content: flex-start;
 } */
 
-span.hide{
+p.hide{
     display: none;
 }
 
+/* span.description{
+ margin: 0;
+} */
+
+p.name{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 97%;
+    padding: .2em 0;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    height: min-content
+}
+
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
 
 
