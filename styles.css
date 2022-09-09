@@ -122,14 +122,9 @@ h1.title-four{
 #techniques,
 .quadrant-section{
     display: grid;
-<<<<<<< HEAD
     border: 1px solid rgb(221, 221, 221);
     padding: 24px;
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-=======
-    border: 1px solid #919191;
-    box-shadow: 1px 1px 10px 5px #F1F1F2;
->>>>>>> sub-main
 }
 
 .grid-item,
@@ -197,11 +192,6 @@ body.quadrant-view{
 
 aside{
     height: 100%;
-<<<<<<< HEAD
-=======
-    width: 315px;
-    overflow-y: scroll;
->>>>>>> sub-main
     grid-area: sidebar;
 }
 
@@ -213,14 +203,9 @@ header{
 
 section{
     grid-area: quadGrid;
-<<<<<<< HEAD
     align-self: start;
     position: sticky;
     top: 100px;
-=======
-    display: flex;
-    align-items: center;
->>>>>>> sub-main
 }
 
 header#grid{
@@ -262,7 +247,6 @@ aside p span{
     padding: 8px 8px 8px 16px;
 }
 
-<<<<<<< HEAD
 .Adopt h1,
 .Trial h1,
 .Assess h1,
@@ -295,24 +279,3 @@ p.description {
     line-height: 20px;
     padding: 16px 10px;
 }
-=======
-.hide{
-    display: none;
-}
-
-div.always-visible{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 100%;
-    padding: 8px 10px 0px 10px;
-    
-}
-
-p.description {
-    font-size: 14px;
-    line-height: 20px;
-    padding: 16px 10px;
-}
-
->>>>>>> sub-main
