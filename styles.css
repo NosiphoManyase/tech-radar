@@ -1,7 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 body{
     width: fit-content;
     height: max-content;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter';
     color: #040404;
     margin: 0 auto;
 }
@@ -44,24 +48,13 @@ h1{
     width: 100%;
 }
 
-/* .label-grid > *:not(:last-child){
-    border-bottom: 3px solid  #813992;
-} */
 
 .label-grid > * {
     margin-top: 1.5em
 
 }
 
-/* .title-three,
-.title-four{
-   margin-top: 2em;
-} */
 
-/* .quadrants{
-    margin: 0;
-    
-} */
 
 
 
@@ -128,7 +121,9 @@ h1.title-four{
 #techniques,
 .quadrant-section{
     display: grid;
-    border: 1px solid #040404;
+    border: 1px solid rgb(221, 221, 221);
+    padding: 24px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }
 
 .grid-item,
@@ -182,9 +177,12 @@ h1.title-four{
 
 body.quadrant-view{
     width: 800px;
-    height: 800px;
+    /* N.B how to keep position sticky w/ height 100vh */
+    height: 1000px;
+    position: relative;
+    align-items: start;
     display: grid;
-    grid-template-columns: 300px 100px 410px;
+    grid-template-columns: 315px 100px 410px;
     grid-template-rows: 100px 465px;
     grid-template-areas: 
             "heading heading heading"
@@ -193,17 +191,21 @@ body.quadrant-view{
 
 aside{
     height: 100%;
-    overflow-y: scroll;
     grid-area: sidebar;
 
 }
 
 header{
     grid-area: heading;
+    align-self:center;
+    justify-self: center;
 }
 
 section{
     grid-area: quadGrid;
+    align-self: start;
+    position: sticky;
+    top: 100px;
 }
 
 header#grid{
@@ -217,43 +219,43 @@ header#grid{
     width: 100%;
 }
 
-/* section.quadrant-section{
-    justify-content: flex-start;
-} */
+.Adopt,
+.Trial,
+.Assess,
+.Hold{
+    width: 100%;
+    padding: 8px 8px 8px 16px;
+}
 
-p.hide{
+.Adopt h1,
+.Trial h1,
+.Assess h1,
+.Hold h1{
+    padding-left:.5em;
+    border-bottom: 4px solid #040404;
+    margin-bottom: 10px;
+}
+
+.hide{
     display: none;
 }
 
-/* span.description{
- margin: 0;
-} */
-
-p.name{
+.always-visible{
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 97%;
-    padding: .2em 0;
+    font-weight: 800;
+    padding: 1em;
+
 }
 
-.arrow {
-    border: solid black;
-    border-width: 0 1px 1px 0;
-    display: inline-block;
-    padding: 3px;
-    height: min-content
+.always-visible p span{
+    padding-right: .5em;
 }
 
-
-.down {
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+p.description {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 16px 10px;
 }
-
-.up {
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-  }
-
-

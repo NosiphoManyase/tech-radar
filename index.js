@@ -150,43 +150,58 @@ function sortIntoQuadrants(tech){
 
 // Tech Info bar function
 function displayTechInfo(id, name, description, evalPhase){
-    
     // insert tech names and description
     const phase = document.getElementById(`${evalPhase}`)
-    phase.innerHTML += `<p class="name" id="${id}"><span>${id}.${name}</span><i id="down" class="arrow down"></i></p>
-    <p class="description hide" id="descr-${id}"><br>${description}</p>`
+    phase.innerHTML += `<div class="name" id="tech-${id}">
+    <div class="always-visible">
+        <p><span>${id}.</span>${name}</p>
+        <svg class="down-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 1L8 8.5L1 1" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="up-arrow hide" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 8.5L8 1L15 8.5" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <p class="description hide">${description}</p>
+    </div>`
     
 }
 
 
 function displayDescr(techNameId, techId){
+    
 
     if(!techNameId){
         //show description when click on tech name
         const techName = document.querySelectorAll(".name").forEach(item =>{
+            let count=0
             
             item.addEventListener('click', (e) => {
-
                 e.preventDefault()
-                descr = document.getElementById(`descr-${e.target.id}`)
-                
+                count+=1
+                console.log(count)
+                // console.log(e.target)
 
-                if(descr.classList[1] === 'hide'){      
+                const techName = item.firstElementChild
+                const down = techName.children[1]
+                const up = techName.lastElementChild
+
+                // descr = document.getElementById(`descr-${e.target.id}`)
+                descr = item.lastElementChild
+
+                if(descr.classList[1] === 'hide'){ 
+                    // console.log('yes')
                     descr.classList.remove("hide")
                     // replace down arrow w/ up arow on nav
-                    const techName = document.getElementById(`${e.target.id}`)
-                    const arrow = techName.lastChild
-                    arrow.classList.remove('down')
-                    arrow.classList.add('up')
+                    down.classList.add('hide')
+                    up.classList.remove('hide')
 
                 }
                 else{
                     descr.classList.add('hide')
                     // replace up arrow w/ down arow on nav
-                    const techName = document.getElementById(`${e.target.id}`)
-                    const arrow = techName.lastChild
-                    arrow.classList.remove('up')
-                    arrow.classList.add('down')
+                    up.classList.add('hide')
+                    down.classList.remove('hide')
                 }
                 
             })
@@ -196,12 +211,13 @@ function displayDescr(techNameId, techId){
         const techBlip = document.getElementById(`${techNameId}`)
         techBlip.addEventListener('click', () =>{
 
-            descr = document.getElementById(`descr-${techId}`)
-            techItem = document.getElementById(`${techId}`)
+            const techName = document.getElementById(`tech-${techId}`)
+            const descr = techName.lastElementChild
+            // techItem = document.getElementById(`${techId}`)
             // console.log(techNameId, techId)
             if(descr.classList[1] === 'hide'){      
                 descr.classList.remove("hide")
-                techItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+                descr.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
             }
             else{
                 descr.classList.add('hide')
