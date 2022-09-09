@@ -154,11 +154,19 @@ function displayTechInfo(id, name, description, evalPhase){
     const phase = document.getElementById(`${evalPhase}`)
     phase.innerHTML += `<div class="name" id="tech-${id}">
     <div class="always-visible">
+<<<<<<< HEAD
         <p><span>${id}.</span>${name}</p>
         <svg class="down-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15 1L8 8.5L1 1" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <svg class="up-arrow hide" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+=======
+        <span>${id}.${name}</span>
+        <svg id="down-arrow" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 1L8 8.5L1 1" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg id="up-arrow" class="hide" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+>>>>>>> sub-main
         <path d="M1 8.5L8 1L15 8.5" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
@@ -173,11 +181,16 @@ function displayDescr(techNameId, techId){
 
     if(!techNameId){
         //show description when click on tech name
+<<<<<<< HEAD
         const techName = document.querySelectorAll(".name").forEach(item =>{
             let count=0
+=======
+        const techName = document.querySelectorAll(" .name").forEach(item =>{
+>>>>>>> sub-main
             
             item.addEventListener('click', (e) => {
                 e.preventDefault()
+<<<<<<< HEAD
                 count+=1
                 console.log(count)
                 // console.log(e.target)
@@ -187,21 +200,37 @@ function displayDescr(techNameId, techId){
                 const up = techName.lastElementChild
 
                 // descr = document.getElementById(`descr-${e.target.id}`)
+=======
+>>>>>>> sub-main
                 descr = item.lastElementChild
 
                 if(descr.classList[1] === 'hide'){ 
                     // console.log('yes')
                     descr.classList.remove("hide")
                     // replace down arrow w/ up arow on nav
+<<<<<<< HEAD
                     down.classList.add('hide')
                     up.classList.remove('hide')
+=======
+                    const downArrow = document.getElementById(`down-arrow`)
+                    downArrow.classList.add('hide')
+                    const upArrow = document.getElementById(`up-arrow`)
+                    upArrow.classList.remove('hide')
+>>>>>>> sub-main
 
                 }
                 else{
                     descr.classList.add('hide')
                     // replace up arrow w/ down arow on nav
+<<<<<<< HEAD
                     up.classList.add('hide')
                     down.classList.remove('hide')
+=======
+                    const upArrow = document.getElementById(`up-arrow`)
+                    upArrow.classList.add('hide')
+                    const downArrow = document.getElementById(`down-arrow`)
+                    downArrow.classList.remove('hide')
+>>>>>>> sub-main
                 }
                 
             })
