@@ -2,28 +2,39 @@
     box-sizing: border-box;
 }
 
-body{
-    width: fit-content;
-    height: max-content;
-    font-family: 'Inter';
-    color: #040404;
-    margin: 0 auto;
-    margin-top: 2em;
+html{
+    position: relative;
 }
 
-main{
+body{
+    font-family: 'Inter';
+    color: #040404;
+    margin: 0
+}
+
+.quadrant-container{
     width:max-content;
     display: grid;
-    grid-template-columns: 120px 360px 100px 120px 360px;
-    grid-template-rows: 70px 370px 70px  370px;
-    grid-template-areas:  
-            ". quad1 . . quad2"
-            "phases1 grid1 . phases2 grid2"
-            ". quad3 . . quad4"
-            "phases3 grid3 . phases4 grid4"
+    grid-template-columns: 600px 600px;
+    grid-template-rows: 600px 600px;
+    grid-template-areas:
+            "quad1 quad2"
+            "quad3 quad4"   
     ;
-    grid-gap: 1em 0;
+    gap: 5em 5em;
 }
+
+.body-container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1208px;
+}
+/* 
+.heading-tech-radar{
+    
+    
+} */
 
 a{
     font-weight: 600;
@@ -40,19 +51,12 @@ h1{
 }
 
 .label-grid{
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     font-size: 22px;
     font-weight: 600;
     text-align: center;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-}
-
-
-.label-grid > * {
-    margin-top: 1.5em
-
 }
 
 
@@ -61,59 +65,41 @@ h1{
 
 /* POSITION GRID-AREA ITEMS */
 
-h1.title-one{
+.quadrant-one,
+.quadrant-two,
+.quadrant-three,
+.quadrant-four{
+    display: grid;
+    grid-template-columns: 485px;
+    grid-template-rows: 80px 485px 50px;
+    grid-template-areas: 
+        " heading "
+        " Data "
+    ;
+}
+
+
+.quadrant-one{
     grid-area: quad1;
+
 }
-h1.title-two{
+.quadrant-two{
     grid-area: quad2;
-    align-self: end;
 }
-
-h1.title-three{
-   grid-area: quad3;
-    
+.quadrant-three{
+    grid-area: quad3;
 }
-
-h1.title-four{
+.quadrant-four{
     grid-area: quad4;
 }
 
-.label-grid.a{
-    grid-area: phases1;
-}
+.quadrant-one h1,
+.quadrant-two h1,
+.quadrant-three h1,
+.quadrant-four h1{
+    grid-area: heading;
 
-.label-grid.b{
-    grid-area: phases2;
 }
-
-.label-grid.c{
-    grid-area: phases3;
-}
-
-.label-grid.d{
-    grid-area: phases4  ;
-}
-
-.langAndFrameworks{
-    grid-area: grid1; 
-}
-
-.platforms{
-    grid-area: grid2;
-}
-
-.tools{
-    grid-area: grid3;
-}
-
-.techniques{
-    grid-area: grid4;
-}
-
-/* .grid-container{
-    width: max-content;
-    margin-bottom: 2em;
-} */
 
 
 #langAndFrameworks,
@@ -123,16 +109,18 @@ h1.title-four{
 .quadrant-section{
     display: grid;
     border: 1px solid rgb(221, 221, 221);
-    padding: 24px;
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    color: whitesmoke;
 }
 
 .grid-item,
 .grid-item-inner{
     position: relative;
-    width: 20px;
-    height: 20px;
-    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid-item.row4,
@@ -144,14 +132,123 @@ h1.title-four{
     border-bottom: 1px solid #040404;
 }
 
+.legend{
+    position:absolute;
+    width: 125px;
+    font-size: .7rem;
+    top: 10px;
+    right: 0;
+    border: 1px solid rgb(221, 221, 221);
+    box-shadow: rgb(0 0 0 / 19%) 0px 6px 16px;
+}
+
+.legend-keys{
+    display: flex;
+}
+
+.legend p{
+    font-weight: 600;
+}
+
+.status{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    /* border-radius: 50%; */
+    margin-bottom: .2em;
+}
+
 .data-point{
     text-align: center;
-    width: 100%;
-    height: 100%;
+    width: 15px;
+    height: 15px;
     position: absolute;
     padding: 0px;
-    background-color: black;
-    color: white;
+    font-size: .75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    /* background-color: #d90429; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend-keys .status{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #CC5500;
+}
+
+ .langAndFrameworks div .data-point{
+    background-color: #93C572;
+ }
+
+ .langAndFrameworks div .status{
+    border: 3px solid #93C572
+ }
+
+ .platforms div .data-point{
+    background-color: #FF5733;
+ }
+
+ .platforms div .status{
+    border: 3px solid #FF5733;
+ }
+
+ .tools div .data-point{
+    background-color: #FFC300 ;
+ }
+
+ .tools div .status{
+    border: 3px solid #FFC300;
+ }
+
+ .techniques div .data-point{
+    background-color: #008080;
+ }
+
+ .techniques div .status{
+    border: 3px solid #008080;
+ }
+
+.New,
+.Moved-in,
+.Moved-out,
+.No-change{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.grid-item .New.status,
+.grid-item-inner .New.status{
+    border-radius: 50%;
+}
+
+.grid-item .No-change.status,
+.grid-item-inner .No-change.status{
+    border:none
+}
+
+.grid-item .Moved-in.status,
+.grid-item-inner .Moved-in.status,
+.grid-item .Moved-out.status,
+.grid-item-inner .Moved-out.status{
+    position: absolute;
+    top: 0;
+    /* border-width: 50%; */
+    border-right: none;
+    border-bottom: none;
+    height: 50%;
+    /* width: 50%; */
+    padding: 2px 0 0 2px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    
 }
 
 .data-name{
@@ -177,17 +274,24 @@ h1.title-four{
 /* SINGLE QUADRANT VIEW */
 
 body.quadrant-view{
-    width: 800px;
+    width: 100vw;
     /* N.B how to keep position sticky w/ height 100vh */
     height: 1000px;
     position: relative;
     align-items: start;
     display: grid;
-    grid-template-columns: 315px 100px 410px;
+    justify-content: center;
+    grid-template-columns: 315px 100px 700px;
     grid-template-rows: 100px 465px;
     grid-template-areas: 
             "heading heading heading"
-            "sidebar . quadGrid";
+            "sidebar . quadGrid " ;
+    gap: 50px 0 ;
+}
+
+.quadrant-section{
+    width: 70%;
+    height: 100%
 }
 
 aside{
@@ -202,20 +306,39 @@ header{
 }
 
 section{
+    height: 100%;
     grid-area: quadGrid;
     align-self: start;
     position: sticky;
     top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .quadrant-section{
+    align-self: center;
+} */
+
+.evalPhases{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    z-index: -1;
+    
 }
 
 header#grid{
     display: none; 
 }
 
-/* .quadrant-section {
-    align-items: center;
-    vertical-align: middle;
-} */
+header h1{
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 42px;
+    /* letter-spacing: -1px; */
+}
 
 aside p span{
     font-size: 16px;
@@ -239,21 +362,13 @@ aside p span{
     margin-bottom: 10px;
 }
 
-.Adopt,
-.Trial,
-.Assess,
-.Hold{
-    width: 100%;
-    padding: 8px 8px 8px 16px;
-}
-
-.Adopt h1,
-.Trial h1,
-.Assess h1,
-.Hold h1{
-    padding-left:.5em;
-    border-bottom: 4px solid #040404;
-    margin-bottom: 10px;
+.evalPhases p{
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 54px;
+    text-transform: capitalize;
+    letter-spacing: 15px;
+    color: #E6E6E6;
 }
 
 .hide{
@@ -265,7 +380,6 @@ aside p span{
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 97%;
-    font-weight: 800;
     padding: 1em;
 
 }

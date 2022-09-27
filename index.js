@@ -2,8 +2,8 @@ let languagesAndFrameworks = []
 let platforms = []
 let tools = []
 let techniques = []
-let counter = 0
 let occupiedCells = []
+let counter = 0
 let randomColumn = 0
 let randomRow = 0
 let column = 16
@@ -56,42 +56,115 @@ fetch('https://tech-radar-api.herokuapp.com/tech-radar')
         
     })
 
+let placeHolderNum = 0
+
+function mapData(quadrant, data){
+
+    // console.log(languagesAndFrameworks)
+    // console.log(platforms) 
+    // console.log(tools)
+    // console.log(techniques)
+    // console.log(data)
+
+    const array = data.map( technology => {
+        return technology.quadrant ===  quadrant? 
+        {...technology, placeHolderNum:placeHolderNum += 1}: 
+        technology 
+    }).filter(technology => technology.quadrant === quadrant)
+
+    console.log(array)
+    return array
+}
 
 function sortData(data){
-    let sortIntoQuads = data.filter(technology => {
-        if(technology.quadrant === "languages and frameworks"){
-            languagesAndFrameworks.push(technology)
-        } else if(technology.quadrant === "platforms"){
-            platforms.push(technology)
-        } else if(technology.quadrant === "tools"){
-            tools.push(technology)
-        } else{
-            techniques.push(technology)
-        }
-    })
+    // let counter = 0
+    
+    languagesAndFrameworks = mapData("languages and frameworks", data)
+    platforms = mapData("platforms", data)
+    tools = mapData("tools", data)
+    techniques = mapData("techniques", data)
+
+    // ********** MORE EFFICIENT METHOD TO USE ONCE ID'S ON STRAPPI ARE SORTED**********
+    // platforms = data.map( technology => technology.quadrant === "platforms")
+    // platforms = data.map( technology => technology.quadrant === "platforms")
+    // tools = data.map( technology => technology.quadrant === "tools")
+    // techniques = data.map( technology => technology.quadrant === "techniques")
+
+
+    // let sortIntoQuads = data.filter(technology => {
+    //     if(technology.quadrant === "languages and frameworks"){
+    //         languagesAndFrameworks.push(technology)
+    //     } else if(technology.quadrant === "platforms"){
+    //         platforms.push(technology)
+    //     } else if(technology.quadrant === "tools"){
+    //         tools.push(technology)
+    //     } else{
+    //         techniques.push(technology)
+    //     }
+    // })
+
 } 
 
-function checkDuplicates(randomRow, randomColumn){
-    
-    if(occupiedCells.length === 0){
-        occupiedCells.push([randomRow, randomColumn])
 
-    }else{
-        let el = occupiedCells.find(el => el[0] === randomRow)
+const q1OccupiedCells=[]
+const q2OccupiedCells=[]
+const q3OccupiedCells=[]
+const q4OccupiedCells=[]
 
-        if(el){
-            if(el[1] === randomColumn){   
-                randomColumn = randomColumnCalc()
-                checkDuplicates(randomRow, randomColumn)
-            }else{
-                occupiedCells.push([randomRow, randomColumn])
-            }
-            
-        }else{
-            occupiedCells.push([randomRow, randomColumn])
-        }
+
+
+function checkDuplicates(quadrant){
+
+    let dupRow = []
+
+    if(quadrant === 'languages and frameworks'){
+        dupRow = q1OccupiedCells.filter(el => {
+            if(el[0] === randomRow){return el[1] }
+        })
+        checkColumn()
+        q1OccupiedCells.push([randomRow, randomColumn])
+
+    }else if(quadrant === 'platforms'){
+        dupRow = q2OccupiedCells.filter(el => {
+            if(el[0] === randomRow){return el[1] }
+        })
+        dupRow.length>0?console.log(dupRow):''
+        checkColumn()
+        q2OccupiedCells.push([randomRow, randomColumn])
+
+    }else if(quadrant === 'tools'){
+        dupRow = q3OccupiedCells.filter(el => {
+            if(el[0] === randomRow){return el[1] }
+        })
+        checkColumn()
+        q3OccupiedCells.push([randomRow, randomColumn])
         
-    }
+    }else {
+        dupRow = q4OccupiedCells.filter(el => {
+            if(el[0] === randomRow){return el[1] }
+        })
+        checkColumn()
+        q4OccupiedCells.push([randomRow, randomColumn])
+        
+    }  
+
+    function checkColumn(){
+        // console.log(quadrant)
+        // dupRow.length>0?console.log(dupRow):''
+        if(dupRow.length>0){
+            let dupColumn = dupRow.filter( coOrd => coOrd[1] === randomColumn)
+            if(dupColumn.length>0){ 
+                
+                console.log(randomRow,randomColumn)
+                console.log('recalc randomColumn') 
+                randomColumn = randomColumnCalc()
+                checkColumn()
+            }else{
+                // console.log(dupRow, `[${randomRow}, ${randomColumn}]` )
+            }
+        }
+    }    
+ 
 }
 
 function randomColumnCalc(){
@@ -105,18 +178,19 @@ function randomColumnCalc(){
     return randomColumn
 }
 
-count = 0
-function displayDataPoints(categoryName, techId, techName){
-   
+
+function displayDataPoints(categoryName, techId, techName, techStatus, quadrant){
+
     let row = ''
     if(!isSingleQuadView){
         row = document.getElementById(categoryName).getElementsByClassName(`row${randomRow}`)
     }else{
         row = document.getElementById('grid').getElementsByClassName(`row${randomRow}`)
     }
-    checkDuplicates(randomRow, column)
+    
+    checkDuplicates(quadrant)
     row[randomColumn].innerHTML += 
-    `<span  class='data-point' id='data-point-${techId}'>${techId}</span>
+    `<div  class='${techStatus} status ' id='data-point-${techId}'><span class='data-point'>${techId}</span></div>
     <span id='${techName}' class='data-name'>${techName}</span>`
 
     displayDescr(techName, techId)
@@ -124,25 +198,30 @@ function displayDataPoints(categoryName, techId, techName){
     
 }
 
+
+// see if can refactor into sortintophases?
 function sortIntoQuadrants(tech){
+
+            // ************** switched tech.id tech.placeHolderNum
+            
             randomColumn = randomColumnCalc()
 
             if(tech.quadrant === 'languages and frameworks'){
 
-                displayDataPoints('langAndFrameworks', tech.id, tech.technology)
+                displayDataPoints('langAndFrameworks', tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
                 
 
             }else if(tech.quadrant === 'platforms'){
 
-                displayDataPoints(tech.quadrant, tech.id, tech.technology)
+                displayDataPoints(tech.quadrant, tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
         
             }else if(tech.quadrant === 'tools'){
 
-                displayDataPoints(tech.quadrant, tech.id, tech.technology)
+                displayDataPoints(tech.quadrant, tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
 
             }else{
 
-                displayDataPoints(tech.quadrant, tech.id, tech.technology)
+                displayDataPoints(tech.quadrant, tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
 
             }
             
@@ -230,6 +309,7 @@ function sortIntoPhases(quadrantData){
     const sortIntoPhase = quadrantData.filter(tech => {
         if(tech.evaluationPhase === 'Adopt'){
 
+            // if it is landing page w/ all quadrants, sort into quadrants first
             if(!isSingleQuadView){
                 randomRow = Math.floor(Math.random() * 4) + 1
                 sortIntoQuadrants(tech)
@@ -237,10 +317,9 @@ function sortIntoPhases(quadrantData){
                 randomRow = Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
                 //if in single quadrant view, create section to display tech blip info
-                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
-                displayDataPoints("", tech.id, tech.technology)
+                displayTechInfo(tech.placeHolderNum, tech.technology, tech.description, tech.evaluationPhase)
+                displayDataPoints("", tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
             }
-            
 
         } else if (tech.evaluationPhase === 'Trial'){                 
             
@@ -250,8 +329,8 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 5 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
-                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
-                displayDataPoints("", tech.id, tech.technology)
+                displayTechInfo(tech.placeHolderNum, tech.technology, tech.description, tech.evaluationPhase)
+                displayDataPoints("", tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
             }
 
         } else if (tech.evaluationPhase === 'Assess'){
@@ -262,8 +341,8 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 10 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
-                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
-                displayDataPoints("", tech.id, tech.technology)
+                displayTechInfo(tech.placeHolderNum, tech.technology, tech.description, tech.evaluationPhase)
+                displayDataPoints("", tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
             }
 
         } else if(tech.evaluationPhase === 'Hold'){
@@ -274,9 +353,10 @@ function sortIntoPhases(quadrantData){
             }else{
                 randomRow = 15 + Math.floor(Math.random() * 5) + 1
                 randomColumn = randomColumnCalc()
-                displayTechInfo(tech.id, tech.technology, tech.description, tech.evaluationPhase)
-                displayDataPoints("", tech.id, tech.technology)
+                displayTechInfo(tech.placeHolderNum, tech.technology, tech.description, tech.evaluationPhase)
+                displayDataPoints("", tech.placeHolderNum, tech.technology, tech.statusOfTechnology, tech.quadrant)
             }
+            
             
         }
         
@@ -296,8 +376,8 @@ function mountGrids(quadrantName, cellsArrayHtml){
     }else{
         const quadrant = document.getElementById(`${quadrantName}`)
         quadrant.innerHTML = cellsArrayHtml
-        quadrant.style.gridTemplateRows =  `repeat(${row}, 1fr)`
-        quadrant.style.gridTemplateColumns =  `repeat(${column},1fr)`
+        quadrant.style.gridTemplateRows =  `repeat(${row}, 30px)`
+        quadrant.style.gridTemplateColumns =  `repeat(${column},30px)`
     }
 }
 
@@ -328,6 +408,7 @@ function createGrids(quadName){
             cellsArray[i].fill(`<div class="grid-item${innerGrid} row${count+=1} hold"></div>`)
         }
     }
+
     let cells1dArray = []
     
     
