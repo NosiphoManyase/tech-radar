@@ -12,16 +12,35 @@ body{
     margin: 0
 }
 
-.quadrant-container{
+.quadrants-container{
+    margin: 3em 0;
     width:max-content;
     display: grid;
     grid-template-columns: 600px 600px;
-    grid-template-rows: 600px 600px;
+    grid-template-rows: 700px 700px;
     grid-template-areas:
             "quad1 quad2"
             "quad3 quad4"   
     ;
     gap: 5em 5em;
+}
+
+.languages{
+    grid-area: quad1;
+
+}
+.platforms{
+    grid-area: quad2;
+}
+.tools{
+    grid-area: quad3;
+}
+.techniques{
+    grid-area: quad4;
+}
+
+.grid-item{
+    color: black
 }
 
 .body-container{
@@ -30,11 +49,6 @@ body{
     width: 100%;
     max-width: 1208px;
 }
-/* 
-.heading-tech-radar{
-    
-    
-} */
 
 a{
     font-weight: 600;
@@ -50,67 +64,14 @@ h1{
     margin: 0;
 }
 
-.label-grid{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-}
-
-
-
-
-
-/* POSITION GRID-AREA ITEMS */
-
-.quadrant-one,
-.quadrant-two,
-.quadrant-three,
-.quadrant-four{
+.grid{
     display: grid;
-    grid-template-columns: 485px;
-    grid-template-rows: 80px 485px 50px;
-    grid-template-areas: 
-        " heading "
-        " Data "
-    ;
-}
-
-
-.quadrant-one{
-    grid-area: quad1;
-
-}
-.quadrant-two{
-    grid-area: quad2;
-}
-.quadrant-three{
-    grid-area: quad3;
-}
-.quadrant-four{
-    grid-area: quad4;
-}
-
-.quadrant-one h1,
-.quadrant-two h1,
-.quadrant-three h1,
-.quadrant-four h1{
-    grid-area: heading;
-
-}
-
-
-#langAndFrameworks,
-#platforms,
-#tools,
-#techniques,
-.quadrant-section{
-    display: grid;
+    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: repeat(16, 1fr);
     border: 1px solid rgb(221, 221, 221);
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
     color: whitesmoke;
+    height: 90%
 }
 
 .grid-item,
@@ -329,16 +290,7 @@ section{
     
 }
 
-header#grid{
-    display: none; 
-}
 
-header h1{
-    font-weight: 700;
-    font-size: 44px;
-    line-height: 42px;
-    /* letter-spacing: -1px; */
-}
 
 aside p span{
     font-size: 16px;
