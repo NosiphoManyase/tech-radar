@@ -6,7 +6,6 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
   .then((data) => {
     languagesData = data.filter( dataPoint => dataPoint.quadrant === "languages and frameworks")
-    console.log(languagesData)
     assemble(languagesData, "Languages And Frameworks")
     
 });
@@ -15,7 +14,7 @@ function assemble(data, quadrantName){
     const main = `
     <main class="wrap-quadrant">
         <header><h1>${quadrantName}</h1></header> 
-        <aside>${displayDataDescriptions(data)}</aside>
+        <aside>${displayData(data)}</aside>
         <div class="link-pages-container">${renderSection( "#93C572", data )} </div>
     </main>`
 
@@ -23,7 +22,7 @@ function assemble(data, quadrantName){
     renderpage.innerHTML = main
 }
 
-function displayDataDescriptions(data){
+function displayData(data){
 
     const dataInfoList = data.map( dataEl => {
         return `
