@@ -28,18 +28,26 @@ function assembly(data) {
         <main>
             <h1>Bash Tech-Radar</h1>
             <div class="quadrants-container">
+            
+                    <div class="quadrant-container  languages" > 
+                        <h1 class="label"><a href="lang-and-F.html"id="LanguagesAndFrameworks">Languages And Frameworks</a></h1>
+                        ${renderSection( "#93C572", languages)}
+                     </div>
+
+                    <div class="quadrant-container  platforms" > 
+                        <h1 class="label"><a href="platforms.html"id="Platforms">Platforms</a></h1>
+                            ${renderSection( "#FF5733", platforms)}
+                    </div>
                 
-                    <h1 class="label"><a href="lang-and-F.html"id="LanguagesAndFrameworks">Languages And Frameworks</a></h1>
-                     ${renderSection( "#93C572", languages, 'languages')}
-                
-                    <h1 class="label"><a href="platforms.html"id="Platforms">Platforms</a></h1>
-                        ${renderSection( "#FF5733", platforms, 'platforms')}
-                
-                    <h1 class="label"><a href= "tools.html" id="Tools">Tools</a></h1>
-                        ${renderSection( "#FFC300", tools , 'tools')}
-                
-                    <h1 class="label"><a href="techniques.html" id="Techniques">Techniques</a></h1>
-                        ${renderSection("#008080", techniques, 'techniques')}
+                    <div class="quadrant-container tools" > 
+                        <h1 class="label"><a href= "tools.html" id="Tools">Tools</a></h1>
+                            ${renderSection( "#FFC300", tools)}
+                    </div>
+
+                    <div class="quadrant-container techniques" > 
+                        <h1 class="label"><a href="techniques.html" id="Techniques">Techniques</a></h1>
+                            ${renderSection("#008080", techniques)}
+                    </div>
             </div>
         </main>
     </div>`;
