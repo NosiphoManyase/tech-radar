@@ -7,7 +7,7 @@ const ASSESS = "Assess"
 const HOLD = "Hold"
 
 
-export function renderSection(color, data){
+export function renderSection( color, data, className){
     //do some formatting
 
     return `

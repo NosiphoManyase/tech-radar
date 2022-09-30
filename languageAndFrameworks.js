@@ -12,7 +12,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
 });
 
 function assemble(data){
-    const main = `<div> ${renderSection( "#93C572", languagesData)}</div>`
+    const main = `<div> ${renderSection( "#93C572", languagesData, "languages")}</div>`
 
     const renderpage = document.getElementById("langAndFrameworksQuad")
     renderpage.innerHTML += main
