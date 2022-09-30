@@ -30,19 +30,19 @@ function assembly(data) {
             <div class="quadrants-container">
                 <div>
                     <h1 class="label"><a href="lang-and-F.html"id="LanguagesAndFrameworks">Languages And Frameworks</a></h1>
-                        ${renderSection( "#93C572", languages, "languages")}
+                        ${renderSection( "#93C572", languages)}
                 </div>
                 <div>
                     <h1 class="label"><a href="platforms.html"id="Platforms">Platforms</a></h1>
-                        ${renderSection( "#FF5733", platforms , "platforms")}
+                        ${renderSection( "#FF5733", platforms)}
                 </div>
                 <div>
                     <h1 class="label"><a href= "tools.html" id="Tools">Tools</a></h1>
-                        ${renderSection( "#FFC300", tools, "tools")}
+                        ${renderSection( "#FFC300", tools)}
                 </div>
                 <div>
                     <h1 class="label"><a href="techniques.html" id="Techniques">Techniques</a></h1>
-                        ${renderSection("#008080", techniques, "techniques")}
+                        ${renderSection("#008080", techniques)}
                 </div>
             </div>
         </main>
