@@ -57,7 +57,44 @@ h1{
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
     color: whitesmoke;
     height: 90%;
-    width: 100%
+    width: 100%;
+    position: relative;
+}
+
+.tag{
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    border-radius: 0.5em;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.tag.adopt{
+    background-color: #ebfffc;
+    color: #00947e;
+}
+
+.tag.assess{
+    background-color: #eff1fa;
+    color: #3850b7;
+    top: 155px;
+}
+
+.tag.trial{
+    background-color: #effaf5;
+    color: #257953;
+    top: 315px;
+
+}
+
+.tag.hold{
+    background-color: #eff5fb;
+    color: #296fa8;
+    top: 470px;
 }
 
 .grid-item{

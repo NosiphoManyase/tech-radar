@@ -44,7 +44,20 @@ export function renderQuadrant( color, data) {
     .join("");
 
     //TODO : format h1
-  const quadrantHtml = `<div class='grid'>${grid}</div>`;
+  const quadrantHtml = `
+  <div class='grid'>
+    <div class="tag adopt">Adopt</div>
+    <div class="tag trial">Trial</div>
+    <div class="tag assess">Assess</div>
+    <div class="tag hold">Hold</div>
+    
+  
+    ${grid}
+  </div>`;
+
+  // <div class="tag"><span class="trial">Trial</span></div>
+  //   <div class="tag"><span class="assess">Assess</span></div>
+  //   <div class="tag"> <span class="hold">Hold</span></div>
 
   return quadrantHtml;
 }
@@ -128,12 +141,3 @@ export function getOpenCell(state,  techPointData) {
   }
 
 }
-
-// export {renderSection, 
-//         renderQuadrant, 
-//         initializeNullValues, 
-//         reservedSlots, 
-//         plotPoints, 
-//         generateCoOrdinate,
-//         getOpenCell
-//       }
