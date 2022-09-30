@@ -129,12 +129,11 @@ function sortIntoPhases(state, quadrantData) {
   // console.log(quadrantData)
  
   for (let i = 0; i < quadrantData.length; i++) {
-    const [row, col] = getOpenCell(state, quadrantData[i]);
-    if (state[row][col] != null) {
-        getOpenCell(state, quadrantData[i]);
-      } else {
-        state[row][col] = quadrantData[i];
-      }
+    const coOrdinates = getOpenCell(state, quadrantData[i]);
+    
+    const [row, col] = coOrdinates
+    state[row][col] = quadrantData[i];
+     
   }
 
   return state;
@@ -158,16 +157,19 @@ let randomRow = 0;
   randomRow = offset + Math.floor(Math.random() * 4);
 
   randomColumn = Math.floor(Math.random() * 16);
-  // console.log(techName, '[', randomRow, ',' , randomColumn,']')
 
   return [randomRow, randomColumn];
 }
 
 function getOpenCell(state,  techPointData) {
-    // console.log(techPointData)
   let [row, col] = generateCoOrdinate(techPointData.evaluationPhase);
 
-  return [row, col];
+  if (state[row][col] != null) {
+    return getOpenCell(state, techPointData);
+  }else{
+    return [row, col];
+  }
+
 }
 
 function pageLink(quadrantName) {
