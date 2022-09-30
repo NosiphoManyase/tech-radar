@@ -1,5 +1,6 @@
 let randomColumn = 0;
 let randomRow = 0;
+const EMPTY = "EMPTY"
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
@@ -10,7 +11,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   });
 
 function assembly(data) {
-    //line 21 should already take in filtered
+
     const languages = data.filter(
         (data) => data.quadrant === "languages and frameworks"
       ) 
@@ -40,7 +41,7 @@ function assembly(data) {
 }
 
 function renderSection(title, color, data, className ){
-
+    //do some formatting
 
     return `
     <div class="quadrant-container ${className}" >
@@ -55,6 +56,7 @@ function renderSection(title, color, data, className ){
 
 }
 
+//change method to render grid
 function renderQuadrant(quadrantName, color, data) {
   let state = [];
 
@@ -68,7 +70,7 @@ function renderQuadrant(quadrantName, color, data) {
         .map((innerItem, i) => {
           return innerItem === null
             ? "<div class='grid-item'></div>"
-            : innerItem === "EMPTY"
+            : innerItem === EMPTY
             ? "<div class='grid-item reserved'></div>"
             : `<div class='grid-item'>${innerItem.id}</div>`;
         })
@@ -85,6 +87,8 @@ function renderQuadrant(quadrantName, color, data) {
   return quadrantHtml;
 }
 
+// each method needs a docstring
+
 function initializeNullValues(state) {
   for (let i = 0; i < 16; i++) {
     state[i] = new Array(16).fill(null);
@@ -94,30 +98,28 @@ function initializeNullValues(state) {
 }
 
 function reservedSlots(state) {
-  let slots = state.map((row, index) => {
-    if (index === 0) {
-      return row.map((column, i) => {
-        return i <= 3 ? "EMPTY" : column;
-      });
-    } else if (index === 4) {
-      return row.map((column, i) => {
-        return i <= 3 ? "EMPTY" : column;
-      });
-    } else if (index === 8) {
-      return row.map((column, i) => {
-        return i <= 3 ? "EMPTY" : column;
-      });
-    } else if (index === 12) {
-      return row.map((column, i) => {
-        return i <= 3 ? "EMPTY" : column;
-      });
-    } else {
-      return row;
-    }
-  });
-  //   console.log('reserved state')
-  //   console.log(slots)
-  return slots;
+
+    state[0][0] = EMPTY
+    state[0][1] = EMPTY
+    state[0][2] = EMPTY
+    state[0][3] = EMPTY
+
+    state[4][0] = EMPTY
+    state[4][1] = EMPTY
+    state[4][2] = EMPTY
+    state[4][3] = EMPTY
+
+    state[8][0] = EMPTY
+    state[8][1] = EMPTY
+    state[8][2] = EMPTY
+    state[8][3] = EMPTY
+
+    state[12][0] = EMPTY
+    state[12][1] = EMPTY
+    state[12][2] = EMPTY
+    state[12][3] = EMPTY
+
+    return state
 }
 
 function sortIntoPhases(state, quadrantData) {
