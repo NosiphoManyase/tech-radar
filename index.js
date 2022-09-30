@@ -65,23 +65,25 @@ function renderQuadrant(quadrantName, color, data) {
 
   state = initializeNullValues(state);
   state = reservedSlots(state);
-  state = sortIntoPhases(state, data);
+  state = plotPoints(state, data);
 
   const grid = state
     .map((item) => {
       return item
-        .map((innerItem, i) => {
-          return innerItem === null
-            ? "<div class='grid-item'></div>"
-            : innerItem === EMPTY
-            ? "<div class='grid-item reserved'></div>"
-            : `<div class='grid-item'>${innerItem.id}</div>`;
+        .map((innerItem) => {
+            switch (innerItem) {
+                case null:
+                    return "<div class='grid-item'></div>"
+                case EMPTY:
+                    return "<div class='grid-item reserved'></div>"
+                default:
+                    return `<div class='grid-item'>${innerItem.id}</div>`
+            }
         })
-        .join("\n");
+        .join("");
     })
-    .join("\n");
+    .join("");
 
-  // console.log(quadrantName)
   const quadrantHtml = `<h1 class="label"><a href="${pageLink(
     quadrantName.replace(/\s/g, "")
   )}" id="${quadrantName.replace(/\s/g, "")}">${quadrantName}</a></h1>
@@ -125,13 +127,11 @@ function reservedSlots(state) {
     return state
 }
 
-function sortIntoPhases(state, quadrantData) {
+function plotPoints(state, quadrantData) {
   // console.log(quadrantData)
  
   for (let i = 0; i < quadrantData.length; i++) {
-    const coOrdinates = getOpenCell(state, quadrantData[i]);
-    
-    const [row, col] = coOrdinates
+    const [row,col] = getOpenCell(state, quadrantData[i]);
     state[row][col] = quadrantData[i];
      
   }
@@ -165,7 +165,7 @@ function getOpenCell(state,  techPointData) {
   let [row, col] = generateCoOrdinate(techPointData.evaluationPhase);
 
   if (state[row][col] != null) {
-    return getOpenCell(state, techPointData);
+    return getOpenCell(state, techPointData);x
   }else{
     return [row, col];
   }
