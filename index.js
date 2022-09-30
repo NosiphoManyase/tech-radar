@@ -1,6 +1,9 @@
-let randomColumn = 0;
-let randomRow = 0;
+
 const EMPTY = "EMPTY"
+const ADOPT = "Adopt"
+const TRIAL = "Trial"
+const ASSESS = "Assess"
+const HOLD = "Hold"
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
@@ -56,10 +59,9 @@ function renderSection(title, color, data, className ){
 
 }
 
-//change method to render grid
+//TODO :change method to render grid
 function renderQuadrant(quadrantName, color, data) {
   let state = [];
-  console.log(data)
 
   state = initializeNullValues(state);
   state = reservedSlots(state);
@@ -88,7 +90,7 @@ function renderQuadrant(quadrantName, color, data) {
   return quadrantHtml;
 }
 
-// each method needs a docstring
+//TODO : each method needs a docstring
 
 function initializeNullValues(state) {
   for (let i = 0; i < 16; i++) {
@@ -127,26 +129,33 @@ function sortIntoPhases(state, quadrantData) {
   // console.log(quadrantData)
  
   for (let i = 0; i < quadrantData.length; i++) {
-    getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
+    const [row, col] = getOpenCell(state, quadrantData[i]);
+    if (state[row][col] != null) {
+        getOpenCell(state, quadrantData[i]);
+      } else {
+        state[row][col] = quadrantData[i];
+      }
   }
 
   return state;
 }
 
-function randomRowAndColumn(evalPhase) {
-  let range = 0;
+function generateCoOrdinate(evalPhase) {
+let randomColumn = 0;
+let randomRow = 0;
+  let offset = 0;
 
-  if (evalPhase === "Adopt") {
-    range = 0;
-  } else if (evalPhase === "Trial") {
-    range = 4;
-  } else if (evalPhase === "Assess") {
-    range = 8;
-  } else if (evalPhase === "Hold") {
-    range = 12;
+  if (evalPhase === ADOPT) {
+    offset = 0;
+  } else if (evalPhase === TRIAL) {
+    offset = 4;
+  } else if (evalPhase === ASSESS ) {
+    offset = 8;
+  } else if (evalPhase === HOLD ) {
+    offset = 12;
   }
 
-  randomRow = range + Math.floor(Math.random() * 4);
+  randomRow = offset + Math.floor(Math.random() * 4);
 
   randomColumn = Math.floor(Math.random() * 16);
   // console.log(techName, '[', randomRow, ',' , randomColumn,']')
@@ -154,16 +163,11 @@ function randomRowAndColumn(evalPhase) {
   return [randomRow, randomColumn];
 }
 
-function getOpenCell(state, evaluationPhase, techPointData) {
-  let occupyCell = randomRowAndColumn(evaluationPhase, techPointData);
+function getOpenCell(state,  techPointData) {
+    // console.log(techPointData)
+  let [row, col] = generateCoOrdinate(techPointData.evaluationPhase);
 
-  if (state[occupyCell[0]][occupyCell[1]] != null) {
-    getOpenCell(state, evaluationPhase, techPointData);
-  } else {
-    state[occupyCell[0]][occupyCell[1]] = techPointData;
-  }
-
-  return state;
+  return [row, col];
 }
 
 function pageLink(quadrantName) {
