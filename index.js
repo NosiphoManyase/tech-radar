@@ -48,7 +48,7 @@ function assembly(data) {
 }
 
 function containQuadrant(color, data, link, quadrantName){
-    console.log(link)
+    
     return  `
     <div class="quadrant-container  " > 
         <h1 class="label"><a href="${link}" id="${quadrantName}">${quadrantName}</a></h1>
