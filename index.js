@@ -30,10 +30,10 @@ function assembly(data) {
         <main>
             <h1>Bash Tech-Radar</h1>
             <div class="quadrants-container">
-                ${renderSection("Languages And Frameworks", "#93C572", languages, "languages" )}
-                ${renderSection('Platforms', "#FF5733", platforms , "platforms")}
-                ${renderSection("Tools", "#FFC300", tools, "tools" )}
-                ${renderSection("Techniques", "#008080", techniques, "techniques" )}
+                ${renderSection("Languages And Frameworks", "#93C572", languages, "languages", "lang-and-F.html" )}
+                ${renderSection('Platforms', "#FF5733", platforms , "platforms", "platforms.html")}
+                ${renderSection("Tools", "#FFC300", tools, "tools",  "tools.html" )}
+                ${renderSection("Techniques", "#008080", techniques, "techniques",  "techniques.html" )}
             </div>
         </main>
     </div>`;
@@ -43,7 +43,7 @@ function assembly(data) {
   
 }
 
-function renderSection(title, color, data, className ){
+function renderSection(title, color, data, className, page ){
     //do some formatting
 
     return `
@@ -52,7 +52,8 @@ function renderSection(title, color, data, className ){
             ${renderQuadrant(
               title,
               color,
-              data
+              data,
+              page
             )}
         </div>
     `
@@ -60,7 +61,7 @@ function renderSection(title, color, data, className ){
 }
 
 //TODO :change method to render grid
-function renderQuadrant(quadrantName, color, data) {
+function renderQuadrant(quadrantName, color, data, page) {
   let state = [];
 
   state = initializeNullValues(state);
@@ -84,9 +85,7 @@ function renderQuadrant(quadrantName, color, data) {
     })
     .join("");
 
-  const quadrantHtml = `<h1 class="label"><a href="${pageLink(
-    quadrantName.replace(/\s/g, "")
-  )}" id="${quadrantName.replace(/\s/g, "")}">${quadrantName}</a></h1>
+  const quadrantHtml = `<h1 class="label"><a href="${page}" id="${page}">${quadrantName}</a></h1>
     <div class='grid'>${grid}</div>`;
 
   return quadrantHtml;
@@ -170,18 +169,6 @@ function getOpenCell(state,  techPointData) {
     return [row, col];
   }
 
-}
-
-function pageLink(quadrantName) {
-  if (quadrantName === "LanguagesAndFrameworks") {
-    return "lang-and-F.html";
-  } else if (quadrantName === "Platforms") {
-    return "platforms.html";
-  } else if (quadrantName === "Tools") {
-    return "tools.html";
-  } else {
-    return "techniques.html";
-  }
 }
 
 function toggleSinglePage(data) {
