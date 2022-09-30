@@ -38,11 +38,11 @@ function assembly(data) {
                 </div>
                 <div>
                     <h1 class="label"><a href= "tools.html" id="Tools">Tools</a></h1>
-                        ${renderSection( "#FFC300", tools), 'tools'}
+                        ${renderSection( "#FFC300", tools , 'tools')}
                 </div>
                 <div>
                     <h1 class="label"><a href="techniques.html" id="Techniques">Techniques</a></h1>
-                        ${renderSection("#008080", techniques), 'techniques'}
+                        ${renderSection("#008080", techniques, 'techniques')}
                 </div>
             </div>
         </main>
