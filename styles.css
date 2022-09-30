@@ -40,7 +40,8 @@ body{
 }
 
 .grid-item{
-    color: black
+    color: black;
+    outline: black solid 1px;
 }
 
 .body-container{

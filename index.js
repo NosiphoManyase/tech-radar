@@ -4,55 +4,55 @@ let randomRow = 0;
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
   .then((data) => {
+    //before assemby, transform data before you send to assembly
     assembly(data);
     toggleSinglePage(data);
   });
 
 function assembly(data) {
+    //line 21 should already take in filtered
+    const languages = data.filter(
+        (data) => data.quadrant === "languages and frameworks"
+      ) 
+      
+    const platforms = data.filter((data) => data.quadrant === "platforms")
+
+    const tools = data.filter((data) => data.quadrant === "tools")
+
+    const techniques = data.filter((data) => data.quadrant === "techniques")
+
   const main = `
     <div class="body-container">
-    <main>
-        
-        <h1>Bash Tech-Radar</h1>
-        <div class="quadrants-container">
-        <div class="quadrant-container languages" >
-            ${renderQuadrant(
-              "Languages And Frameworks",
-              "#93C572",
-              data.filter(
-                (data) => data.quadrant === "languages and frameworks"
-              )
-            )}
-        </div>
-        <div class="quadrant-container platforms">
-            ${renderQuadrant(
-              "Platforms",
-              "#FF5733",
-              data.filter((data) => data.quadrant === "platforms")
-            )}
-        </div>
-        <div class="quadrant-container tools">
-            ${renderQuadrant(
-              "Tools",
-              "#FFC300",
-              data.filter((data) => data.quadrant === "tools")
-            )}
-        </div>
-        <div class="quadrant-container techniques">
-            ${renderQuadrant(
-              "Techniques",
-              "#008080",
-              data.filter((data) => data.quadrant === "techniques")
-            )}
-        </div>
-        </div>
-        
-    </main>
+        <main>
+            <h1>Bash Tech-Radar</h1>
+            <div class="quadrants-container">
+                ${renderSection("Languages And Frameworks", "#93C572", languages, "languages" )}
+                ${renderSection('Platforms', "#FF5733", platforms , "platforms")}
+                ${renderSection("Tools", "#FFC300", tools, "tools" )}
+                ${renderSection("Techniques", "#008080", techniques, "techniques" )}
+            </div>
+        </main>
     </div>`;
 
   document.body.innerHTML = main;
 
   
+}
+
+function renderSection(title, color, data, className ){
+
+
+    return `
+    <div class="quadrant-container ${className}" >
+        
+            ${renderQuadrant(
+              title,
+              color,
+              data
+            )}
+        </div>
+    `
+
 }
 
 function renderQuadrant(quadrantName, color, data) {
