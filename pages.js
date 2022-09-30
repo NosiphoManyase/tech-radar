@@ -7,14 +7,13 @@ const ASSESS = "Assess"
 const HOLD = "Hold"
 
 
-export function renderSection(title, color, data, className){
+export function renderSection(color, data){
     //do some formatting
 
     return `
     <div class="quadrant-container ${className}" >
         
             ${renderQuadrant(
-              title,
               color,
               data
             )}
