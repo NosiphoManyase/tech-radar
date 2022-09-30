@@ -9,6 +9,8 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
     
   });
 
+ 
+
 function assembly(data) {
 
     const languages = data.filter(
@@ -26,10 +28,22 @@ function assembly(data) {
         <main>
             <h1>Bash Tech-Radar</h1>
             <div class="quadrants-container">
-                ${renderSection("Languages And Frameworks", "#93C572", languages, "languages", "lang-and-F.html" )}
-                ${renderSection('Platforms', "#FF5733", platforms , "platforms", "platforms.html")}
-                ${renderSection("Tools", "#FFC300", tools, "tools",  "tools.html" )}
-                ${renderSection("Techniques", "#008080", techniques, "techniques",  "techniques.html" )}
+                <div>
+                    <h1 class="label"><a href="lang-and-F.html"id="LanguagesAndFrameworks">Languages And Frameworks</a></h1>
+                        ${renderSection( "#93C572", languages, "languages")}
+                </div>
+                <div>
+                    <h1 class="label"><a href="platforms.html"id="Platforms">Platforms</a></h1>
+                        ${renderSection( "#FF5733", platforms , "platforms")}
+                </div>
+                <div>
+                    <h1 class="label"><a href= "tools.html" id="Tools">Tools</a></h1>
+                        ${renderSection( "#FFC300", tools, "tools")}
+                </div>
+                <div>
+                    <h1 class="label"><a href="techniques.html" id="Techniques">Techniques</a></h1>
+                        ${renderSection("#008080", techniques, "techniques")}
+                </div>
             </div>
         </main>
     </div>`;

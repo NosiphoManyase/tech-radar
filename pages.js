@@ -7,7 +7,7 @@ const ASSESS = "Assess"
 const HOLD = "Hold"
 
 
-export function renderSection(title, color, data, className, page ){
+export function renderSection(title, color, data, className){
     //do some formatting
 
     return `
@@ -16,8 +16,7 @@ export function renderSection(title, color, data, className, page ){
             ${renderQuadrant(
               title,
               color,
-              data,
-              page
+              data
             )}
         </div>
     `
@@ -25,7 +24,7 @@ export function renderSection(title, color, data, className, page ){
 }
 
 //TODO :change method to render grid
-export function renderQuadrant(quadrantName, color, data, page) {
+export function renderQuadrant( color, data) {
   let state = [];
 
   state = initializeNullValues(state);
@@ -50,8 +49,7 @@ export function renderQuadrant(quadrantName, color, data, page) {
     .join("");
 
     //TODO : format h1
-  const quadrantHtml = `<h1 class="label"><a href="${page}" id="${quadrantName.replace(/\s/g, "")}">${quadrantName}</a></h1>
-    <div class='grid'>${grid}</div>`;
+  const quadrantHtml = `<div class='grid'>${grid}</div>`;
 
   return quadrantHtml;
 }
