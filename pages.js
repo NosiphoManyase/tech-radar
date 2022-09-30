@@ -11,9 +11,9 @@ export function renderSection( color, data, className){
     //do some formatting
 
     return `
-    <div class="quadrant-container ${className}" >
-        
+    <div class="quadrant-container ${className}" >   
             ${renderQuadrant(
+
               color,
               data
             )}
