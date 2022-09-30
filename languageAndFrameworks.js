@@ -1,3 +1,5 @@
+import {renderSection  } from './pages.js'
+
 let languagesData = []
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -10,7 +12,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
 });
 
 function assemble(data){
-    const main = `<div> <p> Languages and Frameworks rendered</p></div>`
+    const main = `<div> ${renderSection("Languages And Frameworks", "#93C572", languagesData, "languages", "lang-and-F.html")}</div>`
 
     const renderpage = document.getElementById("langAndFrameworksQuad")
     renderpage.innerHTML += main
