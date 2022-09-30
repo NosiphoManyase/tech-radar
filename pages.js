@@ -11,7 +11,6 @@ export function renderSection( color, data){
     //do some formatting
 
     return   renderQuadrant(
-
               color,
               data
             )

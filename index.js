@@ -30,12 +30,8 @@ function assembly(data) {
             <div class="quadrants-container">
 
                     ${containQuadrant("#93C572", languages, "lang-and-F.html", "Languages And Frameworks")}
-            
-                
                     ${containQuadrant( "#FF5733", platforms, "platforms.html", "Platforms" )}
-
                     ${containQuadrant( "#FFC300", tools, "tools.html", "Tools" )}
-                    
                     ${containQuadrant("#008080", techniques, "techniques.html", "Techniques" )}
     
             </div>
@@ -58,53 +54,3 @@ function containQuadrant(color, data, link, quadrantName){
 }
 
 
-// function toggleSinglePage(data) {
-//   renderSinglePage(
-//     "LanguagesAndFrameworks",
-//     "#93C572",
-//     data.filter((data) => data.quadrant === "languages and frameworks")
-//   );
-//   renderSinglePage(
-//     "Platforms",
-//     "#FF5733",
-//     data.filter((data) => data.quadrant === "platforms")
-//   );
-//   renderSinglePage(
-//     "Tools",
-//     "#FFC300",
-//     data.filter((data) => data.quadrant === "tools")
-//   );
-//   renderSinglePage(
-//     "Techniques",
-//     "#008080",
-//     data.filter((data) => data.quadrant === "techniques")
-//   );
-// }
-
-// function renderSinglePage(quadrantName, color, data) {
-//     // console.log(quadrantName)
-//   const clickedQuadrant = document.getElementById(quadrantName);
-
-//   clickedQuadrant.addEventListener("click", () => {
-    
-//     const quadrantHtml = `<main>
-//             ${renderQuadrant(quadrantName, color, data)}
-//         </main>`;
-    
-//     const singlePage = document.getElementById(getCurrentQuadrant(quadrantName))
-    
-//     singlePage.innerHTML += quadrantHtml
-//   });
-// }
-
-// function getCurrentQuadrant(quadrantName){
-//     if(quadrantName === "LanguagesAndFrameworks"){
-//         return "langAndFrameworksQuad"
-//     }else if(quadrantName === "Platforms"){
-//         return "platformsQuad"
-//     }else if(quadrantName === "Tools"){
-//         return "toolsQuad"
-//     }else{
-//         return "techniquesQuad"
-//     }
-// }
