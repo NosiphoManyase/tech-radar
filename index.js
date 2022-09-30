@@ -59,6 +59,7 @@ function renderSection(title, color, data, className ){
 //change method to render grid
 function renderQuadrant(quadrantName, color, data) {
   let state = [];
+  console.log(data)
 
   state = initializeNullValues(state);
   state = reservedSlots(state);
@@ -124,17 +125,9 @@ function reservedSlots(state) {
 
 function sortIntoPhases(state, quadrantData) {
   // console.log(quadrantData)
-  let count = 0;
+ 
   for (let i = 0; i < quadrantData.length; i++) {
-    if (quadrantData[i].evaluationPhase === "Adopt") {
-      getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
-    } else if (quadrantData[i].evaluationPhase === "Trial") {
-      getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
-    } else if (quadrantData[i].evaluationPhase === "Assess") {
-      getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
-    } else if (quadrantData[i].evaluationPhase === "Hold") {
-      getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
-    }
+    getOpenCell(state, quadrantData[i].evaluationPhase, quadrantData[i]);
   }
 
   return state;
