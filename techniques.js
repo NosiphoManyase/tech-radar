@@ -13,7 +13,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
 function assemble(data){
     const main = `
     <main class="wrap-quadrant"> 
-        <div class="link-pages-container">${renderSection( "#008080", techniquesData )} </div>
+        <div class="link-pages-container">${renderSection( "#008080", data )} </div>
     </main>`
 
     const renderpage = document.getElementById("techniquesQuad")
