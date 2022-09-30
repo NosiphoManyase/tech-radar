@@ -6,11 +6,11 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
   .then((data) => {
     platformsData = data.filter( dataPoint => dataPoint.quadrant === "platforms")
-    assemble(platformsData)
+    assemble(platformsData, 'Platforms')
     
 });
 
-function assemble(data){
+function assemble(data, quadrantName){
     const main = `
     <main class="wrap-quadrant"> 
         <div class="link-pages-container">${renderSection( "#FF5733", data )} </div>
