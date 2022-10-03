@@ -61,41 +61,72 @@ h1{
     position: relative;
 }
 
+
 .tag{
+    font-family: 'Inter';
     position: absolute;
-    width: 130px;
-    height: 40px;
+    padding: 2px 8px;
     border-radius: 0.5em;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 600;
+    margin: 5px;
 }
 
 .tag.adopt{
     background-color: #ebfffc;
     color: #00947e;
+    outline: #00947e solid 1px;
 }
 
-.tag.assess{
-    background-color: #eff1fa;
-    color: #3850b7;
-    top: 155px;
+.adopt:hover,
+.trial:hover,
+.assess:hover,
+.hold:hover{
+    opacity: .5;
+    transition: background-color 1s ;
+}
+
+.adopt:hover{
+    background-color:#00947e;
 }
 
 .tag.trial{
-    background-color: #effaf5;
-    color: #257953;
+    background-color: #eff1fa;
+    color: #3850b7;
+    outline: #3850b7 solid 1px;
+    top: 155px;
+}
+
+.trial:hover{
+    background-color: #3850b7;
+}
+
+.tag.assess{
+    background-color: #fffaeb;
+    color: #946c00;
+    outline: #946c00 solid 1px;
     top: 315px;
 
 }
 
+.assess:hover{
+    background-color: #946c00;
+}
+
 .tag.hold{
-    background-color: #eff5fb;
-    color: #296fa8;
+    background-color: #feecf0;
+    color: #cc0f35;
+    outline: #cc0f35 solid 1px;
     top: 470px;
 }
+
+.hold:hover{
+    background-color: #cc0f35;
+}
+
 
 .grid-item{
     position: relative;

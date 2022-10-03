@@ -27,44 +27,43 @@ export function renderQuadrant( color, data) {
   state = plotPoints(state, data);
 
   const grid = state
-    .map((item) => {
+    .map((item, i) => {
       return item
         .map((innerItem) => {
             switch (innerItem) {
                 case null:
-                    return "<div class='grid-item'></div>"
+                  // console.log('yes')
+                  return setEvalPhase(innerItem, null, i)
                 case EMPTY:
                     return "<div class='grid-item reserved'></div>"
                 default:
-                    return `<div class='grid-item'>${innerItem.id}</div>`
+                    return setEvalPhase(innerItem, !null, i)
             }
         })
         .join("");
     })
     .join("");
 
+
     //TODO : format h1
   const quadrantHtml = `
   <div class='grid'>
-    <div class="tag adopt">Adopt</div>
-    <div class="tag trial">Trial</div>
-    <div class="tag assess">Assess</div>
-    <div class="tag hold">Hold</div>
+    <div class="tag adopt">adopt</div>
+    <div class="tag trial">trial</div>
+    <div class="tag assess">assess</div>
+    <div class="tag hold">hold</div>
     
   
     ${grid}
   </div>`;
 
-  // <div class="tag"><span class="trial">Trial</span></div>
-  //   <div class="tag"><span class="assess">Assess</span></div>
-  //   <div class="tag"> <span class="hold">Hold</span></div>
-
   return quadrantHtml;
 }
 
+
 //TODO : each method needs a docstring
 
-export function initializeNullValues(state) {
+function initializeNullValues(state) {
   for (let i = 0; i < 16; i++) {
     state[i] = new Array(16).fill(null);
   }
@@ -72,7 +71,7 @@ export function initializeNullValues(state) {
   return state;
 }
 
-export function reservedSlots(state) {
+function reservedSlots(state) {
 
     state[0][0] = EMPTY
     state[0][1] = EMPTY
@@ -97,7 +96,7 @@ export function reservedSlots(state) {
     return state
 }
 
-export function plotPoints(state, quadrantData) {
+function plotPoints(state, quadrantData) {
   // console.log(quadrantData)
  
   for (let i = 0; i < quadrantData.length; i++) {
@@ -109,7 +108,7 @@ export function plotPoints(state, quadrantData) {
   return state;
 }
 
-export function generateCoOrdinate(evalPhase) {
+function generateCoOrdinate(evalPhase) {
 let randomColumn = 0;
 let randomRow = 0;
   let offset = 0;
@@ -131,7 +130,7 @@ let randomRow = 0;
   return [randomRow, randomColumn];
 }
 
-export function getOpenCell(state,  techPointData) {
+function getOpenCell(state,  techPointData) {
   let [row, col] = generateCoOrdinate(techPointData.evaluationPhase);
 
   if (state[row][col] != null) {
@@ -139,5 +138,50 @@ export function getOpenCell(state,  techPointData) {
   }else{
     return [row, col];
   }
+
+}
+
+
+function setEvalPhase(innerItem, value, i){
+
+  let insertTechId = ''
+  let occupiedGridItem = ''
+
+  if(innerItem != null){
+    insertTechId = innerItem.id
+    occupiedGridItem = 'occupied'
+  }
+
+  if(i< 4){
+    return `<div id='${insertTechId}' class='grid-item adopt ${occupiedGridItem}'>${insertTechId}</div>`
+  }else if(i< 8){
+    return `<div class='grid-item trial ${occupiedGridItem}'>${insertTechId}</div>`
+  }else if(i< 12){
+    return `<div class='grid-item assess ${occupiedGridItem}'>${insertTechId}</div>`
+  }else{
+    return `<div class='grid-item hold ${occupiedGridItem}'>${insertTechId}</div>`
+  }
+
+
+}
+
+export function toggleDescription(){
+
+  const techBlips = document.querySelectorAll(".occupied")
+
+  techBlips.forEach((element) => {
+  
+    element.addEventListener('click', (e) => {
+      
+      const description = document.getElementById(`descr-${e.target.id}`)
+      if(description.style.display === 'none'){
+        description.style.display = 'block'
+      }else{
+        description.style.display = 'none'
+      }
+
+    })
+
+  })
 
 }

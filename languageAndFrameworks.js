@@ -1,4 +1,4 @@
-import {renderSection  } from './pages.js'
+import {renderSection, toggleDescription } from './pages.js'
 
 let languagesData = []
 
@@ -20,6 +20,8 @@ function assemble(data, quadrantName){
 
     const renderpage = document.getElementById("langAndFrameworksQuad")
     renderpage.innerHTML = main
+
+    toggleDescription()
 }
 
 function displayData(data){
@@ -28,7 +30,7 @@ function displayData(data){
         return `
         <div class="data-point"> 
             <p>${dataEl.technology}</p>
-            <p>${dataEl.description}</p>
+            <p id='descr-${dataEl.id}' style='display:none'>${dataEl.description}</p>
         </div>`
     })
 
