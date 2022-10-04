@@ -26,7 +26,9 @@ function assembly(data) {
   const main = `
     <div class="body-container">
         <main>
-            <h1>Bash Tech-Radar</h1>
+            <header> 
+              <h1>Bash Tech-Radar</h1>
+            </header>
             <div class="quadrants-container">
 
                     ${containQuadrant("#93C572", languages, "lang-and-F.html", "Languages And Frameworks")}

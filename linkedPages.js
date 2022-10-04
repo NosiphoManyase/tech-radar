@@ -12,13 +12,13 @@ export function assemble(data, quadrantName, pageId, color){
         <header><h1>${quadrantName}</h1></header> 
         <aside>
             <h4>Adopt</h4>
-            <div>${displayData(adopt)}</div>
+            <div class="phases-section">${displayData(adopt)}</div>
             <h4>Trial</h4>
-            <div>${displayData(trial)}</div>
+            <div class="phases-section">${displayData(trial)}</div>
             <h4>Assess</h4>
-            <div>${displayData(assess)}</div>
+            <div class="phases-section">${displayData(assess)}</div>
             <h4>Hold</h4>
-            <div>${displayData(hold)}</div>
+            <div class="phases-section">${displayData(hold)}</div>
         </aside>
         <div class="link-pages-container">${renderSection( color, data )} </div>
     </main>`
