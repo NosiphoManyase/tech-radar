@@ -1,4 +1,4 @@
-import {renderSection  } from './pages.js'
+import {renderSection, toggleDescription  } from './pages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -40,7 +40,7 @@ function assembly(data) {
 
   document.body.innerHTML = main;
 
-  
+  // toggleDescription()
 }
 
 function containQuadrant(color, data, link, quadrantName){

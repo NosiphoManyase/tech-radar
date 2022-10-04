@@ -85,12 +85,11 @@ h1{
 .trial:hover,
 .assess:hover,
 .hold:hover{
-    opacity: .5;
     transition: background-color 1s ;
 }
 
 .adopt:hover{
-    background-color:#00947e;
+    background-color: #ebfffc;
 }
 
 .tag.trial{
@@ -101,7 +100,7 @@ h1{
 }
 
 .trial:hover{
-    background-color: #3850b7;
+    background-color: #eff1fa;
 }
 
 .tag.assess{
@@ -113,7 +112,7 @@ h1{
 }
 
 .assess:hover{
-    background-color: #946c00;
+    background-color: #fffaeb;
 }
 
 .tag.hold{
@@ -124,7 +123,7 @@ h1{
 }
 
 .hold:hover{
-    background-color: #cc0f35;
+    background-color: #feecf0;
 }
 
 
@@ -137,14 +136,29 @@ h1{
     justify-content: center;
 }
 
-/* .grid-item.row4,
-.grid-item.row8,
-.grid-item.row12,
-.grid-item-inner.row5,
-.grid-item-inner.row10,
-.grid-item-inner.row15{
-    border-bottom: 1px solid #040404;
-} */
+.tech-name{
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    left: 2em;
+}
+
+.tech-name-aside{
+    display: flex;
+    justify-content: space-between;
+}
+
+.grid-item:hover .tech-name{
+    visibility: visible;
+    opacity: 1;
+    font-size: 1.3em;
+    background-color: white;
+}
+
+.hide{
+    display: none;
+}
+
 
 .legend{
     position:absolute;
@@ -313,8 +327,6 @@ aside{
 
 header{
     grid-area: heading;
-    align-self:center;
-    justify-self: center;
 }
 
 .link-pages-container{

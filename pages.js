@@ -32,7 +32,6 @@ export function renderQuadrant( color, data) {
         .map((innerItem) => {
             switch (innerItem) {
                 case null:
-                  // console.log('yes')
                   return setEvalPhase(innerItem, null, i)
                 case EMPTY:
                     return "<div class='grid-item reserved'></div>"
@@ -146,20 +145,34 @@ function setEvalPhase(innerItem, value, i){
 
   let insertTechId = ''
   let occupiedGridItem = ''
+  let techName = ''
 
   if(innerItem != null){
     insertTechId = innerItem.id
     occupiedGridItem = 'occupied'
+    techName = `<span class="tech-name">${innerItem.technology}</span>`
   }
 
   if(i< 4){
-    return `<div id='${insertTechId}' class='grid-item adopt ${occupiedGridItem}'>${insertTechId}</div>`
+    return `<div id='${insertTechId}' class='grid-item adopt ${occupiedGridItem}'>
+                ${insertTechId}
+                ${techName}
+                </div>`
   }else if(i< 8){
-    return `<div class='grid-item trial ${occupiedGridItem}'>${insertTechId}</div>`
+    return `<div id='${insertTechId}' class='grid-item trial ${occupiedGridItem}'>
+                ${insertTechId}
+                ${techName}
+                </div>`
   }else if(i< 12){
-    return `<div class='grid-item assess ${occupiedGridItem}'>${insertTechId}</div>`
+    return `<div id='${insertTechId}' class='grid-item assess ${occupiedGridItem}'>
+                ${insertTechId}
+                ${techName}
+                </div>`
   }else{
-    return `<div class='grid-item hold ${occupiedGridItem}'>${insertTechId}</div>`
+    return `<div id='${insertTechId}' class='grid-item hold ${occupiedGridItem}'>
+                ${insertTechId}
+                ${techName}
+                </div>`
   }
 
 
@@ -174,10 +187,23 @@ export function toggleDescription(){
     element.addEventListener('click', (e) => {
       
       const description = document.getElementById(`descr-${e.target.id}`)
+      
+      const upArrow = document.getElementById(`up-arrow-${e.target.id}`)
+      const downArrow = document.getElementById(`down-arrow-${e.target.id}`)
+
       if(description.style.display === 'none'){
         description.style.display = 'block'
+       
+        
+    upArrow.classList.remove('hide')
+    downArrow.classList.add('hide')
+        // switchArrows(e.target.id)
+
       }else{
         description.style.display = 'none'
+
+      upArrow.classList.add('hide')
+      downArrow.classList.remove('hide')
       }
 
     })
@@ -185,3 +211,4 @@ export function toggleDescription(){
   })
 
 }
+
