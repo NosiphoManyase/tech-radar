@@ -212,6 +212,7 @@ header{
     position: sticky;
     top: 50px;
     display: flex;
+    margin-left: 100px;
 }
 
 h4{

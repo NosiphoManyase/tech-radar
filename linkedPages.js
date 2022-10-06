@@ -10,6 +10,12 @@ export function assemble(data, quadrantName, pageId, color){
     const main = `
     <div class="body-container">
         <main>
+            <nav> 
+                <p><a href="./techniques.html">Techniques</a></p>   
+                <p><a href="./platforms.html">Platforms</a></p> 
+                <p><a href="./tools.html">Tools</a></p> 
+                <p><a href="./lan-and-F.html">Languages and Frameworks</a></p> 
+            </nav>
             <header><h1>${quadrantName}</h1></header> 
             <div class="quadrant-data">
                 <aside>
