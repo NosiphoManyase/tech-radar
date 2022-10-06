@@ -8,20 +8,25 @@ export function assemble(data, quadrantName, pageId, color){
     const hold = data.filter(item => item.evaluationPhase === 'Hold')
 
     const main = `
-    <main class="wrap-quadrant">
-        <header><h1>${quadrantName}</h1></header> 
-        <aside>
-            <h4>Adopt</h4>
-            <div class="phases-section">${displayData(adopt)}</div>
-            <h4>Trial</h4>
-            <div class="phases-section">${displayData(trial)}</div>
-            <h4>Assess</h4>
-            <div class="phases-section">${displayData(assess)}</div>
-            <h4>Hold</h4>
-            <div class="phases-section">${displayData(hold)}</div>
-        </aside>
-        <div class="link-pages-container">${renderSection( color, data )} </div>
-    </main>`
+    <div class="body-container">
+        <main>
+            <header><h1>${quadrantName}</h1></header> 
+            <div class="quadrant-data">
+                <aside>
+                    <h4 class="phase-name">Adopt</h4>
+                    <div class="phases-section">${displayData(adopt)}</div>
+                    <h4 class="phase-name">Trial</h4>
+                    <div class="phases-section">${displayData(trial)}</div>
+                    <h4 class="phase-name">Assess</h4>
+                    <div class="phases-section">${displayData(assess)}</div>
+                    <h4 class="phase-name">Hold</h4>
+                    <div class="phases-section">${displayData(hold)}</div>
+                </aside>
+                <div class="link-pages-container">${renderSection( color, data )} </div>
+            </div>
+        </main>
+    </div>
+    `
 
     const renderpage = document.getElementById(pageId)
     renderpage.innerHTML = main
@@ -34,7 +39,7 @@ function displayData(data){
     
     const dataInfoList = data.map( dataEl => {
         return `
-        <div class="data-point"> 
+        <div class="data-point" id="tech-${dataEl.id}"> 
             <div id='techName-${dataEl.id}' class='tech-name-aside'>
                 <p>${dataEl.id}. ${dataEl.technology}</p>
                 <svg id="down-arrow-${dataEl.id}" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">

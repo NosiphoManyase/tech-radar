@@ -49,7 +49,7 @@ function containQuadrant(color, data, link, quadrantName){
     
     return  `
     <div class="quadrant-container  " > 
-        <h1 class="label"><a href="${link}" id="${quadrantName}">${quadrantName}</a></h1>
+        <p class="label"><a href="${link}" id="${quadrantName}">${quadrantName}</a></p>
         ${renderSection( color, data)}
     </div>`
 

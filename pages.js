@@ -187,12 +187,14 @@ export function toggleDescription(){
     element.addEventListener('click', (e) => {
       
       const description = document.getElementById(`descr-${e.target.id}`)
-      
+      const techDataContainer = document.getElementById(`tech-${e.target.id}`)
+
       const upArrow = document.getElementById(`up-arrow-${e.target.id}`)
       const downArrow = document.getElementById(`down-arrow-${e.target.id}`)
 
       if(description.style.display === 'none'){
         description.style.display = 'block'
+        techDataContainer.style.backgroundColor = "#edf1f3"
        
         
     upArrow.classList.remove('hide')
@@ -201,6 +203,7 @@ export function toggleDescription(){
 
       }else{
         description.style.display = 'none'
+        techDataContainer.style.backgroundColor = ""
 
       upArrow.classList.add('hide')
       downArrow.classList.remove('hide')
