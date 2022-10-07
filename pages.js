@@ -32,11 +32,11 @@ export function renderQuadrant( color, data) {
         .map((innerItem) => {
             switch (innerItem) {
                 case null:
-                  return setEvalPhase(innerItem, null, i)
+                  return setGridItemHtml(innerItem, null, i)
                 case EMPTY:
                     return "<div class='grid-item reserved'></div>"
                 default:
-                    return setEvalPhase(innerItem, !null, i)
+                    return setGridItemHtml(innerItem, !null, i)
             }
         })
         .join("");
@@ -141,7 +141,7 @@ function getOpenCell(state,  techPointData) {
 }
 
 
-function setEvalPhase(innerItem, value, i){
+function setGridItemHtml(innerItem, value, i){
 
   let insertTechId = ''
   let occupiedGridItem = ''
@@ -150,68 +150,88 @@ function setEvalPhase(innerItem, value, i){
   if(innerItem != null){
     insertTechId = innerItem.id
     occupiedGridItem = 'occupied'
-    techName = `<span class="tech-name">${innerItem.technology}</span>`
+    techName = innerItem.technology
   }
 
+  // <p><code>.tooltip</code> <a href="#" class="tooltip" data-tooltip="I’m the tooltip text.">Tooltip</a></p>
+
   if(i< 4){
-    return `<div id='${insertTechId}' class='grid-item adopt ${occupiedGridItem}'>
-                ${insertTechId}
-                ${techName}
-                </div>`
+    return `<div class='grid-item adopt ${occupiedGridItem}'>
+              <span id='${insertTechId}' class="tooltip" data-tooltip="${techName}">${insertTechId}</span>
+                
+            </div>`
   }else if(i< 8){
-    return `<div id='${insertTechId}' class='grid-item trial ${occupiedGridItem}'>
-                ${insertTechId}
-                ${techName}
-                </div>`
+    return `<div class='grid-item trial ${occupiedGridItem}'>
+              <span id='${insertTechId}' class="tooltip" data-tooltip="${techName}">${insertTechId}</span>
+                
+            </div>`
   }else if(i< 12){
-    return `<div id='${insertTechId}' class='grid-item assess ${occupiedGridItem}'>
-                ${insertTechId}
-                ${techName}
-                </div>`
+    return `<div class='grid-item assess ${occupiedGridItem}'>
+              <span id='${insertTechId}' class="tooltip" data-tooltip="${techName}">${insertTechId}</span>
+               
+            </div>`
   }else{
-    return `<div id='${insertTechId}' class='grid-item hold ${occupiedGridItem}'>
-                ${insertTechId}
-                ${techName}
-                </div>`
+    return `<div class='grid-item hold ${occupiedGridItem}'>
+              <span id='${insertTechId}' class="tooltip" data-tooltip="${techName}">${insertTechId}</span>
+               
+            </div>`
   }
 
 
 }
 
-export function toggleDescription(){
+export function listenForClicks(){
 
   const techBlips = document.querySelectorAll(".occupied")
 
   techBlips.forEach((element) => {
   
     element.addEventListener('click', (e) => {
-      
-      const description = document.getElementById(`descr-${e.target.id}`)
-      const techDataContainer = document.getElementById(`tech-${e.target.id}`)
-
-      const upArrow = document.getElementById(`up-arrow-${e.target.id}`)
-      const downArrow = document.getElementById(`down-arrow-${e.target.id}`)
-
-      if(description.style.display === 'none'){
-        description.style.display = 'block'
-        techDataContainer.style.backgroundColor = "#edf1f3"
-       
-        
-    upArrow.classList.remove('hide')
-    downArrow.classList.add('hide')
-        // switchArrows(e.target.id)
-
-      }else{
-        description.style.display = 'none'
-        techDataContainer.style.backgroundColor = ""
-
-      upArrow.classList.add('hide')
-      downArrow.classList.remove('hide')
-      }
+      // console.log(element)
+      toggleDescription(e.target.id)
 
     })
 
   })
 
+  const techNames = document.querySelectorAll(".data-point")
+
+  techNames.forEach((element) => {
+      element.addEventListener('click', (e) => {
+      console.log(element)
+      const arr = e.target.id.split('-')
+      toggleDescription(arr[1])
+    })
+  })
+
+}
+
+function toggleDescription(id){
+  
+  const description = document.getElementById(`descr-${id}`)
+  const techDataContainer = document.getElementById(`tech-${id}`)
+  
+
+  const upArrow = document.getElementById(`up-arrow-${id}`)
+  const downArrow = document.getElementById(`down-arrow-${id}`)
+
+  if(description.style.display === 'none'){
+    console.log('yes')
+    
+    description.style.display = 'block'
+    techDataContainer.style.backgroundColor = "#edf1f3"
+    
+    upArrow.classList.remove('hide')
+    downArrow.classList.add('hide')
+    
+
+  }else{
+    console.log('no')
+    description.style.display = 'none'
+    techDataContainer.style.backgroundColor = ""
+
+    upArrow.classList.add('hide')
+    downArrow.classList.remove('hide')
+  }
 }
 

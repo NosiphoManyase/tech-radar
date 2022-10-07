@@ -1,4 +1,4 @@
-import {renderSection, toggleDescription  } from './pages.js'
+import {renderSection} from './pages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")

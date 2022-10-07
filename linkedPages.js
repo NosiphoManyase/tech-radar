@@ -1,4 +1,4 @@
-import {renderSection, toggleDescription } from './pages.js'
+import {renderSection, listenForClicks } from './pages.js'
 
 export function assemble(data, quadrantName, pageId, color){
 
@@ -8,36 +8,47 @@ export function assemble(data, quadrantName, pageId, color){
     const hold = data.filter(item => item.evaluationPhase === 'Hold')
 
     const main = `
-    <div class="body-container">
-        <main>
-            <nav> 
-                <p><a href="./techniques.html">Techniques</a></p>   
-                <p><a href="./platforms.html">Platforms</a></p> 
-                <p><a href="./tools.html">Tools</a></p> 
-                <p><a href="./lan-and-F.html">Languages and Frameworks</a></p> 
-            </nav>
-            <header><h1>${quadrantName}</h1></header> 
-            <div class="quadrant-data">
-                <aside>
-                    <h4 class="phase-name">Adopt</h4>
-                    <div class="phases-section">${displayData(adopt)}</div>
-                    <h4 class="phase-name">Trial</h4>
-                    <div class="phases-section">${displayData(trial)}</div>
-                    <h4 class="phase-name">Assess</h4>
-                    <div class="phases-section">${displayData(assess)}</div>
-                    <h4 class="phase-name">Hold</h4>
-                    <div class="phases-section">${displayData(hold)}</div>
-                </aside>
-                <div class="link-pages-container">${renderSection( color, data )} </div>
-            </div>
-        </main>
+    <div class="page-container">
+        <header>
+            <h1> ${quadrantName}<h1>
+            <img class="bash-icon" src="./Bash.png" />
+        </header>
+        <div class="single-view-nav">
+            <ul> 
+                <li><a href="./techniques.html">Techniques</a></li>   
+                <li><a href="./platforms.html">Platforms</a></li> 
+                <li><a href="./tools.html">Tools</a></li> 
+                <li><a href="./lan-and-F.html">Languages and Frameworks</a></li> 
+            </ul>
+        </div>
+        <div class="back-btn">
+            <a class="link-back" href="index.html"><span>Back</span></a>
+        </div>
+        <div class="body-container">
+            <main>
+                <div class="quadrant-data">
+                    <aside>
+                        <h2>${quadrantName}</h2>
+                        <h4 class="phase-name">Adopt</h4>
+                        <div class="phases-section">${displayData(adopt)}</div>
+                        <h4 class="phase-name">Trial</h4>
+                        <div class="phases-section">${displayData(trial)}</div>
+                        <h4 class="phase-name">Assess</h4>
+                        <div class="phases-section">${displayData(assess)}</div>
+                        <h4 class="phase-name">Hold</h4>
+                        <div class="phases-section">${displayData(hold)}</div>
+                    </aside>
+                    <div class="link-pages-container">${renderSection( color, data )} </div>
+                </div>
+            </main>
+        </div>
     </div>
     `
 
     const renderpage = document.getElementById(pageId)
     renderpage.innerHTML = main
 
-    toggleDescription()
+    listenForClicks()
     toggleDescrWithName()
 }
 
