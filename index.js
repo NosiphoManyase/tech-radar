@@ -1,4 +1,4 @@
-import {renderSection} from './pages.js'
+import {renderSection, legend} from './pages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -26,7 +26,7 @@ function assembly(data) {
   const main = `
     <div class="body-container">
         <main>
-            <header> 
+            <header class="main-header"> 
               <h1>Bash Tech-Radar</h1>
             </header>
             <div class="quadrants-container">
@@ -38,9 +38,10 @@ function assembly(data) {
     
             </div>
         </main>
+        ${legend}
     </div>`;
 
-  document.body.innerHTML = main;
+  document.body.innerHTML += main;
 
   // toggleDescription()
 }

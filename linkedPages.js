@@ -1,4 +1,4 @@
-import {renderSection, listenForClicks } from './pages.js'
+import {renderSection, listenForClicks, legend } from './pages.js'
 
 export function assemble(data, quadrantName, pageId, color){
 
@@ -9,6 +9,7 @@ export function assemble(data, quadrantName, pageId, color){
 
     const main = `
     <div class="page-container">
+        <div class='tech-radar-title'><p>Technology Radar</p></div>
         <header>
             <h1> ${quadrantName}<h1>
             <img class="bash-icon" src="./Bash.png" />
@@ -22,27 +23,42 @@ export function assemble(data, quadrantName, pageId, color){
             </ul>
         </div>
         <div class="back-btn">
-            <a class="link-back" href="index.html"><span>Back</span></a>
+            <a class="link-back" href="index.html">
+                <span class='back-arrow'></span>
+                <span class="back-title">Back</span>
+            </a>
         </div>
         <div class="body-container">
             <main>
                 <div class="quadrant-data">
                     <aside>
                         <h2>${quadrantName}</h2>
-                        <h4 class="phase-name">Adopt</h4>
-                        <div class="phases-section">${displayData(adopt)}</div>
-                        <h4 class="phase-name">Trial</h4>
-                        <div class="phases-section">${displayData(trial)}</div>
-                        <h4 class="phase-name">Assess</h4>
-                        <div class="phases-section">${displayData(assess)}</div>
-                        <h4 class="phase-name">Hold</h4>
-                        <div class="phases-section">${displayData(hold)}</div>
+                        <div class='phase-container'>
+                            <h4 class="phase-name">Adopt</h4>
+                            <div class="phases-section">${displayData(adopt)}</div>
+                        </div>
+                        <div class='phase-container'>
+                            <h4 class="phase-name">Trial</h4>
+                            <div class="phases-section">${displayData(trial)}</div>
+                        </div>
+                        <div class='phase-container'>
+                            <h4 class="phase-name">Assess</h4>
+                            <div class="phases-section">${displayData(assess)}</div>
+                        </div>
+                        <div class='phase-container'>
+                            <h4 class="phase-name">Hold</h4>
+                            <div class="phases-section">${displayData(hold)}</div>
+                        </div>  
                     </aside>
-                    <div class="link-pages-container">${renderSection( color, data )} </div>
+                    <div class="link-pages-container">
+                        ${renderSection( color, data )} 
+                        ${legend}
+                    </div>
                 </div>
             </main>
         </div>
     </div>
+    
     `
 
     const renderpage = document.getElementById(pageId)

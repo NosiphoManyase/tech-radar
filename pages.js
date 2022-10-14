@@ -6,6 +6,11 @@ const TRIAL = "Trial"
 const ASSESS = "Assess"
 const HOLD = "Hold"
 
+export const legend = `<div class="legend">
+  <div class="legend-keys"><span class="New status"></span> New</div>
+  <div class="legend-keys"><span class="Moved-in status"></span> Moved in/out</div>
+  <div class="legend-keys"><span class="No-change status"></span> No Change</div>
+</div>`
 
 export function renderSection( color, data){
     //do some formatting
