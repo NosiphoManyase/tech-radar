@@ -80,11 +80,12 @@ export function createQuadrant(data, bgImage, color){
 }
 
 function plotData(data, color){
-    console.log(data)
+    // console.log(data)
     const points = data.map(coord => {
+        console.log(coord)
         return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
            <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
-                ${createInOutBlip(coord.id, color)}
+                ${blipStatusDisplay(coord.statusOfTechnology,coord.id, color)}
             </div>
         </div>`
     }) 
@@ -92,17 +93,38 @@ function plotData(data, color){
     return points.join('')
 }
 
-function createInOutBlip(id, color){
-    return `
-    <svg width="30" height="30" focusable="false"  opacity="1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <defs></defs>
-        <g transform="scale(0.7352941176470589)" fill="${color}"  opacity="1">
-          <path opacity="1" transform="scale(1.25) translate(-3.5, -3.5)" d="M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z"></path>
-          <circle r="15" cx="18" cy="18"></circle>
-          <text x="18" y="24" font-size="16px" font-style="normal" font-weight="bold" fill="white" style="text-anchor: middle; white-space: pre;">${id}</text>
-        </g>
-    </svg>
-    `;
+function blipStatusDisplay(status, id, color){
+    if(status === 'Moved-in' || status == "Moved-out"){
+        return `
+        <svg width="30" height="30" focusable="false"  opacity="1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs></defs>
+            <g transform="scale(0.7352941176470589)" fill="${color}"  opacity="1">
+            <path opacity="1" transform="scale(1.25) translate(-3.5, -3.5)" d="M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z"></path>
+            <circle r="15" cx="18" cy="18"></circle>
+            <text x="18" y="24" font-size="16px" font-style="normal" font-weight="bold" fill="white" style="text-anchor: middle; white-space: pre;">${id}</text>
+            </g>
+        </svg>
+        `;
+    } else if( status === "No-change"){
+        return `
+        <svg viewBox="220.885 68.247 33.088 33.088" width="33.088" height="33.088">
+            <g transform="matrix(0.735294, 0, 0, 0.735294, 224.102158, 71.464325)" fill="${color}" opacity="1">
+            <path opacity="1" transform="scale(1.25) translate(-3.5, -3.5)" d="M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z"></path>
+            <circle r="15" cx="18" cy="18"></circle>
+            <text x="18" y="24" font-size="16px" font-style="normal" font-weight="bold" fill="white" style="text-anchor: middle; white-space: pre;">${id}</text>
+            </g>
+        </svg>
+        `;
+
+    }else{
+        return `
+        <svg width="26" height="26" focusable="false" id="techniques-svg" opacity="1">
+            <g transform="scale(0.7352941176470589)" fill="${color}" opacity="1"><circle r="15" cx="18" cy="18"></circle>
+              <text x="18" y="24" font-size="16px" font-style="normal" font-weight="bold" fill="white" style="text-anchor: middle;">${id}</text>
+            </g>
+        </svg>
+        `
+    }
   };
 
 function displayData(data){
