@@ -82,7 +82,6 @@ export function createQuadrant(data, bgImage, color){
 function plotData(data, color){
     // console.log(data)
     const points = data.map(coord => {
-        console.log(coord)
         return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
            <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
                 ${blipStatusDisplay(coord.statusOfTechnology,coord.id, color)}
