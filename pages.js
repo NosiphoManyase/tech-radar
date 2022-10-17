@@ -6,11 +6,11 @@ const TRIAL = "Trial"
 const ASSESS = "Assess"
 const HOLD = "Hold"
 
-export const legend = `<div class="legend">
-  <div class="legend-keys"><span class="New status"></span> New</div>
-  <div class="legend-keys"><span class="Moved-in status"></span> Moved in/out</div>
-  <div class="legend-keys"><span class="No-change status"></span> No Change</div>
-</div>`
+// export const legend = `<div class="legend">
+//   <div class="legend-keys"><span class="New status"></span> New</div>
+//   <div class="legend-keys"><span class="Moved-in status"></span> Moved in/out</div>
+//   <div class="legend-keys"><span class="No-change status"></span> No Change</div>
+// </div>`
 
 export function renderSection( color, data){
     //do some formatting
@@ -27,26 +27,26 @@ export function renderSection( color, data){
 export function renderQuadrant( color, data) {
   let state = [];
 
-  state = initializeNullValues(state);
-  state = reservedSlots(state);
-  state = plotPoints(state, data);
+  // state = initializeNullValues(state);
+  // state = reservedSlots(state);
+  // state = plotPoints(state, data);
 
-  const grid = state
-    .map((item, i) => {
-      return item
-        .map((innerItem) => {
-            switch (innerItem) {
-                case null:
-                  return setGridItemHtml(innerItem, null, i)
-                case EMPTY:
-                    return "<div class='grid-item reserved'></div>"
-                default:
-                    return setGridItemHtml(innerItem, !null, i)
-            }
-        })
-        .join("");
-    })
-    .join("");
+  // const grid = state
+  //   .map((item, i) => {
+  //     return item
+  //       .map((innerItem) => {
+  //           switch (innerItem) {
+  //               case null:
+  //                 return setGridItemHtml(innerItem, null, i)
+  //               case EMPTY:
+  //                   return "<div class='grid-item reserved'></div>"
+  //               default:
+  //                   return setGridItemHtml(innerItem, !null, i)
+  //           }
+  //       })
+  //       .join("");
+  //   })
+  //   .join("");
 
 
     //TODO : format h1
@@ -58,7 +58,7 @@ export function renderQuadrant( color, data) {
     <div class="tag hold">hold</div>
     
   
-    ${grid}
+    // ${grid}
   </div>`;
 
   return quadrantHtml;

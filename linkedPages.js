@@ -1,6 +1,12 @@
-import {renderSection, listenForClicks, legend } from './pages.js'
+import {listenForClicks} from './pages.js'
 
-export function assemble(data, quadrantName, pageId, color){
+export const legend = `<div class="legend">
+  <div class="legend-keys"><span class="New status"></span> New</div>
+  <div class="legend-keys"><span class="Moved-in status"></span> Moved in/out</div>
+  <div class="legend-keys"><span class="No-change status"></span> No Change</div>
+</div>`
+
+export function assemble(data, quadrantName, pageId, bgImage, color){
 
     const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
     const trial = data.filter(item => item.evaluationPhase === 'Trial')
@@ -19,7 +25,7 @@ export function assemble(data, quadrantName, pageId, color){
                 <li><a href="./techniques.html">Techniques</a></li>   
                 <li><a href="./platforms.html">Platforms</a></li> 
                 <li><a href="./tools.html">Tools</a></li> 
-                <li><a href="./lan-and-F.html">Languages and Frameworks</a></li> 
+                <li><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
             </ul>
         </div>
         <div class="back-btn">
@@ -50,10 +56,7 @@ export function assemble(data, quadrantName, pageId, color){
                             <div class="phases-section">${displayData(hold)}</div>
                         </div>  
                     </aside>
-                    <div class="link-pages-container">
-                        ${renderSection( color, data )} 
-                        ${legend}
-                    </div>
+                    ${createQuadrant(data, bgImage, color)}
                 </div>
             </main>
         </div>
@@ -67,6 +70,38 @@ export function assemble(data, quadrantName, pageId, color){
     listenForClicks()
     toggleDescrWithName()
 }
+
+export function createQuadrant(data, bgImage, color){
+    
+    return `<div class="quadrant-container">
+                <img src="${bgImage}" />
+                ${plotData(data, color)}
+            </div>`
+}
+
+function plotData(data, color){
+    
+    const points = data.map(coord => {
+        return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
+            ${createInOutBlip(coord.id, color)}
+        </div>`
+    }) 
+    
+    return points.join('')
+}
+
+function createInOutBlip(id, color){
+    return `
+    <svg width="30" height="30" focusable="false"  opacity="1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs></defs>
+        <g transform="scale(0.7352941176470589)" fill="${color}"  opacity="1">
+          <path opacity="1" transform="scale(1.25) translate(-3.5, -3.5)" d="M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z"></path>
+          <circle r="15" cx="18" cy="18"></circle>
+          <text x="18" y="24" font-size="16px" font-style="normal" font-weight="bold" fill="white" style="text-anchor: middle; white-space: pre;">${id}</text>
+        </g>
+    </svg>
+    `;
+  };
 
 function displayData(data){
     

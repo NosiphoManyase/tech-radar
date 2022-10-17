@@ -1,15 +1,29 @@
-import {renderSection, legend} from './pages.js'
+import {createQuadrant, legend} from './linkedPages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
   .then((data) => {
-    //before assemby, transform data before you send to assembly
     assembly(data);
     
   });
 
  
+const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+<rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+<text class="left-quadrant" x="442" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+<text class="left-quadrant" x="269" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+<text class="left-quadrant" x="133.5" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+<text class="left-quadrant" x="43" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+</svg>`
+
+const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+<rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+<text class="right-quadrant" x="70" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+<text class="right-quadrant" x="243" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+<text class="right-quadrant" x="378.5" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+<text class="right-quadrant" x="469" y="18" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+</svg>`
 
 function assembly(data) {
 
@@ -31,11 +45,13 @@ function assembly(data) {
             </header>
             <div class="quadrants-container">
 
-                    ${containQuadrant("#93C572", languages, "lang-and-F.html", "Languages And Frameworks")}
-                    ${containQuadrant( "#FF5733", platforms, "platforms.html", "Platforms" )}
-                    ${containQuadrant( "#FFC300", tools, "tools.html", "Tools" )}
-                    ${containQuadrant("#008080", techniques, "techniques.html", "Techniques" )}
-    
+                    ${containQuadrant(languages, "lang-and-F.html", "Languages And Frameworks", "./imgs/top-left.svg", "#00baeb" )}
+                    ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28" )}
+                    ${phasesSVG}
+                    ${phasesSVGInvert}
+                    ${containQuadrant(tools,"tools.html","Tools", "./imgs/bottom-left.svg", "#7472f5" )}
+                    ${containQuadrant(techniques,"techniques.html","Techniques", "./imgs/bottom-right.svg","#35c8c1" )}
+                    
             </div>
         </main>
         ${legend}
@@ -43,15 +59,14 @@ function assembly(data) {
 
   document.body.innerHTML += main;
 
-  // toggleDescription()
 }
 
-function containQuadrant(color, data, link, quadrantName){
+function containQuadrant(data, link, quadrantName, bgImage, color){
     
     return  `
-    <div class="quadrant-container  " > 
-        <p class="label"><a href="${link}" id="${quadrantName}">${quadrantName}</a></p>
-        ${renderSection( color, data)}
+    <div class="semi-circle-container" > 
+        <p class="label ${quadrantName}"><a href="${link}" id="${quadrantName}">${quadrantName}</a></p>
+        ${createQuadrant(data, bgImage, color)}
     </div>`
 
 }
