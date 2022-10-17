@@ -80,10 +80,12 @@ export function createQuadrant(data, bgImage, color){
 }
 
 function plotData(data, color){
-    
+    console.log(data)
     const points = data.map(coord => {
         return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
-            ${createInOutBlip(coord.id, color)}
+           <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
+                ${createInOutBlip(coord.id, color)}
+            </div>
         </div>`
     }) 
     
