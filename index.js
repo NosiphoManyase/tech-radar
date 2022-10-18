@@ -46,7 +46,7 @@ function assembly(data) {
             </header>
             <div class="quadrants-container">
 
-                    ${containQuadrant(languages, "lang-and-F.html", "Languages And Frameworks", "./imgs/top-left.svg", "#00baeb" )}
+                    ${containQuadrant(languages, "lang-and-F.html", "Languages <br/>And <br/>Frameworks", "./imgs/top-left.svg", "#00baeb" )}
                     ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28" )}
                     ${phasesSVG}
                     ${phasesSVGInvert}
@@ -66,7 +66,10 @@ function containQuadrant(data, link, quadrantName, bgImage, color){
     
     return  `
     <div class="semi-circle-container" > 
-        <p class="label ${quadrantName}"><a href="${link}" id="${quadrantName}">${quadrantName}</a></p>
+        <p class="label ${quadrantName}">
+          <a href="${link}" id="${quadrantName}">${quadrantName}</a>
+          <span class="forward-arrow"></span>
+        </p>
         ${createQuadrant(data, bgImage, color)}
     </div>`
 

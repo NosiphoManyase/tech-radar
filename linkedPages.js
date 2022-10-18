@@ -1,9 +1,9 @@
 import {listenForClicks} from './pages.js'
 
 export const legend = `<div class="legend">
-  <div class="legend-keys"><span class="New status"></span> New</div>
-  <div class="legend-keys"><span class="Moved-in status"></span> Moved in/out</div>
-  <div class="legend-keys"><span class="No-change status"></span> No Change</div>
+  <div class="legend-keys New"><span>${blipStatusDisplay('New','','#003D4F')}</span>New</div>
+  <div class="legend-keys Moved"><span>${blipStatusDisplay('Moved-in','','#003D4F')}</span> Moved in/out</div>
+  <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','','#003D4F')}</span> No Change</div>
 </div>`
 
 export function assemble(data, quadrantName, pageId, bgImage, color){
@@ -15,8 +15,12 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
 
     const main = `
     <div class="page-container">
-        <div class='tech-radar-title'><img width='100' src="./imgs/bash-icon-black.svg"/></div>
-        <header class="quad-header bg-${quadrantName}">
+        <div class='tech-radar-title'>
+            <img width='100' src="./imgs/bash-icon-black.svg"/>
+            <p class="main-title">technology radar</p>
+        </div>
+        <hr>
+        <header class="quad-header">
             <h1> ${quadrantName}<h1>
             <img class="bash-icon" src="./Bash.png" />
         </header>
@@ -56,7 +60,10 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
                             <div class="phases-section">${displayData(hold)}</div>
                         </div>  
                     </aside>
-                    ${createQuadrant(data, bgImage, color)}
+                    <section>
+                        ${createQuadrant(data, bgImage, color)}
+                        ${legend}
+                    </section>
                 </div>
             </main>
         </div>
