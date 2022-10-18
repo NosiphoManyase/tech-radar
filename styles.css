@@ -279,7 +279,8 @@ li{
 }
 
 .quadrant-data{
-    display: flex;  
+    display: flex;
+    justify-content: space-evenly;  
 }
 
 aside{
