@@ -15,8 +15,8 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
 
     const main = `
     <div class="page-container">
-        <div class='tech-radar-title'><p>Technology Radar</p></div>
-        <header>
+        <div class='tech-radar-title'><img width='100' src="./imgs/bash-icon-black.svg"/></div>
+        <header class="quad-header bg-${quadrantName}">
             <h1> ${quadrantName}<h1>
             <img class="bash-icon" src="./Bash.png" />
         </header>
@@ -38,7 +38,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
             <main>
                 <div class="quadrant-data">
                     <aside>
-                        <h2>${quadrantName}</h2>
+                        <h2 class="color-${quadrantName}">${quadrantName}</h2>
                         <div class='phase-container'>
                             <h4 class="phase-name">Adopt</h4>
                             <div class="phases-section">${displayData(adopt)}</div>
@@ -80,7 +80,6 @@ export function createQuadrant(data, bgImage, color){
 }
 
 function plotData(data, color){
-    // console.log(data)
     const points = data.map(coord => {
         return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
            <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">

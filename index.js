@@ -41,7 +41,8 @@ function assembly(data) {
     <div class="body-container">
         <main>
             <header class="main-header"> 
-              <h1>Bash Tech-Radar</h1>
+              <img src="./imgs/bash-icon-black.svg" />
+              <h1 class="main-title">tech-radar</h1>
             </header>
             <div class="quadrants-container">
 
