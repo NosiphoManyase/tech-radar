@@ -6,8 +6,8 @@ export const legend = `<div class="legend">
   <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','','#003D4F')}</span> No Change</div>
 </div>`
 
-export function assemble(data, quadrantName, pageId, bgImage, color){
-
+export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
+    console.log(startPos)
     const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
     const trial = data.filter(item => item.evaluationPhase === 'Trial')
     const assess = data.filter(item => item.evaluationPhase === 'Assess')
@@ -61,7 +61,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
                         </div>  
                     </aside>
                     <section>
-                        ${createQuadrant(data, bgImage, color)}
+                        ${createQuadrant(data, bgImage, color,startPos)}
                         ${legend}
                     </section>
                 </div>
@@ -78,17 +78,18 @@ export function assemble(data, quadrantName, pageId, bgImage, color){
     toggleDescrWithName()
 }
 
-export function createQuadrant(data, bgImage, color){
-    
+export function createQuadrant(data, bgImage, color, startPos){
+    console.log(startPos)
     return `<div class="quadrant-container">
                 <img src="${bgImage}" />
-                ${plotData(data, color)}
+                ${plotData(data, color, startPos)}
             </div>`
 }
 
-function plotData(data, color){
+function plotData(data, color,startPos){
+    
     const points = data.map(coord => {
-        return `<div class="grid-item" style="bottom:${coord.coOrdinates[0]}px;left:${coord.coOrdinates[1]}px">
+        return `<div class="grid-item" style="${startPos[0]}:${coord.coOrdinates[0]}px;${startPos[1]}:${coord.coOrdinates[1]}px">
            <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
                 ${blipStatusDisplay(coord.statusOfTechnology,coord.id, color)}
             </div>

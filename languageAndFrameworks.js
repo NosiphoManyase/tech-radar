@@ -10,7 +10,8 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "Languages And Frameworks",  
       "langAndFrameworksQuad", 
       "./imgs/top-left.svg",
-      "#00baeb")
+      "#00baeb",
+      ["bottom","right" ])
     
 });
 

@@ -46,12 +46,12 @@ function assembly(data) {
             </header>
             <div class="quadrants-container">
 
-                    ${containQuadrant(languages, "lang-and-F.html", "Languages <br/>And <br/>Frameworks", "./imgs/top-left.svg", "#00baeb" )}
-                    ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28" )}
+                    ${containQuadrant(languages, "lang-and-F.html", "Languages <br/>And <br/>Frameworks", "./imgs/top-left.svg", "#00baeb", ["bottom","right" ])}
+                    ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28", ["bottom","left" ])}
                     ${phasesSVG}
                     ${phasesSVGInvert}
-                    ${containQuadrant(tools,"tools.html","Tools", "./imgs/bottom-left.svg", "#7472f5" )}
-                    ${containQuadrant(techniques,"techniques.html","Techniques", "./imgs/bottom-right.svg","#35c8c1" )}
+                    ${containQuadrant(tools,"tools.html","Tools", "./imgs/bottom-left.svg", "#7472f5", ["top","right"] )}
+                    ${containQuadrant(techniques,"techniques.html","Techniques", "./imgs/bottom-right.svg","#35c8c1",["top","left"] )}
                     
             </div>
         </main>
@@ -62,7 +62,7 @@ function assembly(data) {
 
 }
 
-function containQuadrant(data, link, quadrantName, bgImage, color){
+function containQuadrant(data, link, quadrantName, bgImage, color, startPos){
     
     return  `
     <div class="semi-circle-container" > 
@@ -70,7 +70,7 @@ function containQuadrant(data, link, quadrantName, bgImage, color){
           <a href="${link}" id="${quadrantName}">${quadrantName}</a>
           <span class="forward-arrow"></span>
         </p>
-        ${createQuadrant(data, bgImage, color)}
+        ${createQuadrant(data, bgImage, color, startPos)}
     </div>`
 
 }

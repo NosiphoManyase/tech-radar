@@ -10,6 +10,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "Techniques", 
       "techniquesQuad", 
       "./imgs/bottom-right.svg",
-      "#35c8c1")
+      "#35c8c1",
+      ["top","left"] )
     
 });

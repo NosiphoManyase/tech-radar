@@ -12,7 +12,8 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "Tools", 
       "toolsQuad", 
       "./imgs/bottom-left.svg",
-      "#7472f5" )
+      "#7472f5",
+      ["top","right"] )
     
 });
 

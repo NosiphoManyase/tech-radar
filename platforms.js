@@ -10,6 +10,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       'Platforms', 
       "platformsQuad",  
       "./imgs/top-right.svg",
-      "#ffbe28")
+      "#ffbe28",
+      ["bottom","left" ])
 });
 
