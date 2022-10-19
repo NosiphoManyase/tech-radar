@@ -6,6 +6,19 @@ export const legend = `<div class="legend">
   <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','','#003D4F')}</span> No Change</div>
 </div>`
 
+export const header = `<div class='tech-radar-title'>
+        <img width='100' src="./imgs/bash-icon-black.svg"/>
+        <p class="main-title">technology radar</p>
+    </div>
+    <div class="single-view-nav">
+    <ul> 
+        <li><a href="./techniques.html">Techniques</a></li>   
+        <li><a href="./platforms.html">Platforms</a></li> 
+        <li><a href="./tools.html">Tools</a></li> 
+        <li><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
+    </ul>
+    </div>`
+
 export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
     console.log(startPos)
     const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
@@ -15,29 +28,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
 
     const main = `
     <div class="page-container">
-        <div class='tech-radar-title'>
-            <img width='100' src="./imgs/bash-icon-black.svg"/>
-            <p class="main-title">technology radar</p>
-        </div>
-        <hr>
-        <header class="quad-header">
-            <h1> ${quadrantName}<h1>
-            <img class="bash-icon" src="./Bash.png" />
-        </header>
-        <div class="single-view-nav">
-            <ul> 
-                <li><a href="./techniques.html">Techniques</a></li>   
-                <li><a href="./platforms.html">Platforms</a></li> 
-                <li><a href="./tools.html">Tools</a></li> 
-                <li><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
-            </ul>
-        </div>
-        <div class="back-btn">
-            <a class="link-back" href="index.html">
-                <span class='back-arrow'></span>
-                <span class="back-title">Back</span>
-            </a>
-        </div>
+        ${header}
         <div class="body-container">
             <main>
                 <div class="quadrant-data">
@@ -79,7 +70,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
 }
 
 export function createQuadrant(data, bgImage, color, startPos){
-    console.log(startPos)
+    
     return `<div class="quadrant-container">
                 <img src="${bgImage}" />
                 ${plotData(data, color, startPos)}
