@@ -1,4 +1,4 @@
-import {listenForClicks} from './pages.js'
+// import {listenForClicks} from './pages.js'
 
 export const legend = `<div class="legend">
   <div class="legend-keys New"><span>${blipStatusDisplay('New','','#003D4F')}</span>New</div>
@@ -20,7 +20,7 @@ export const header = `<div class='tech-radar-title'>
     </div>`
 
 export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
-    console.log(startPos)
+    
     const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
     const trial = data.filter(item => item.evaluationPhase === 'Trial')
     const assess = data.filter(item => item.evaluationPhase === 'Assess')
@@ -80,7 +80,7 @@ export function createQuadrant(data, bgImage, color, startPos){
 function plotData(data, color,startPos){
     
     const points = data.map(coord => {
-        return `<div class="grid-item" style="${startPos[0]}:${coord.coOrdinates[0]}px;${startPos[1]}:${coord.coOrdinates[1]}px">
+        return `<div class="grid-item" id="${coord.id}" style="${startPos[0]}:${coord.coOrdinates[0]}px;${startPos[1]}:${coord.coOrdinates[1]}px">
            <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
                 ${blipStatusDisplay(coord.statusOfTechnology,coord.id, color)}
             </div>
@@ -155,7 +155,7 @@ function toggleDescrWithName(){
     dataPointInfo.forEach( item => {
 
         item.addEventListener('click', (e) => {
-
+            // console.log('here')
 
             const description = item.lastElementChild
             const upArrow = item.children[0].children[2]
@@ -183,4 +183,59 @@ function toggleDescrWithName(){
     
 
 }
+
+function listenForClicks(){
+
+    const techBlips = document.querySelectorAll(".grid-item")
+  
+    techBlips.forEach((element) => {
+      element.addEventListener('click', (e) => {
+        const id = e.target.parentElement.parentElement.parentElement.id
+        toggleDescription(id)
+  
+      })
+  
+    })
+  
+    const techNames = document.querySelectorAll(".data-point")
+  
+    techNames.forEach((element) => {
+        element.addEventListener('click', (e) => {
+        // console.log(element)    
+        const arr = e.target.id.split('-')
+        toggleDescription(arr[1])
+      })
+    })
+  
+  }
+  
+  function toggleDescription(id){
+    
+    const description = document.getElementById(`descr-${id}`)
+    const techDataContainer = document.getElementById(`tech-${id}`)
+    
+  
+    const upArrow = document.getElementById(`up-arrow-${id}`)
+    const downArrow = document.getElementById(`down-arrow-${id}`)
+    // console.log(description)
+    if(description.style.display === 'none'){
+      
+      description.style.display = 'block'
+      techDataContainer.style.backgroundColor = "#edf1f3"
+      
+      upArrow.classList.remove('hide')
+      downArrow.classList.add('hide')
+      
+  
+    }else{
+
+      description.style.display = 'none'
+      techDataContainer.style.backgroundColor = ""
+  
+      upArrow.classList.add('hide')
+      downArrow.classList.remove('hide')
+    }
+  }
+  
+  
 

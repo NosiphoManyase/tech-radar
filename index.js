@@ -43,7 +43,7 @@ function assembly(data) {
           <main class="landing-page">
             <div class="quadrants-container">
 
-                    ${containQuadrant(languages, "lang-and-F.html", "Languages And <br/>Frameworks", "./imgs/top-left.svg", "#00baeb", ["bottom","right" ])}
+                    ${containQuadrant(languages, "lang-and-F.html", "Languages and frameworks", "./imgs/top-left.svg", "#00baeb", ["bottom","right" ])}
                     ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28", ["bottom","left" ])}
                     ${phasesSVG}
                     ${phasesSVGInvert}

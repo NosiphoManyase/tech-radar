@@ -185,7 +185,7 @@ function setGridItemHtml(innerItem, value, i){
 
 }
 
-export function listenForClicks(){
+function listenForClicks(){
 
   const techBlips = document.querySelectorAll(".occupied")
 
