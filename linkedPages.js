@@ -11,11 +11,14 @@ export function legend(color){
 
 
 export const header = `<div class='tech-radar-title'>
-        <img width='100' src="./imgs/bash-icon-black.svg"/>
+        <a href="./index.html">
+            <img width='100' src="./imgs/bash-icon-black.svg"/>
+        </a>
         <p class="main-title">technology radar</p>
     </div>
     <div class="single-view-nav">
     <ul> 
+        <li><a href="./index.html">All</a></li>   
         <li><a href="./techniques.html">Techniques</a></li>   
         <li><a href="./platforms.html">Platforms</a></li> 
         <li><a href="./tools.html">Tools</a></li> 
