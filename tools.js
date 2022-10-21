@@ -13,7 +13,8 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "toolsQuad", 
       "./imgs/bottom-left.svg",
       "#7472f5",
-      ["top","right"] )
+      ["top","right"]
+      , false)
     
 });
 

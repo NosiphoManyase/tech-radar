@@ -11,6 +11,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "platformsQuad",  
       "./imgs/top-right.svg",
       "#ffbe28",
-      ["bottom","left" ])
+      ["bottom","left" ]
+      , false)
 });
 

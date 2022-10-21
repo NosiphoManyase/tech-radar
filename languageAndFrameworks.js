@@ -11,7 +11,8 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "langAndFrameworksQuad", 
       "./imgs/top-left.svg",
       "#00baeb",
-      ["bottom","right" ])
+      ["bottom","right" ]
+      , false)
     
 });
 

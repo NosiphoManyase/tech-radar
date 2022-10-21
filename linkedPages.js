@@ -8,7 +8,6 @@ export function legend(color){
     <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','',color)}</span> No Change</div>
   </div>`
 } 
-// '#003D4F'
 
 
 export const header = `<div class='tech-radar-title'>
