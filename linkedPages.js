@@ -1,10 +1,15 @@
 // import {listenForClicks} from './pages.js'
 
-export const legend = `<div class="legend">
-  <div class="legend-keys New"><span>${blipStatusDisplay('New','','#003D4F')}</span>New</div>
-  <div class="legend-keys Moved"><span>${blipStatusDisplay('Moved-in','','#003D4F')}</span> Moved in/out</div>
-  <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','','#003D4F')}</span> No Change</div>
-</div>`
+export function legend(color){
+
+    return `<div class="legend">
+    <div class="legend-keys New"><span>${blipStatusDisplay('New','', color)}</span>New</div>
+    <div class="legend-keys Moved"><span>${blipStatusDisplay('Moved-in','',  color)}</span> Moved in/out</div>
+    <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','',color)}</span> No Change</div>
+  </div>`
+} 
+// '#003D4F'
+
 
 export const header = `<div class='tech-radar-title'>
         <img width='100' src="./imgs/bash-icon-black.svg"/>
@@ -53,7 +58,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
                     </aside>
                     <section>
                         ${createQuadrant(data, bgImage, color,startPos)}
-                        ${legend}
+                        ${legend(color)}
                     </section>
                 </div>
             </main>

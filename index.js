@@ -52,7 +52,7 @@ function assembly(data) {
                     
             </div>
           </main>
-          ${legend}
+          ${legend('#003D4F')}
       </div>`;
 
   document.body.innerHTML = main;
