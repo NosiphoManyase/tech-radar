@@ -6,7 +6,12 @@ body{
     font-family: 'Inter';
     color: #040404;
     margin: 0
-}   
+}  
+
+.body-container,
+.body-container .legend{
+    padding-bottom: 50px;
+}
 
 .quadrants-container{
     width: max-content;
@@ -69,6 +74,10 @@ h1{
     z-index: 1;
     display: flex;
     align-items: center;
+}
+
+.link-to-quad:hover{
+    font-weight: 800;
 }
 
 .label.Languages,
@@ -203,8 +212,29 @@ orange-light: #ffbe28
     margin-right: 4px;
 }
 
+.body-container .legend{
+    margin-top: 50px;
+}
 
 
+footer{
+    border-top: 2px solid #040404;
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form input{
+    height: 48px;
+    width: 312px;
+    left: 0px;
+    top: 18px;
+    border-radius: 0px;
+    padding: 12px 8px 12px 16px;
+    background-color: #F1F1F2;
+    margin-top: 20px;
+}
 
 /* SINGLE QUADRANT VIEW */
 
@@ -284,6 +314,27 @@ h2{
 h4{
     margin: 0;
     border-bottom: 4px solid black;
+}
+
+.phase-Languages,
+.phase-Platforms{
+    display: flex;
+    flex-direction: column;
+}
+
+.phase-Languages .phases,
+.phase-Platforms .phases{
+    order: 2;
+}
+
+.phase-Languages .quadrant-container,
+.phase-Platforms .quadrant-container{
+    order: 1;
+}
+
+.phase-Languages .legend,
+.phase-Platforms .legend{
+    order: 3;
 }
 
 .tech-radar-title,

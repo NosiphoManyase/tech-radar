@@ -1,4 +1,4 @@
-import {createQuadrant, legend, header} from './linkedPages.js'
+import {createQuadrant, legend, header, footer, phasesSVG, phasesSVGInvert} from './linkedPages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -8,22 +8,6 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
     
   });
 
- 
-const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
-<rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
-<text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
-<text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
-<text class="left-quadrant" x="133.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
-<text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
-</svg>`
-
-const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
-<rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
-<text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
-<text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
-<text class="right-quadrant" x="378.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
-<text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
-</svg>`
 
 function assembly(data) {
 
@@ -52,7 +36,8 @@ function assembly(data) {
                     
             </div>
           </main>
-          ${legend('#003D4F')}
+          ${legend()}
+          ${footer}
       </div>`;
 
   document.body.innerHTML = main;
@@ -64,7 +49,7 @@ function containQuadrant(data, link, quadrantName, bgImage, color, startPos){
     return  `
     <div class="semi-circle-container" > 
         <p class="label ${quadrantName}">
-          <a href="${link}" id="${quadrantName}">${quadrantName}</a>
+          <a href="${link}" id="${quadrantName}" class="link-to-quad">${quadrantName}</a>
           <span class="forward-arrow"></span>
         </p>
         ${createQuadrant(data, bgImage, color, startPos)}

@@ -1,4 +1,3 @@
-// import {listenForClicks} from './pages.js'
 
 export function legend(color){
 
@@ -25,6 +24,33 @@ export const header = `<div class='tech-radar-title'>
         <li><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
     </ul>
     </div>`
+
+export const footer = `<footer>
+        <div>
+            <img src="./imgs/bash-icon-black.svg" width=100px>
+        </div>
+        <form>
+            <h2>Subscribe for more Bash news</h2>
+            <input type="text" placeholder="Enter Email" name="email" required>
+        </form>
+    </footer>`
+
+export const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="left-quadrant" x="133.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+    
+export const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="right-quadrant" x="378.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+    
 
 export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
     
@@ -59,14 +85,17 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
                         </div>  
                     </aside>
                     <section>
-                        ${createQuadrant(data, bgImage, color,startPos)}
-                        ${legend(color)}
+                        <div class="phase-${quadrantName}">
+                            ${getEvalPhaseSVG(quadrantName)}
+                            ${createQuadrant(data, bgImage, color,startPos)}
+                            ${legend(color)}
+                        </div>
                     </section>
                 </div>
             </main>
         </div>
     </div>
-    
+    ${footer}
     `
 
     const renderpage = document.getElementById(pageId)
@@ -74,6 +103,15 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
 
     listenForClicks()
     toggleDescrWithName()
+}
+
+function getEvalPhaseSVG(quadName){
+
+    if(quadName === "Languages And Frameworks" || 'Tools'){
+        return phasesSVG
+    }else{
+        return phasesSVGInvert
+    }
 }
 
 export function createQuadrant(data, bgImage, color, startPos){
