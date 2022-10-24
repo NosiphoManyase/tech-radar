@@ -78,6 +78,7 @@ h1{
 
 .link-to-quad:hover{
     font-weight: 800;
+    transition: 1s;
 }
 
 .label.Languages,
@@ -114,7 +115,7 @@ orange-light: #ffbe28
     margin: 10px 0;
 }
 
-.tag{
+/* .tag{
     font-family: 'Inter';
     position: absolute;
     padding: 2px 8px;
@@ -170,7 +171,7 @@ orange-light: #ffbe28
 
 .hold:hover{
     background-color: #feecf0;
-}
+} */
 
 
 .grid-item{

@@ -8,7 +8,6 @@ export function legend(color){
   </div>`
 } 
 
-
 export const header = `<div class='tech-radar-title'>
         <a href="./index.html">
             <img width='100' src="./imgs/bash-icon-black.svg"/>
@@ -102,7 +101,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
     renderpage.innerHTML = main
 
     listenForClicks()
-    toggleDescrWithName()
+    // toggleDescrWithName()
 }
 
 function getEvalPhaseSVG(quadName){
@@ -176,10 +175,10 @@ function displayData(data){
         <div class="data-point" id="tech-${dataEl.id}"> 
             <div id='techName-${dataEl.id}' class='tech-name-aside'>
                 <p>${dataEl.id}. ${dataEl.technology}</p>
-                <svg id="down-arrow-${dataEl.id}" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="arrows" id="down-arrow-${dataEl.id}" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 1L8 8.5L1 1" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <svg id="up-arrow-${dataEl.id}" class="hide" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="up-arrow-${dataEl.id}" class="hide arrows" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 8.5L8 1L15 8.5" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 </div>
@@ -193,43 +192,44 @@ function displayData(data){
 
 }
 
-function toggleDescrWithName(){
+// function toggleDescrWithName(){
 
-    const dataPointInfo = document.querySelectorAll(".data-point")
+//     const dataPointInfo = document.querySelectorAll(".data-point")
     
-    dataPointInfo.forEach( item => {
+//     dataPointInfo.forEach( item => {
 
-        item.addEventListener('click', (e) => {
-            // console.log('here')
+//         item.addEventListener('click', (e) => {
+//             // console.log('here')
 
-            const description = item.lastElementChild
-            const upArrow = item.children[0].children[2]
-            const downArrow = item.children[0].children[1]
+//             const description = item.lastElementChild
+//             const upArrow = item.children[0].children[2]
+//             const downArrow = item.children[0].children[1]
    
-            if(description.style.display === 'none'){
-                description.style.display = 'block'
+//             if(description.style.display === 'none'){
+//                 description.style.display = 'block'
             
                 
-            upArrow.classList.remove('hide')
-            downArrow.classList.add('hide')
+//             upArrow.classList.remove('hide')
+//             downArrow.classList.add('hide')
                 
 
-            }else{
-                description.style.display = 'none'
+//             }else{
+//                 description.style.display = 'none'
 
-            upArrow.classList.add('hide')
-            downArrow.classList.remove('hide')
-            }
+//             upArrow.classList.add('hide')
+//             downArrow.classList.remove('hide')
+//             }
 
 
-        })
-    })
+//         })
+//     })
     
     
 
-}
+// }
 
 function listenForClicks(){
+    console.log('listen for clicks')
 
     const techBlips = document.querySelectorAll(".grid-item")
   
@@ -245,17 +245,30 @@ function listenForClicks(){
     const techNames = document.querySelectorAll(".data-point")
   
     techNames.forEach((element) => {
+
         element.addEventListener('click', (e) => {
-        // console.log(element)    
-        const arr = e.target.id.split('-')
+
+            let arr = ''
+            let arrows = e.target.classList
+            console.log(e.target)
+
+            if(e.target.id && !arrows){
+                arr = e.target.id.split('-')
+            }else if(e.target.parentElement.id){
+                arr = e.target.parentElement.id.split('-')
+            }else{
+                arr = e.target.parentElement.parentElement.id.split('-')
+            }
+        
+        console.log(arr[1])
         toggleDescription(arr[1])
       })
     })
   
   }
   
-  function toggleDescription(id){
-    
+function toggleDescription(id){
+    // console.log(id)
     const description = document.getElementById(`descr-${id}`)
     const techDataContainer = document.getElementById(`tech-${id}`)
     
