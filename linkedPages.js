@@ -105,8 +105,8 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
 }
 
 function getEvalPhaseSVG(quadName){
-
-    if(quadName === "Languages And Frameworks" || 'Tools'){
+    console.log(quadName)
+    if(quadName === "Languages And Frameworks" || quadName === 'Tools'){
         return phasesSVG
     }else{
         return phasesSVGInvert
@@ -121,6 +121,7 @@ export function createQuadrant(data, bgImage, color, startPos){
             </div>`
 }
 
+// create blip for each data point,
 function plotData(data, color,startPos){
     
     const points = data.map(coord => {
