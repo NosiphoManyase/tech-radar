@@ -105,7 +105,7 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
 }
 
 function getEvalPhaseSVG(quadName){
-    console.log(quadName)
+    
     if(quadName === "Languages And Frameworks" || quadName === 'Tools'){
         return phasesSVG
     }else{
@@ -172,6 +172,9 @@ function blipStatusDisplay(status, id, color){
 function displayData(data){
     
     const dataInfoList = data.map( dataEl => {
+        let description =  dataEl.description
+        // description.setAttribute('id', `descr-${dataEl.id}`)
+        
         return `
         <div class="data-point" id="tech-${dataEl.id}"> 
             <div id='techName-${dataEl.id}' class='tech-name-aside'>
@@ -182,8 +185,10 @@ function displayData(data){
                 <svg id="up-arrow-${dataEl.id}" class="hide arrows" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 8.5L8 1L15 8.5" stroke="#040404" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                </div>
-            <p id='descr-${dataEl.id}' class="description" style='display:none'>${dataEl.description}</p>
+
+            </div>
+            ${description}
+            
         </div>`
     }).join('')
 
@@ -192,6 +197,8 @@ function displayData(data){
     return dataInfoList
 
 }
+
+{/* <p id='descr-${dataEl.id}' class="description" style='display:none'>${dataEl.description}</p> */}
 
 // function toggleDescrWithName(){
 
