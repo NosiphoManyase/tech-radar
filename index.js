@@ -1,4 +1,4 @@
-import {createQuadrant, legend, header, phasesSVG, phasesSVGInvert} from './linkedPages.js'
+import {setMainPageHtml, createQuadrant} from './linkedPages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -11,35 +11,17 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
 
 function assembly(data) {
 
-    const languages = data.filter(
-        (data) => data.quadrant === "languages and frameworks"
-      ) 
-      
+    const languages = data.filter((data) => data.quadrant === "languages and frameworks")   
     const platforms = data.filter((data) => data.quadrant === "platforms")
-
     const tools = data.filter((data) => data.quadrant === "tools")
-
     const techniques = data.filter((data) => data.quadrant === "techniques")
 
-  const main = `
-      ${header}
-      <div class="body-container">
-          <main class="landing-page">
-            <div class="quadrants-container">
-
-                    ${containQuadrant(languages, "lang-and-F.html", "Languages and frameworks", "./imgs/top-left.svg", "#00baeb", ["bottom","right" ])}
-                    ${containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28", ["bottom","left" ])}
-                    ${phasesSVG}
-                    ${phasesSVGInvert}
-                    ${containQuadrant(tools,"tools.html","Tools", "./imgs/bottom-left.svg", "#7472f5", ["top","right"] )}
-                    ${containQuadrant(techniques,"techniques.html","Techniques", "./imgs/bottom-right.svg","#35c8c1",["top","left"] )}
-                    
-            </div>
-          </main>
-          ${legend()}
-      </div>`;
-
-  document.body.innerHTML = main;
+    const languagesQuad = containQuadrant(languages, "lang-and-F.html", "Languages and frameworks", "./imgs/top-left.svg", "#00baeb", ["bottom","right" ])
+    const platformsQuad = containQuadrant(platforms, "platforms.html","Platforms", "./imgs/top-right.svg", "#ffbe28", ["bottom","left" ])
+    const toolsQuad = containQuadrant(tools,"tools.html","Tools", "./imgs/bottom-left.svg", "#7472f5", ["top","right"] )
+    const techniquesQuad = containQuadrant(techniques,"techniques.html","Techniques", "./imgs/bottom-right.svg","#35c8c1",["top","left"] )                
+    
+    setMainPageHtml(languagesQuad, platformsQuad, toolsQuad, techniquesQuad)
 
 }
 
@@ -51,7 +33,7 @@ function containQuadrant(data, link, quadrantName, bgImage, color, startPos){
           <a href="${link}" id="${quadrantName}" class="link-to-quad">${quadrantName}</a>
           <span class="forward-arrow"></span>
         </p>
-        ${createQuadrant(data, bgImage, color, startPos)}
+        ${createQuadrant(data, bgImage, color,startPos)}
     </div>`
 
 }

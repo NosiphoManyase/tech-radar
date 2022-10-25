@@ -1,5 +1,82 @@
 
-export function legend(color){
+export function setMainPageHtml(languagesQuad, platformsQuad, toolsQuad, techniquesQuad){
+    
+    //render all quadrants
+    // each quadrant calls createQuadrant() in index.js
+    const mainPageHtml = 
+    `<div class='quadrants-container'> 
+        ${languagesQuad} 
+        ${platformsQuad} 
+        ${phasesSVG} 
+        ${phasesSVGInvert}
+        ${toolsQuad}  
+        ${techniquesQuad} 
+     </div>`
+    
+    assemble(true, mainPageHtml, "root")
+}
+
+export function setSinglePageHtml(data, quadrantName, pageId, bgImage, color,startPos){
+    
+    const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
+    const trial = data.filter(item => item.evaluationPhase === 'Trial')
+    const assess = data.filter(item => item.evaluationPhase === 'Assess')
+    const hold = data.filter(item => item.evaluationPhase === 'Hold')
+
+    const singlePageHtml = `<div class="quadrant-data">
+        <aside>
+            <h2 class="color-${quadrantName}">${quadrantName}</h2>
+            <div class='phase-container'>
+                <h4 class="phase-name">Adopt</h4>
+                <div class="phases-section">${displayData(adopt)}</div>
+            </div>
+            <div class='phase-container'>
+                <h4 class="phase-name">Trial</h4>
+                <div class="phases-section">${displayData(trial)}</div>
+            </div>
+            <div class='phase-container'>
+                <h4 class="phase-name">Assess</h4>
+                <div class="phases-section">${displayData(assess)}</div>
+            </div>
+            <div class='phase-container'>
+                <h4 class="phase-name">Hold</h4>
+                <div class="phases-section">${displayData(hold)}</div>
+            </div>  
+        </aside>
+        <section>
+            <div class="phase-${quadrantName}">
+                ${getEvalPhaseSVG(quadrantName)}
+                ${createQuadrant(data, bgImage, color,startPos)}
+                ${legend(color)}
+            </div>
+        </section>
+    </div>`
+
+    
+    assemble(false, singlePageHtml, pageId)
+}
+
+function assemble(isMainPage, mainContent, pageId){
+
+    const main = `
+    <div class="page-container">
+        ${header}
+        <div class="body-container">
+            <main class=${isMainPage?"landing-page":""}>
+                ${mainContent}
+            </main>
+            ${isMainPage && legend()}
+        </div>
+    </div>
+    `
+
+    const renderpage = document.getElementById(pageId)
+    renderpage.innerHTML = main
+
+    listenForClicks()
+}
+
+function legend(color){
 
     return `<div class="legend">
     <div class="legend-keys New"><span>${blipStatusDisplay('New','', color)}</span>New</div>
@@ -8,7 +85,7 @@ export function legend(color){
   </div>`
 } 
 
-export const header = `<div class='tech-radar-title'>
+const header = `<div class='tech-radar-title'>
         <a href="./index.html">
             <img width='100' src="./imgs/bash-icon-black.svg"/>
         </a>
@@ -24,8 +101,8 @@ export const header = `<div class='tech-radar-title'>
     </ul>
     </div>`
 
-
-export const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+//SVGs that indicate adopt, trial, assess etc. phase in each quadrant
+const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
     <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
     <text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
     <text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
@@ -33,7 +110,7 @@ export const phasesSVG =  `<svg class="phases" width="516" height="34" aria-labe
     <text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
     </svg>`
     
-export const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
     <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
     <text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
     <text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
@@ -42,57 +119,10 @@ export const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria
     </svg>`
     
 
-export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
-    
-    const adopt = data.filter(item => item.evaluationPhase === 'Adopt')
-    const trial = data.filter(item => item.evaluationPhase === 'Trial')
-    const assess = data.filter(item => item.evaluationPhase === 'Assess')
-    const hold = data.filter(item => item.evaluationPhase === 'Hold')
 
-    const main = `
-    <div class="page-container">
-        ${header}
-        <div class="body-container">
-            <main>
-                <div class="quadrant-data">
-                    <aside>
-                        <h2 class="color-${quadrantName}">${quadrantName}</h2>
-                        <div class='phase-container'>
-                            <h4 class="phase-name">Adopt</h4>
-                            <div class="phases-section">${displayData(adopt)}</div>
-                        </div>
-                        <div class='phase-container'>
-                            <h4 class="phase-name">Trial</h4>
-                            <div class="phases-section">${displayData(trial)}</div>
-                        </div>
-                        <div class='phase-container'>
-                            <h4 class="phase-name">Assess</h4>
-                            <div class="phases-section">${displayData(assess)}</div>
-                        </div>
-                        <div class='phase-container'>
-                            <h4 class="phase-name">Hold</h4>
-                            <div class="phases-section">${displayData(hold)}</div>
-                        </div>  
-                    </aside>
-                    <section>
-                        <div class="phase-${quadrantName}">
-                            ${getEvalPhaseSVG(quadrantName)}
-                            ${createQuadrant(data, bgImage, color,startPos)}
-                            ${legend(color)}
-                        </div>
-                    </section>
-                </div>
-            </main>
-        </div>
-    </div>
-    `
 
-    const renderpage = document.getElementById(pageId)
-    renderpage.innerHTML = main
 
-    listenForClicks()
-}
-
+// choose svg for appropriate quadrant
 function getEvalPhaseSVG(quadName){
     
     if(quadName === "Languages And Frameworks" || quadName === 'Tools'){
@@ -186,44 +216,6 @@ function displayData(data){
     return dataInfoList
 
 }
-
-{/* <p id='descr-${dataEl.id}' class="description" style='display:none'>${dataEl.description}</p> */}
-
-// function toggleDescrWithName(){
-
-//     const dataPointInfo = document.querySelectorAll(".data-point")
-    
-//     dataPointInfo.forEach( item => {
-
-//         item.addEventListener('click', (e) => {
-//             // console.log('here')
-
-//             const description = item.lastElementChild
-//             const upArrow = item.children[0].children[2]
-//             const downArrow = item.children[0].children[1]
-   
-//             if(description.style.display === 'none'){
-//                 description.style.display = 'block'
-            
-                
-//             upArrow.classList.remove('hide')
-//             downArrow.classList.add('hide')
-                
-
-//             }else{
-//                 description.style.display = 'none'
-
-//             upArrow.classList.add('hide')
-//             downArrow.classList.remove('hide')
-//             }
-
-
-//         })
-//     })
-    
-    
-
-// }
 
 function listenForClicks(){
     console.log('listen for clicks')

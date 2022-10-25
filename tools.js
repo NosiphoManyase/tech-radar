@@ -1,4 +1,4 @@
-import {assemble} from './linkedPages.js'
+import {setSinglePageHtml} from './linkedPages.js'
 
 let toolsData = []
 
@@ -8,13 +8,13 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
   .then((response) => response.json())
   .then((data) => {
     toolsData = data.filter( dataPoint => dataPoint.quadrant === "tools")
-    assemble(toolsData, 
+    setSinglePageHtml(toolsData, 
       "Tools", 
       "toolsQuad", 
       "./imgs/bottom-left.svg",
       "#7472f5",
       ["top","right"]
-      , false)
+      , true)
     
 });
 
