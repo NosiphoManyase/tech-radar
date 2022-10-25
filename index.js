@@ -1,4 +1,4 @@
-import {createQuadrant, legend, header, footer, phasesSVG, phasesSVGInvert} from './linkedPages.js'
+import {createQuadrant, legend, header, phasesSVG, phasesSVGInvert} from './linkedPages.js'
 
 
 fetch("https://tech-radar-api.herokuapp.com/tech-radar")
@@ -37,7 +37,6 @@ function assembly(data) {
             </div>
           </main>
           ${legend()}
-          ${footer}
       </div>`;
 
   document.body.innerHTML = main;

@@ -24,15 +24,6 @@ export const header = `<div class='tech-radar-title'>
     </ul>
     </div>`
 
-export const footer = `<footer>
-        <div>
-            <img src="./imgs/bash-icon-black.svg" width=100px>
-        </div>
-        <form>
-            <h2>Subscribe for more Bash news</h2>
-            <input type="text" placeholder="Enter Email" name="email" required>
-        </form>
-    </footer>`
 
 export const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
     <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
@@ -94,14 +85,12 @@ export function assemble(data, quadrantName, pageId, bgImage, color,startPos){
             </main>
         </div>
     </div>
-    ${footer}
     `
 
     const renderpage = document.getElementById(pageId)
     renderpage.innerHTML = main
 
     listenForClicks()
-    // toggleDescrWithName()
 }
 
 function getEvalPhaseSVG(quadName){
