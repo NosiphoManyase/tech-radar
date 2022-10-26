@@ -38,7 +38,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    position: sticky;
     width: 516px;
     height: 516px;
 }
@@ -261,6 +261,11 @@ hr{
     opacity: .2;
 }
 
+.active-page{
+    border-bottom: 4px solid black;
+    
+}
+
 ul{
     margin: 0;
     width: 100%;
@@ -272,7 +277,7 @@ ul{
 
 li{
     list-style: none;
-    padding: 16px 32px;
+    padding: 6px 32px;
 }
 
 .single-view-nav{
@@ -302,6 +307,10 @@ header{
     justify-content: space-between;
 }
 
+.quad-section{
+    position: sticky;
+    top: 180px;
+}
 
 aside .phase-container{
     margin-top: 24px;
@@ -317,24 +326,24 @@ h4{
     border-bottom: 4px solid black;
 }
 
-.phase-Languages,
-.phase-Platforms{
+.quad-Languages,
+.quad-Platforms{
     display: flex;
     flex-direction: column;
 }
 
-.phase-Languages .phases,
-.phase-Platforms .phases{
+.quad-Languages .phases,
+.quad-Platforms .phases{
     order: 2;
 }
 
-.phase-Languages .quadrant-container,
-.phase-Platforms .quadrant-container{
+.quad-Languages .quadrant-container,
+.quad-Platforms .quadrant-container{
     order: 1;
 }
 
-.phase-Languages .legend,
-.phase-Platforms .legend{
+.quad-Languages .legend,
+.quad-Platforms .legend{
     order: 3;
 }
 
@@ -373,7 +382,6 @@ h4{
 
 
 .description{
-    display: none;
     padding-top: 16px;
     font-size: 16px;
     line-height: 24px;

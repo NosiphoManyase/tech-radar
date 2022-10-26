@@ -44,7 +44,7 @@ export function setSinglePageHtml(data, quadrantName, pageId, bgImage, color,sta
             </div>  
         </aside>
         <section>
-            <div class="phase-${quadrantName}">
+            <div class="quad-${quadrantName} quad-section">
                 ${getEvalPhaseSVG(quadrantName)}
                 ${createQuadrant(data, bgImage, color,startPos)}
                 ${legend(color)}
@@ -57,15 +57,29 @@ export function setSinglePageHtml(data, quadrantName, pageId, bgImage, color,sta
 }
 
 function assemble(isMainPage, mainContent, pageId){
-
+    
     const main = `
     <div class="page-container">
-        ${header}
+        <div class='tech-radar-title'>
+        <a href="./index.html">
+            <img width='100' src="./imgs/bash-icon-black.svg"/>
+        </a>
+        <p class="main-title">technology radar</p>
+        </div>
+        <div class="single-view-nav">
+        <ul> 
+            <li class="page-links" id="all-link"><a href="./index.html">All</a></li>   
+            <li class="page-links" id="techniques-link"><a href="./techniques.html">Techniques</a></li>   
+            <li class="page-links" id="platforms-link"><a href="./platforms.html"">Platforms</a></li> 
+            <li class="page-links" id="tools-link"><a href="./tools.html">Tools</a></li> 
+            <li class="page-links" id="languages-link"><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
+        </ul>
+        </div>
         <div class="body-container">
             <main class=${isMainPage?"landing-page":""}>
                 ${mainContent}
             </main>
-            ${isMainPage && legend()}
+            ${isMainPage?legend():''}
         </div>
     </div>
     `
@@ -74,6 +88,7 @@ function assemble(isMainPage, mainContent, pageId){
     renderpage.innerHTML = main
 
     listenForClicks()
+    setActivePage()
 }
 
 function legend(color){
@@ -85,21 +100,7 @@ function legend(color){
   </div>`
 } 
 
-const header = `<div class='tech-radar-title'>
-        <a href="./index.html">
-            <img width='100' src="./imgs/bash-icon-black.svg"/>
-        </a>
-        <p class="main-title">technology radar</p>
-    </div>
-    <div class="single-view-nav">
-    <ul> 
-        <li><a href="./index.html">All</a></li>   
-        <li><a href="./techniques.html">Techniques</a></li>   
-        <li><a href="./platforms.html">Platforms</a></li> 
-        <li><a href="./tools.html">Tools</a></li> 
-        <li><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
-    </ul>
-    </div>`
+
 
 //SVGs that indicate adopt, trial, assess etc. phase in each quadrant
 const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
@@ -118,9 +119,6 @@ const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label=
     <text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
     </svg>`
     
-
-
-
 
 // choose svg for appropriate quadrant
 function getEvalPhaseSVG(quadName){
@@ -192,7 +190,6 @@ function displayData(data){
     
     const dataInfoList = data.map( dataEl => {
         let description =  dataEl.description
-        // description.setAttribute('id', `descr-${dataEl.id}`)
         
         return `
         <div class="data-point" id="tech-${dataEl.id}"> 
@@ -206,11 +203,12 @@ function displayData(data){
                 </svg>
 
             </div>
-            ${description}
+            <div class="description" id="descr-${dataEl.id}" style="display:none">
+                ${description}
+            </div>
             
         </div>`
     }).join('')
-
     
 
     return dataInfoList
@@ -218,7 +216,6 @@ function displayData(data){
 }
 
 function listenForClicks(){
-    console.log('listen for clicks')
 
     const techBlips = document.querySelectorAll(".grid-item")
   
@@ -237,37 +234,26 @@ function listenForClicks(){
 
         element.addEventListener('click', (e) => {
 
-            let arr = ''
-            let arrows = e.target.classList
-            console.log(e.target)
-
-            if(e.target.id && !arrows){
-                arr = e.target.id.split('-')
-            }else if(e.target.parentElement.id){
-                arr = e.target.parentElement.id.split('-')
-            }else{
-                arr = e.target.parentElement.parentElement.id.split('-')
-            }
-        
-        console.log(arr[1])
-        toggleDescription(arr[1])
+            const arr = e.target.parentElement.id.split('-')
+            toggleDescription(arr[1])
       })
     })
   
   }
   
 function toggleDescription(id){
-    // console.log(id)
+    
     const description = document.getElementById(`descr-${id}`)
     const techDataContainer = document.getElementById(`tech-${id}`)
     
   
     const upArrow = document.getElementById(`up-arrow-${id}`)
     const downArrow = document.getElementById(`down-arrow-${id}`)
-    // console.log(description)
+    
     if(description.style.display === 'none'){
       
       description.style.display = 'block'
+      description.scrollIntoView({block: "center", inline: "nearest"})
       techDataContainer.style.backgroundColor = "#edf1f3"
       
       upArrow.classList.remove('hide')
@@ -275,7 +261,7 @@ function toggleDescription(id){
       
   
     }else{
-
+    
       description.style.display = 'none'
       techDataContainer.style.backgroundColor = ""
   
@@ -284,5 +270,29 @@ function toggleDescription(id){
     }
   }
   
-  
+function setActivePage(){
+
+    const currentPath = window.location.pathname
+    let currentActivePage = ''
+    
+    if(currentPath === '/index.html'){
+        currentActivePage = document.getElementById('all-link') 
+
+    }else if(currentPath === '/platforms.html'){
+        currentActivePage = document.getElementById('platforms-link')
+
+    }else if(currentPath === '/tools.html'){
+        currentActivePage = document.getElementById('tools-link')
+
+    }else if(currentPath === '/techniques.html'){
+        currentActivePage = document.getElementById('techniques-link')
+
+    }else{
+        currentActivePage = document.getElementById('languages-link')
+    }
+
+    currentActivePage.classList.add('active-page')
+
+
+} 
 
