@@ -1,20 +1,26 @@
 import {setSinglePageHtml} from './linkedPages.js'
+import { useExcelFetcher } from "./useExcelFetcher.js"
 
-let toolsData = []
+getData()
 
-//investigate 31
+async function getData(){
+  let data = []
 
-fetch("https://tech-radar-api.herokuapp.com/tech-radar")
-  .then((response) => response.json())
-  .then((data) => {
-    toolsData = data.filter( dataPoint => dataPoint.quadrant === "tools")
-    setSinglePageHtml(toolsData, 
-      "Tools", 
-      "toolsQuad", 
-      "./imgs/bottom-left.svg",
-      "#7472f5",
-      ["top","right"]
-      , true)
+  try {
+    data = await useExcelFetcher()
     
-});
+  } catch (err) {
+    console.error('Could not parse json', err)
+  }
+  const toolsData = data.filter( dataPoint => dataPoint.quadrant === "tools")
+  setSinglePageHtml(toolsData, 
+    "Tools", 
+    "toolsQuad", 
+    "./imgs/bottom-left.svg",
+    "#7472f5",
+    ["top","right"]
+    , true)
+  
+  
+}
 

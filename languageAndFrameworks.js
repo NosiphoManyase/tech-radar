@@ -1,18 +1,26 @@
 import {setSinglePageHtml} from './linkedPages.js'
+import { useExcelFetcher } from "./useExcelFetcher.js"
 
-let languagesData = []
+getData()
 
-fetch("https://tech-radar-api.herokuapp.com/tech-radar")
-  .then((response) => response.json())
-  .then((data) => {
-    languagesData = data.filter( dataPoint => dataPoint.quadrant === "languages and frameworks")
-    setSinglePageHtml(languagesData, 
-      "Languages And Frameworks",  
-      "langAndFrameworksQuad", 
-      "./imgs/top-left.svg",
-      "#00baeb",
-      ["bottom","right" ]
-      , false)
+async function getData(){
+  let data = []
+
+  try {
+    data = await useExcelFetcher()
     
-});
-
+  } catch (err) {
+    console.error('Could not parse json', err)
+  }
+  const languagesData = data.filter( dataPoint => dataPoint.quadrant === "languages and frameworks")
+  
+  setSinglePageHtml(languagesData, 
+    "Languages And Frameworks",  
+    "langAndFrameworksQuad", 
+    "./imgs/top-left.svg",
+    "#00baeb",
+    ["bottom","right" ]
+    , false)
+  
+  
+}

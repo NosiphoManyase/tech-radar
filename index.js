@@ -1,13 +1,22 @@
 import {setMainPageHtml, createQuadrant} from './linkedPages.js'
+import { useExcelFetcher } from "./useExcelFetcher.js"
 
+getData()
 
-fetch("https://tech-radar-api.herokuapp.com/tech-radar")
-  .then((response) => response.json())
-  .then((data) => {
-    assembly(data);
+async function getData(){
+  let data = []
+
+  try {
+    data = await useExcelFetcher()
     
-  });
-
+  } catch (err) {
+    console.error('Could not parse json', err)
+  }
+  
+  assembly(data)
+  
+  
+}
 
 function assembly(data) {
 

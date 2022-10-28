@@ -1,11 +1,18 @@
 import {setSinglePageHtml} from './linkedPages.js'
+import { useExcelFetcher } from "./useExcelFetcher.js"
 
-let platformsData = []
+getData()
 
-fetch("https://tech-radar-api.herokuapp.com/tech-radar")
-  .then((response) => response.json())
-  .then((data) => {
-    platformsData = data.filter( dataPoint => dataPoint.quadrant === "platforms")
+async function getData(){
+  let data = []
+
+  try {
+    data = await useExcelFetcher()
+    
+  } catch (err) {
+    console.error('Could not parse json', err)
+  }
+  const platformsData = data.filter( dataPoint => dataPoint.quadrant === "platforms")
     setSinglePageHtml(platformsData, 
       'Platforms', 
       "platformsQuad",  
@@ -13,5 +20,7 @@ fetch("https://tech-radar-api.herokuapp.com/tech-radar")
       "#ffbe28",
       ["bottom","left" ]
       , true)
-});
+  
+  
+}
 

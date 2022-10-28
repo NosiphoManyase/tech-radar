@@ -89,6 +89,7 @@ function assemble(isMainPage, mainContent, pageId){
 
     listenForClicks()
     setActivePage()
+    // viewData()
 }
 
 function legend(color){
@@ -140,11 +141,16 @@ export function createQuadrant(data, bgImage, color, startPos){
 
 // create blip for each data point,
 function plotData(data, color,startPos){
+
     
-    const points = data.map(coord => {
-        return `<div class="grid-item" id="${coord.id}" style="${startPos[0]}:${coord.coOrdinates[0]}px;${startPos[1]}:${coord.coOrdinates[1]}px">
-           <div id='${coord.id}' class="tooltip" data-tooltip="${coord.technology}">
-                ${blipStatusDisplay(coord.statusOfTechnology,coord.id, color)}
+    const points = data.map(dataPoint=> {
+        
+        const horizontalPosition = Number(dataPoint.x)
+        const verticalPosition = Number(dataPoint.y)
+        // console.log(horizontalPosition, verticalPosition)
+        return `<div class="grid-item" id="${dataPoint.id}" style="${startPos[0]}:${horizontalPosition}px;${startPos[1]}:${verticalPosition}px">
+           <div id='${dataPoint.id}' class="tooltip" data-tooltip="${dataPoint.technology}">
+                ${blipStatusDisplay(dataPoint.statusOfTechnology,dataPoint.id, color)}
             </div>
         </div>`
     }) 
@@ -295,4 +301,10 @@ function setActivePage(){
 
 
 } 
+
+// function viewData(){
+
+//     const { loading, error, entities, holdings } = useExcelFetcher();
+//     console.log(loading)
+// }
 
