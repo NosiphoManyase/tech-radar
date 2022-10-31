@@ -102,77 +102,6 @@ h1{
     margin: 20px auto;
 }
 
-/* Bash Colors */
-/* 
-green-blue: #35c8c1
-lavender: #7472f5
-ice-blue: #00baeb
-orange-light: #ffbe28
-
-*/
-
-.phases{
-    margin: 10px 0;
-}
-
-/* .tag{
-    font-family: 'Inter';
-    position: absolute;
-    padding: 2px 8px;
-    border-radius: 0.5em;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    margin: 5px;
-}
-
-.tag.adopt{
-    background-color: #ebfffc;
-    color: #00947e;
-    outline: #00947e solid 1px;
-    top: 0px
-}
-
-.adopt:hover{
-    background-color: #ebfffc;
-}
-
-.tag.trial{
-    background-color: #eff1fa;
-    color: #3850b7;
-    outline: #3850b7 solid 1px;
-    top: 144.5px;
-}
-
-.trial:hover{
-    background-color: #eff1fa;
-}
-
-.tag.assess{
-    background-color: #fffaeb;
-    color: #946c00;
-    outline: #946c00 solid 1px;
-    top: 289px;
-
-}
-
-.assess:hover{
-    background-color: #fffaeb;
-}
-
-.tag.hold{
-    background-color: #feecf0;
-    color: #cc0f35;
-    outline: #cc0f35 solid 1px;
-    top: 433.5px;
-}
-
-.hold:hover{
-    background-color: #feecf0;
-} */
-
 
 .grid-item{
     position: absolute;
@@ -190,8 +119,6 @@ orange-light: #ffbe28
     width: 516px;
     height: 50px;
     background-color: white ;
-    /* border: 1px solid rgb(221, 221, 221); */
-    /* box-shadow: rgb(0 0 0 / 19%) 0px 6px 16px; */
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -215,26 +142,6 @@ orange-light: #ffbe28
 
 .body-container .legend{
     margin-top: 50px;
-}
-
-
-footer{
-    border-top: 2px solid #040404;
-    padding: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-form input{
-    height: 48px;
-    width: 312px;
-    left: 0px;
-    top: 18px;
-    border-radius: 0px;
-    padding: 12px 8px 12px 16px;
-    background-color: #F1F1F2;
-    margin-top: 20px;
 }
 
 /* SINGLE QUADRANT VIEW */
@@ -325,6 +232,15 @@ h4{
     margin: 0;
     border-bottom: 4px solid black;
 }
+
+.description p{
+    line-height: 1.5;
+}
+
+.description p a {
+    text-decoration: underline;
+}
+
 
 .quad-Languages,
 .quad-Platforms{

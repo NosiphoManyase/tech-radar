@@ -280,7 +280,6 @@ function setActivePage(){
 
     const currentPath = window.location.pathname
     let currentActivePage = ''
-    console.log(currentPath)
     
     if(currentPath === '/index.html' || currentPath === '/'){
         currentActivePage = document.getElementById('all-link') 
@@ -302,10 +301,4 @@ function setActivePage(){
 
 
 } 
-
-// function viewData(){
-
-//     const { loading, error, entities, holdings } = useExcelFetcher();
-//     console.log(loading)
-// }
 
