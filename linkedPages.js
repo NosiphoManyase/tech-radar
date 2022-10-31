@@ -281,7 +281,7 @@ function setActivePage(){
     const currentPath = window.location.pathname
     let currentActivePage = ''
     
-    if(currentPath === '/index.html'){
+    if(currentPath === '/index.html' || currentPath === ''){
         currentActivePage = document.getElementById('all-link') 
 
     }else if(currentPath === '/platforms.html'){
