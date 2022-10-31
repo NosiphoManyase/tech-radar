@@ -54,7 +54,7 @@ export function setSinglePageHtml(data, quadrantName, pageId, bgImage, color,sta
 
     
     assemble(false, singlePageHtml, pageId)
-}
+} 
 
 function assemble(isMainPage, mainContent, pageId){
     
