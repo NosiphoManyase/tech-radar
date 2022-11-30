@@ -5,12 +5,14 @@ export function setMainPageHtml(languagesQuad, platformsQuad, toolsQuad, techniq
     // each quadrant calls createQuadrant() in index.js
     const mainPageHtml = 
     `<div class='quadrants-container'> 
-        ${languagesQuad} 
-        ${platformsQuad} 
-        ${phasesSVG} 
-        ${phasesSVGInvert}
-        ${toolsQuad}  
-        ${techniquesQuad} 
+        <div class="flex-wrapper">
+            ${languagesQuad}
+            ${platformsQuad} 
+        </div>
+        <div class="flex-wrapper">
+            ${toolsQuad}  
+            ${techniquesQuad} 
+        </div>
      </div>`
     
     assemble(true, mainPageHtml, "root")
@@ -59,28 +61,31 @@ export function setSinglePageHtml(data, quadrantName, pageId, bgImage, color,sta
 function assemble(isMainPage, mainContent, pageId){
     
     const main = `
-    <div class="page-container">
-        <div class='tech-radar-title'>
-        <a href="./index.html">
-            <img width='100' src="./imgs/bash-icon-black.svg"/>
-        </a>
-        <p class="main-title">technology radar</p>
+    
+    <nav class="nav">
+        <div class='nav__bash'>
+            <a class="nav__bash-logo" href="./index.html">
+                <img width='100' src="./imgs/bash-icon-black.svg"/>
+            </a>
+            <p class="nav__bash-title font-big">technology radar</p>
         </div>
-        <div class="single-view-nav">
-        <ul> 
-            <li class="page-links" id="all-link"><a href="./index.html">All</a></li>   
-            <li class="page-links" id="techniques-link"><a href="./techniques.html">Techniques</a></li>   
-            <li class="page-links" id="platforms-link"><a href="./platforms.html"">Platforms</a></li> 
-            <li class="page-links" id="tools-link"><a href="./tools.html">Tools</a></li> 
-            <li class="page-links" id="languages-link"><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
-        </ul>
+        <div class="nav-bar">
+            <ul> 
+                <li class="nav-bar__links font-regular" id="all-link"><a href="./index.html">All</a></li>   
+                <li class="nav-bar__links font-regular" id="techniques-link"><a href="./techniques.html">Techniques</a></li>   
+                <li class="nav-bar__links font-regular" id="platforms-link"><a href="./platforms.html"">Platforms</a></li> 
+                <li class="nav-bar__links font-regular" id="tools-link"><a href="./tools.html">Tools</a></li> 
+                <li class="nav-bar__links font-regular" id="languages-link"><a href="./lang-and-F.html">Languages and Frameworks</a></li> 
+            </ul>
         </div>
-        <div class="body-container">
-            <main class=${isMainPage?"landing-page":""}>
+    </nav>
+    <div class="container">
+        <main class="main-content">
+            <div class=${isMainPage?"landing-page":""}>
                 ${mainContent}
-            </main>
+            </div>
             ${isMainPage?legend():''}
-        </div>
+        </main>
     </div>
     `
 
@@ -95,31 +100,12 @@ function assemble(isMainPage, mainContent, pageId){
 function legend(color){
 
     return `<div class="legend">
-    <div class="legend-keys New"><span>${blipStatusDisplay('New','', color)}</span>New</div>
-    <div class="legend-keys Moved"><span>${blipStatusDisplay('Moved-in','',  color)}</span> Moved in/out</div>
-    <div class="legend-keys No-change"><span>${blipStatusDisplay('No-change','',color)}</span> No Change</div>
+    <div class="legend-keys New"><span>${blipShape('New','', color)}</span>New</div>
+    <div class="legend-keys Moved"><span>${blipShape('Moved-in','',  color)}</span> Moved in/out</div>
+    <div class="legend-keys No-change"><span>${blipShape('No-change','',color)}</span> No Change</div>
   </div>`
 } 
 
-
-
-//SVGs that indicate adopt, trial, assess etc. phase in each quadrant
-const phasesSVG =  `<svg class="phases" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
-    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
-    <text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
-    <text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
-    <text class="left-quadrant" x="133.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
-    <text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
-    </svg>`
-    
-const phasesSVGInvert = `<svg class="phases" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
-    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
-    <text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
-    <text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
-    <text class="right-quadrant" x="378.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
-    <text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
-    </svg>`
-    
 
 // choose svg for appropriate quadrant
 function getEvalPhaseSVG(quadName){
@@ -133,10 +119,13 @@ function getEvalPhaseSVG(quadName){
 
 export function createQuadrant(data, bgImage, color, startPos){
     
-    return `<div class="quadrant-container">
-                <img src="${bgImage}" />
+    return `
+                <div class="bg-image">
+                    <img src="${bgImage}" />
+                </div>
                 ${plotData(data, color, startPos)}
-            </div>`
+           
+            `
 }
 
 // create blip for each data point,
@@ -149,8 +138,8 @@ function plotData(data, color,startPos){
         const verticalPosition = Number(dataPoint.y)
         // console.log(horizontalPosition, verticalPosition)
         return `<div class="grid-item" id="${dataPoint.id}" style="${startPos[0]}:${horizontalPosition}px;${startPos[1]}:${verticalPosition}px">
-           <div id='${dataPoint.id}' class="tooltip" data-tooltip="${dataPoint.technology}">
-                ${blipStatusDisplay(dataPoint.statusOfTechnology,dataPoint.id, color)}
+           <div id='${dataPoint.id}' data-toggle="tooltip" data-placement="left" title="${dataPoint.technology}">
+                ${blipShape(dataPoint.statusOfTechnology,dataPoint.id, color)}
             </div>
         </div>`
     }) 
@@ -158,7 +147,7 @@ function plotData(data, color,startPos){
     return points.join('')
 }
 
-function blipStatusDisplay(status, id, color){
+function blipShape(status, id, color){
     if(status === 'Moved-in' || status == "Moved-out"){
         return `
         <svg width="30" height="30" focusable="false"  opacity="1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

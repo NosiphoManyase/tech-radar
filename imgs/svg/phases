@@ -1,0 +1,18 @@
+//SVGs that indicate adopt, trial, assess etc. phase in each quadrant
+const phasesSVG =  `<svg class="left-phases-svg" width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="left-quadrant" x="133.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+    
+const phasesSVGInvert = `<svg class="left-phases-svg" width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="right-quadrant" x="378.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+    
+export {phasesSVG, phasesSVGInvert}

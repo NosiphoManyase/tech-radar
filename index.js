@@ -1,6 +1,7 @@
 import {setMainPageHtml, createQuadrant} from './linkedPages.js'
 import { useExcelFetcher } from "./useExcelFetcher.js"
 
+
 getData()
 
 async function getData(){
@@ -34,16 +35,48 @@ function assembly(data) {
 
 }
 
+const phasesSVG =  `<svg width="516" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="left-quadrant" x="442" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="left-quadrant" x="269" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="left-quadrant" x="133.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="left-quadrant" x="43" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+    
+const phasesSVGInvert = `<svg width="512" height="34" aria-label="ring name labels for the radar blip graph" style="display: block;" opacity="1">
+    <rect x="0" y="512" width="514" height="34" fill="white" opacity="1"></rect>
+    <text class="right-quadrant" x="70" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Adopt</text>
+    <text class="right-quadrant" x="243" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Trial</text>
+    <text class="right-quadrant" x="378.5" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Assess</text>
+    <text class="right-quadrant" x="469" y="22" text-anchor="middle" fill="#221D1F" opacity="1">Hold</text>
+    </svg>`
+
 function containQuadrant(data, link, quadrantName, bgImage, color, startPos){
     
+  const correctSvg = (quadName) => {
+    if(quadName === "Languages and frameworks"){
+        return phasesSVG
+    }else if(quadName === "Platforms"){
+        return phasesSVGInvert
+    }else if(quadName === "Tools"){
+        return `<div class="hidden order-svg">${phasesSVG}</div>`
+    }else{  
+    return `<div class="hidden order-svg">${phasesSVGInvert}</div>`
+    }
+}
+
     return  `
-    <div class="semi-circle-container" > 
-        <p class="label ${quadrantName}">
-          <a href="${link}" id="${quadrantName}" class="link-to-quad">${quadrantName}</a>
+      <div class="${quadrantName}"> 
+        <p class="label">
+          <a href="${link}" id="${quadrantName}" class="link-to-quad font-regular">${quadrantName}</a>
           <span class="forward-arrow"></span>
         </p>
-        ${createQuadrant(data, bgImage, color,startPos)}
-    </div>`
+        <div class="quadrant-container">
+          ${createQuadrant(data, bgImage, color,startPos, quadrantName)}
+        </div>
+        ${correctSvg(quadrantName)}
+      </div>
+    `
 
 }
 
